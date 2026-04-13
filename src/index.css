@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+
+  --color-accblue: #147182;
+  --color-accgray: #0D3A40;
+  --color-accgraytransparent: #0D3A4080;
+  --color-acclight: #FAF8F4;
+  --color-acclighttransparent: #FAF8F4b0;
+  --color-accgreendark: #2E6438;
+  --color-accgreendarktransparent: #2E6438b0;
+  --color-accgreenlight: #BCCF50;
+
+}
