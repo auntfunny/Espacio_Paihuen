@@ -1,30 +1,25 @@
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Footer from "./components/Footer";
-import Location from "./pages/Location";
-import Photos from "./pages/Photos";
-import About from "./pages/About";
-import Reserve from "./pages/Reserve";
-import WhatsappContact from "./components/WhatsappContact";
+import HomeSpa from "./pages/HomeSpa";
+import Ubicacion from "./pages/Ubicacion";
+import Photos from "./pages/Fotos";
+import Sobre from "./pages/Sobre";
+import Reservar from "./pages/Reservar";
+import MainLayout from "./layouts/MainLayout";
+import Atracciones from "./pages/Atracciones";
 
 function App() {
   return (
     <>
-      <div>
-        <Header />
-        <WhatsappContact />
-        <main className="w-full min-h-screen bg-acclight">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/location" element={<Location />} />
-            <Route path="/reserve" element={<Reserve />} />
-            <Route path="/photos" element={<Photos />} />
-          </Routes>
-        </main>
-      </div>
-      <Footer />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomeSpa />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/ubicacion" element={<Ubicacion />} />
+          <Route path="/reserva" element={<Reservar />} />
+          <Route path="/fotos" element={<Photos />} />
+          <Route path="/atracciones" element={<Atracciones />} />
+        </Route>
+      </Routes>
     </>
   );
 }
