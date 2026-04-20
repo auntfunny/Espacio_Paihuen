@@ -4,7 +4,7 @@ import MenuDesktop from "./MenuDesktop";
 
 const Header = () => {
   return (
-    <header className="fixed top-2 z-40 w-full bg-linear-to-b from-acclighttransparent to-accgreendark/60 backdrop-blur-md border-b border-accgreendark/20 shadow-sm">
+    <header className="fixed top-2 z-40 w-full bg-linear-to-b from-acclighttransparent to-accgreendark/60 backdrop-blur-md  shadow-sm">
       <nav className="flex justify-between items-center py-4 px-6 lg:px-8 max-w-7xl mx-auto">
         <Link to="/" className="group">
           <img
