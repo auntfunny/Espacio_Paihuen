@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ContactUs = ({
   title = "¿Aún tiene dudas?",
@@ -38,12 +39,13 @@ const ContactUs = ({
           </button>
 
           {showSecondaryButton && (
-            <button
-              type="button"
-              className="flex-1 border-2 border-acclight/30 text-acclight text-lg py-4 px-6 rounded-xl hover:bg-acclight/10 hover:cursor-pointer transition-all duration-300 ease-out font-medium shadow-md hover:shadow-lg hover:scale-105 transform"
+            <Link
+            onClick={() => window.scrollTo(0,0)}
+              to="/ubicacion"
+              className="flex-1 border-2 border-acclight/30 text-acclight text-center text-lg py-4 px-6 rounded-xl hover:bg-acclight/10 hover:cursor-pointer transition-all duration-300 ease-out font-medium shadow-md hover:shadow-lg hover:scale-105 transform"
             >
               {secondaryButtonText}
-            </button>
+            </Link>
           )}
         </div>
 
