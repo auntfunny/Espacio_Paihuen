@@ -14,13 +14,13 @@ const SeasonAlert = () => {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <div className="flex justify-center items-center gap-4 mb-8">
+        <div className="flex justify-center items-center gap-2 md:gap-4 mb-8">
           <div className="w-12 h-12 bg-linear-to-br from-accgreenlight to-accgreendark rounded-full flex items-center justify-center shadow-lg">
             <svg className="w-6 h-6 text-acclight" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
             </svg>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-acclight drop-shadow-lg">
+          <h2 className="text-2xl md:text-5xl font-bold font-title2 text-acclight drop-shadow-lg">
             ¡Oferta de Temporada!
           </h2>
         </div>

@@ -24,7 +24,7 @@ const MainIntro = () => {
 
         <div className="flex flex-col gap-8 max-w-2xl">
           <div>
-            <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold text-acclight mb-4 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold font-title2 text-acclight mb-4 leading-tight">
               Nuestra Historia
             </h2>
             <div className="w-16 h-1 bg-linear-to-r from-accgreenlight to-accblue rounded-full"></div>

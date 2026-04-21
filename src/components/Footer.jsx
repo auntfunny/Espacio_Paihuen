@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <footer className="w-full bg-acclight backdrop-blur-md border-t-2 border-gray-200 shadow-sm mt-auto">
       <nav className="flex justify-between items-center py-6 px-6 lg:px-8 max-w-7xl mx-auto">
-        <Link to="/" onClick={scrollToTop} className="group  focus:outline-none focus:ring-2 focus:ring-accblue/50 rounded-full">
+        <Link to="/"  className="group  focus:outline-none focus:ring-2 focus:ring-accblue/50 rounded-full">
           <img
             src="/images/Logo_sin_bg.png"
             alt="Espacio Paihuen"
@@ -17,40 +14,40 @@ const Footer = () => {
         </Link>
         <nav className="hidden md:flex items-center space-x-6">
           <Link
-            onClick={scrollToTop}
-            to="/reserva"
+            
+            to="/reserve"
             className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
           >
             Reservar
             <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
           </Link>
           <Link
-            onClick={scrollToTop}
-            to="/sobre"
+            
+            to="/about"
             className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
           >
             Sobre
             <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
           </Link>
           <Link
-            onClick={scrollToTop}
-            to="/atracciones"
+            
+            to="/atractions"
             className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
           >
             Atracciones
             <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
           </Link>
           <Link
-            onClick={scrollToTop}
-            to="/ubicacion"
+            
+            to="/location"
             className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
           >
             Ubicación
             <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
           </Link>
           <Link
-            onClick={scrollToTop}
-            to="/fotos"
+            
+            to="/photos"
             className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
           >
             Fotos

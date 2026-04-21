@@ -1,7 +1,7 @@
 import ContactUs from "../components/ContactUs";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 
-const Atracciones = () => {
+const Atractions = () => {
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       
@@ -102,4 +102,4 @@ const Atracciones = () => {
   );
 };
 
-export default Atracciones;
+export default Atractions;

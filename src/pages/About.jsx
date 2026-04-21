@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ContactUs from "../components/ContactUs";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 
-const Sobre = () => {
+const About = () => {
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center pt-32 pb-20 gap-16 px-4 md:px-8">
@@ -281,4 +281,4 @@ const Sobre = () => {
   );
 };
 
-export default Sobre;
+export default About;

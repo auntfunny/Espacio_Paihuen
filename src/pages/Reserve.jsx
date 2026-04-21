@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 
-const Reservar = () => {
+const Reserve = () => {
   const [clientInfo, setClientInfo] = useState({
     reserveName: "",
     reserveEmail: "",
@@ -67,7 +67,7 @@ const Reservar = () => {
               alt="Espacio Paihuen"
               className="w-32 mx-auto rounded-xl shadow-sm"
             />
-            <button className="w-full py-3 bg-accblue text-white rounded-2xl font-bold hover:bg-accgreendark transition-colors">
+            <button className="w-full py-3 bg-accblue text-white rounded-2xl font-bold hover:bg-accgreendark transition-colors hover:cursor-pointer">
               Cerrar
             </button>
           </div>
@@ -194,4 +194,4 @@ const Reservar = () => {
   );
 };
 
-export default Reservar;
+export default Reserve;

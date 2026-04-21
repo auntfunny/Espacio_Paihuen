@@ -5,8 +5,7 @@ const MenuMobile = () => {
   const [menuToggle, setMenuToggle] = useState(false);
 
   const handleClick = () => {
-    setMenuToggle(false)
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMenuToggle(false);
   };
 
   return (
@@ -26,7 +25,7 @@ const MenuMobile = () => {
         className={`absolute top-12 right-6 z-50 overflow-hidden flex flex-col w-48 bg-acclight rounded-xl shadow-lg border border-acclight/20 transition-all duration-500 ease-out ${menuToggle ? "max-h-96 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-4"}`}
       >
         <Link
-          to="/reserva"
+          to="/reserve"
           onClick={handleClick}
           className="relative py-3 px-4 border-b border-acclight/30 text-accgray font-medium hover:text-accblue hover:bg-accblue/5 focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
         >
@@ -34,7 +33,7 @@ const MenuMobile = () => {
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
         </Link>
         <Link
-          to="/sobre"
+          to="/about"
           onClick={handleClick}
           className="relative py-3 px-4 border-b border-acclight/30 text-accgray font-medium hover:text-accblue hover:bg-accblue/5 focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
         >
@@ -42,7 +41,7 @@ const MenuMobile = () => {
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
         </Link>
         <Link
-          to="/atracciones"
+          to="/atractions"
           onClick={handleClick}
           className="relative py-3 px-4 border-b border-acclight/30 text-accgray font-medium hover:text-accblue hover:bg-accblue/5 focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
         >
@@ -50,7 +49,7 @@ const MenuMobile = () => {
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
         </Link>
         <Link
-          to="/ubicacion"
+          to="/location"
           onClick={handleClick}
           className="relative py-3 px-4 border-b border-acclight/30 text-accgray font-medium hover:text-accblue hover:bg-accblue/5 focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
         >
@@ -58,7 +57,7 @@ const MenuMobile = () => {
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
         </Link>
         <Link
-          to="/fotos"
+          to="/photos"
           onClick={handleClick}
           className="relative py-3 px-4 text-accgray font-medium hover:text-accblue hover:bg-accblue/5 focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
         >

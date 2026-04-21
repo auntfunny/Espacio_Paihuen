@@ -6,11 +6,13 @@ import Footer from "../components/Footer";
 const MainLayout = () => {
   return (
     <div className="min-h-screen bg-acclight flex flex-col font-body">
-      <Header />
-      <WhatsappContact />
-      <main className="grow w-full">
-        <Outlet />
-      </main>
+      <div className="flex flex-col">
+        <Header />
+        <WhatsappContact />
+        <main className="grow w-full">
+          <Outlet />
+        </main>
+      </div>
       <Footer />
     </div>
   );

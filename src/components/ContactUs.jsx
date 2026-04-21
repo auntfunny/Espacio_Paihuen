@@ -31,17 +31,16 @@ const ContactUs = ({
         </div>
 
         <div className="relative z-10 flex flex-col sm:flex-row gap-4 w-full max-w-xl">
-          <button
-            type="button"
-            className="flex-1 bg-linear-to-r from-accblue to-accgreendark text-acclight text-lg py-4 px-6 rounded-xl hover:from-accgreendark hover:to-accblue hover:cursor-pointer transition-all duration-300 ease-out font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform"
+          <Link
+            to="/contact"
+            className="flex-1 bg-linear-to-r from-accblue to-accgreendark text-center text-acclight text-lg py-4 px-6 rounded-xl hover:from-accgreendark hover:to-accblue hover:cursor-pointer transition-all duration-300 ease-out font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform"
           >
             {primaryButtonText}
-          </button>
+          </Link>
 
           {showSecondaryButton && (
             <Link
-            onClick={() => window.scrollTo(0,0)}
-              to="/ubicacion"
+              to="/location"
               className="flex-1 border-2 border-acclight/30 text-acclight text-center text-lg py-4 px-6 rounded-xl hover:bg-acclight/10 hover:cursor-pointer transition-all duration-300 ease-out font-medium shadow-md hover:shadow-lg hover:scale-105 transform"
             >
               {secondaryButtonText}
