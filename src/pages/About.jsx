@@ -268,7 +268,7 @@ const About = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Link
-              to="/reserva"
+              to="/reserve"
               className="bg-linear-to-r from-accblue to-accgreendark text-acclight px-12 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 hover:cursor-pointer transition-all duration-300 ease-out"
             >
               Reservar Ahora
