@@ -1,19 +1,55 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 import PageHeader from "../components/PageHeader";
 import edit from "../assets/svg/edit.svg";
 import SuccessModal from "../components/SuccessModal";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const NewComment = () => {
+  const { user, setUser, loading: authLoading } = useAuth();
   const [commentInfo, setCommentInfo] = useState({
     name: "",
     email: "",
     title: "",
     content: "",
     rating: "",
-    createdAt: new Date(),
+    user_id: "",
   });
   const [commentSaved, setCommentSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState();
+  const captcha = useRef();
+
+  const anonSignIn = async () => {
+    setLoading(true);
+    try {
+      const { data, error: loginError } =
+        await supabase.auth.signInAnonymously();
+
+      if (loginError) {
+        setError(loginError.message);
+        throw loginError;
+      }
+
+      setUser(data);
+      console.log(data);
+      return loginError;
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      setCommentInfo({ ...commentInfo, user_id: user.id });
+    }
+  }, [user]);
 
   const setInfo = (event) => {
     if (event.target.name === "rating" && event.target.value > 5) {
@@ -37,18 +73,54 @@ const NewComment = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    event.target.reset();
-    console.log(commentInfo);
-    setCommentSaved(true);
-    setCommentInfo({
-      name: "",
-      email: "",
-      title: "",
-      content: "",
-      rating: "",
-    });
+    setError(null);
+    setLoading(true);
+    if (!captchaToken) {
+      setError("Por favor, completa la captcha");
+      return;
+    }
+
+    try {
+      if (!user && !authLoading) {
+        const loginError = anonSignIn({
+          options: {
+            captchaToken,
+          },
+        });
+        if (loginError) {
+          console.error(loginError);
+          captcha.current.resetCaptcha();
+          throw loginError;
+        }
+      }
+      const { data, error: dberror } = await supabase
+        .from("comments")
+        .insert([commentInfo]);
+
+      if (dberror.code === "42501") {
+        setError("Has llegado al limite de comentarios por ahora");
+        throw dberror;
+      } else if (dberror) {
+        setError(dberror.message);
+        throw dberror;
+      }
+      setCommentSaved(true);
+      setCommentInfo({
+        name: "",
+        email: "",
+        title: "",
+        content: "",
+        rating: "",
+      });
+      captcha.current.resetCaptcha();
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
   const [coords, setCoords] = useState(0);
 
@@ -168,12 +240,25 @@ const NewComment = () => {
                 ))}
               </div>
             </div>
-
+            <HCaptcha
+              ref={captcha}
+              sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
+              onVerify={(token) => {
+                setCaptchaToken(token);
+              }}
+            />
+            {error && (
+              <p className="text-red-500 text-center italic">{error}</p>
+            )}
             <button
               type="submit"
               className="w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
-              Enviar Comentario
+              {loading ? (
+                <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+              ) : (
+                "Enviar Commentario"
+              )}
             </button>
           </form>
         </div>

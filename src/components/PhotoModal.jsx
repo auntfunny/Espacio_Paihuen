@@ -34,7 +34,6 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(form);
     if (!form.title || !form.thumb) {
       setError("Por favor, revisa los campos");
       return;
@@ -69,7 +68,6 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
         videoUrl = videoUpload.secure_url;
       }
 
-      console.log(thumbUrl, videoUrl);
 
       const payload = [
         {

@@ -53,11 +53,11 @@ const Footer = () => {
             Fotos
             <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
           </Link>
-          {user ? (
+          {user?.role ? (
             <Link
               onClick={logout}
               to="/login"
-              className="relative px-4 py-2 text-accgray font-medium rounded-lg hover:text-accblue hover:bg-accblue/5 transition-all duration-300 ease-out group"
+              className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
             >
               Logout
               <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>

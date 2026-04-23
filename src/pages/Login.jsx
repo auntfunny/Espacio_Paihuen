@@ -19,7 +19,6 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(credentials);
     await login(credentials);
     navigate("/")
     setCredentials({ email: "", password: "" });

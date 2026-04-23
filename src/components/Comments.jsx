@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import CommentCard from "./CommentCard";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+import { CommentCardSkeleton } from "./Skeletons";
 
 const comments = [
   {
@@ -38,6 +41,37 @@ const comments = [
 ];
 
 const Comments = () => {
+  const [commentData, setCommentData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getComments = async () => {
+      setLoading(true);
+      try {
+        const { data, error: dberror } = await supabase
+          .from("comments")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .order("rating", { ascending: false })
+          .limit(3);
+
+        if (dberror) {
+          setError(dberror.message);
+          throw dberror;
+        }
+        setCommentData(data);
+      } catch (err) {
+        setError(err.message);
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getComments();
+  }, []);
+
   return (
     <section className="relative w-full py-20 px-6 bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       <div className="absolute inset-0 opacity-5">
@@ -59,14 +93,24 @@ const Comments = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full place-items-center">
-          {comments.map((comment) => (
-            <div
-              key={comment.id}
-              className="transform hover:scale-105 transition-all duration-500 ease-out"
-            >
-              <CommentCard comment={comment} />
-            </div>
-          ))}
+          {error ? (
+            <p className="col-span-3 w-full text-center text-xl md:text-2xl text-accblue">
+              Lo sentimos, algo falló. Por favor, intenta mas tarde.
+            </p>
+          ) : loading ? (
+            Array(3)
+              .fill()
+              .map((_, index) => <CommentCardSkeleton key={index} />)
+          ) : (
+            commentData.map((comment) => (
+              <div
+                key={comment.comment_id}
+                className="transform hover:scale-105 transition-all duration-500 ease-out"
+              >
+                <CommentCard comment={comment} />
+              </div>
+            ))
+          )}
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
           <Link

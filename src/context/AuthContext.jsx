@@ -28,24 +28,13 @@ export function AuthProvider({ children }) {
         data: { session },
       } = await supabase.auth.getSession();
 
-      if (session?.user) {
+      if (session?.user?.email) {
         await getProfileData(session.user.id);
       } else {
         setUser(null);
       }
       setLoading(false); 
 
-      const {
-        data: { subscription },
-      } = supabase.auth.onAuthStateChange((event, session) => {
-        if (event === "SIGNED_IN") {
-          getProfileData(session.user.id);
-        } else if (event === "SIGNED_OUT") {
-          setUser(null);
-        }
-      });
-
-      return () => subscription.unsubscribe();
     };
 
     initializeAuth();
@@ -59,6 +48,10 @@ export function AuthProvider({ children }) {
         password,
       });
       if (error) throw error;
+
+      const profile = await getProfileData(data.user.id);
+
+      setUser(profile);
       return data;
     } catch (err) {
       console.error(err);
@@ -69,11 +62,12 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
   };
 
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
