@@ -30,11 +30,12 @@ export function AuthProvider({ children }) {
 
       if (session?.user?.email) {
         await getProfileData(session.user.id);
+      } else if (session) {
+        setUser(session.user);
       } else {
         setUser(null);
       }
-      setLoading(false); 
-
+      setLoading(false);
     };
 
     initializeAuth();
@@ -64,7 +65,7 @@ export function AuthProvider({ children }) {
     await supabase.auth.signOut();
     setUser(null);
   };
-
+  console.log(user);
 
   return (
     <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
