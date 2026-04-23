@@ -118,6 +118,7 @@ const NewComment = () => {
         title: "",
         content: "",
         rating: "",
+        user_id: payload.user_id,
       });
       captcha.current.resetCaptcha();
     } catch (err) {

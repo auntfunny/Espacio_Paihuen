@@ -17,8 +17,8 @@ const Comments = () => {
         const { data, error: dberror } = await supabase
           .from("comments")
           .select("*")
-          .order("created_at", { ascending: false })
           .order("rating", { ascending: false })
+          .order("created_at", { ascending: false })
           .limit(3);
 
         if (dberror) {
