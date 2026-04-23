@@ -98,7 +98,7 @@ const NewComment = () => {
           captcha.current.resetCaptcha();
           throw loginError;
         }
-        payload = {...payload, user_id: data.id};
+        payload = {...payload, user_id: data.user.id};
       }
       const { data, error: dberror } = await supabase
         .from("comments")
