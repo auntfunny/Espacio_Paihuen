@@ -91,14 +91,12 @@ const Photos = () => {
   const deleteSection = async (section) => {
     try {
       const id = await handleDeleteSection(section);
-      setPhotoData((prev) =>
-        prev.filter((item) => item.section_id !== id),
-      );
+      setPhotoData((prev) => prev.filter((item) => item.section_id !== id));
     } catch (err) {
       console.error(err);
       setError(err.message);
     }
-  }
+  };
 
   const handleDelete = async (photo) => {
     setActivePhoto(null);
@@ -174,8 +172,7 @@ const Photos = () => {
         <div className="flex flex-col items-center gap-20 w-full max-w-7xl mt-16 ">
           {error ? (
             <div className="w-full text-center text-xl md:text-2xl text-accblue">
-              Lo sentimos, algo en nuestro sistema falló. Por favor, intenta mas
-              tarde.
+              Lo sentimos, algo falló. Por favor, intenta mas tarde.
             </div>
           ) : loading ? (
             <PhotoSectionSkeleton />

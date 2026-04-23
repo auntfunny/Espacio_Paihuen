@@ -1,19 +1,60 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 import PageHeader from "../components/PageHeader";
 import edit from "../assets/svg/edit.svg";
 import SuccessModal from "../components/SuccessModal";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const NewComment = () => {
+  const { user, setUser, loading: authLoading } = useAuth();
   const [commentInfo, setCommentInfo] = useState({
     name: "",
     email: "",
     title: "",
     content: "",
     rating: "",
-    createdAt: new Date(),
+    user_id: "",
   });
   const [commentSaved, setCommentSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState();
+  const captcha = useRef();
+
+  const anonSignIn = async () => {
+    setLoading(true);
+    try {
+      const { data, error: loginError } = await supabase.auth.signInAnonymously(
+        {
+          options: {
+            captchaToken,
+          },
+        },
+      );
+
+      if (loginError) {
+        setError(loginError.message);
+        throw loginError;
+      }
+
+      setUser(data.user);
+      console.log(data);
+      return { data: data, loginError: loginError };
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      setCommentInfo({ ...commentInfo, user_id: user.id });
+    }
+  }, [user]);
 
   const setInfo = (event) => {
     if (event.target.name === "rating" && event.target.value > 5) {
@@ -37,18 +78,64 @@ const NewComment = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    event.target.reset();
-    console.log(commentInfo);
-    setCommentSaved(true);
-    setCommentInfo({
-      name: "",
-      email: "",
-      title: "",
-      content: "",
-      rating: "",
-    });
+    setError(null);
+    setLoading(true);
+    if (!captchaToken) {
+      setError("Por favor, completa la captcha");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      let payload = commentInfo;
+
+      if (!user && !authLoading) {
+        const { data, loginError } = await anonSignIn();
+        if (loginError) {
+          console.error(loginError);
+          captcha.current.resetCaptcha();
+          throw loginError;
+        }
+        payload = { ...payload, user_id: data.user.id };
+      }
+      const { data, error: dberror } = await supabase
+        .from("comments")
+        .insert([payload]);
+
+        console.log(dberror);
+      if (dberror) {
+        if (dberror.code === "42501") {
+          setError("Has llegado al limite de comentarios por ahora");
+          throw dberror;
+        } else {
+          console.error("An unexpected error occurred:", dberror.message);
+          throw dberror
+        }
+      }
+
+      setCommentSaved(true);
+      setCommentInfo({
+        name: "",
+        email: "",
+        title: "",
+        content: "",
+        rating: "",
+        user_id: payload.user_id,
+      });
+      captcha.current.resetCaptcha();
+    } catch (err) {
+      if (err?.code === "42501") {
+        setError("Has llegado al limite de comentarios por ahora");
+        console.error("Comment limit: ", err.message);
+      } else {
+        setError(err.message);
+        console.error(err);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
   const [coords, setCoords] = useState(0);
 
@@ -168,12 +255,26 @@ const NewComment = () => {
                 ))}
               </div>
             </div>
-
+            <HCaptcha
+              ref={captcha}
+              sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
+              onVerify={(token) => {
+                setCaptchaToken(token);
+              }}
+            />
+            {error && (
+              <p className="text-red-500 text-center italic">{error}</p>
+            )}
             <button
               type="submit"
-              className="w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
+              disabled={loading || authLoading}
+              className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
-              Enviar Comentario
+              {loading || authLoading ? (
+                <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+              ) : (
+                "Enviar Commentario"
+              )}
             </button>
           </form>
         </div>

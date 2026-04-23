@@ -77,7 +77,7 @@ const MenuMobile = () => {
           Fotos
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
         </Link>
-        {user ? (
+        {user?.role ? (
           <Link
             to="/login"
             onClick={handleLogout}

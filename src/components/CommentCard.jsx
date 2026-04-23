@@ -1,5 +1,6 @@
 const CommentCard = ({ comment }) => {
   const initials = comment.name.split(' ').map(n => n[0]).join('').toUpperCase();
+  const date = new Date(comment.created_at).toDateString();
 
   return (
     <div className="relative flex flex-col gap-4 p-6 w-full h-80 shadow-md rounded-3xl bg-linear-to-br from-white/90 via-acclight/80 to-acclighttransparent border border-acclight/20 hover:shadow-2xl hover:scale-105 hover:border-accgreenlight/40 transition-all duration-500 ease-out cursor-pointer backdrop-blur-sm overflow-hidden">
@@ -25,7 +26,7 @@ const CommentCard = ({ comment }) => {
       </div>
 
       <div className="absolute bottom-3 flex justify-between w-5/6 items-center text-sm text-gray-500 border-t border-acclight/30 pt-3">
-        <p>{comment.createdAt.toDateString()}</p>
+        <p>{date}</p>
         <div className="flex items-center gap-2">
           <div className="flex">
             {[1, 2, 3, 4, 5].map((star) => (

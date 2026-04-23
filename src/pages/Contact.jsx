@@ -74,7 +74,7 @@ const Contact = () => {
     name: "",
     email: "",
     phone: "",
-    message: "",
+    body: "",
   });
 
   const setInfo = (event) => {
@@ -87,6 +87,12 @@ const Contact = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setContactForm({
+    name: "",
+    email: "",
+    phone: "",
+    body: "",
+  })
   };
 
   const headerInfo = {
@@ -121,7 +127,9 @@ const Contact = () => {
             </p>
 
             <form
-              onSubmit={handleSubmit}
+              action="mailto:espaciopaihuen@gmail.com"
+              method="POST"
+              encType="text/plain"
               className="bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl space-y-5"
             >
               <div className="flex flex-col gap-4">
@@ -156,8 +164,8 @@ const Contact = () => {
                 />
 
                 <textarea
-                  name="message"
-                  id="message"
+                  name="body"
+                  id="body"
                   value={contactForm.message}
                   placeholder="Escribe tu mensaje aquí..."
                   onChange={setInfo}
