@@ -37,7 +37,7 @@ const NewComment = () => {
 
       setUser(data);
       console.log(data);
-      return {data, loginError};
+      return {data: data, loginError: loginError};
     } catch (err) {
       setError(err.message);
       console.error(err);
