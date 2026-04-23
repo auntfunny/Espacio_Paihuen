@@ -27,7 +27,11 @@ const NewComment = () => {
     setLoading(true);
     try {
       const { data, error: loginError } =
-        await supabase.auth.signInAnonymously();
+        await supabase.auth.signInAnonymously({
+          options: {
+            captchaToken,
+          },
+        });
 
         
       if (loginError) {
@@ -88,11 +92,7 @@ const NewComment = () => {
       let payload = commentInfo;
 
       if (!user && !authLoading) {
-        const {data, loginError} = await anonSignIn({
-          options: {
-            captchaToken,
-          },
-        });
+        const {data, loginError} = await anonSignIn();
         if (loginError) {
           console.error(loginError);
           captcha.current.resetCaptcha();
