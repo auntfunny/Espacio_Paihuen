@@ -2,7 +2,7 @@ import { useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 import PageHeader from "../components/PageHeader";
 import calendar from "../assets/svg/calendar.svg";
-import ConfirmModal from "../components/ConfirmModal";
+import SuccessModal from "../components/SuccessModal";
 
 const Reserve = () => {
   const [clientInfo, setClientInfo] = useState({
@@ -48,7 +48,7 @@ const Reserve = () => {
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       {stayReserved && (
-        <ConfirmModal
+        <SuccessModal
           close={closeModal}
           title={"¡Gracias por tu reserva!"}
           caption={

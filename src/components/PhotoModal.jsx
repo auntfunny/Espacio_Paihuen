@@ -4,7 +4,7 @@ import picture from "../assets/svg/picture.svg";
 import axios from "axios";
 import { supabase } from "../lib/supabase";
 
-const PhotoModal = () => {
+const PhotoModal = ({ photoData, setPhotoData }) => {
   const { newPhoto, setNewPhoto } = usePhoto();
   const [form, setForm] = useState({
     title: "",
@@ -28,16 +28,29 @@ const PhotoModal = () => {
     }
   };
 
+  const handleBlur = () => {
+    setForm({ ...form, title: form.title.trim() });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(form);
+    if (!form.title || !form.thumb) {
+      setError("Por favor, revisa los campos");
+      return;
+    }
     setLoading(true);
     const thumb = new FormData();
     thumb.append("file", form.thumb);
     thumb.append("upload_preset", "my_preset");
     try {
-      const { data } = await axios.post(CLOUDINARY_URL, thumb);
+      const { data, error: imageError } = await axios.post(CLOUDINARY_URL, thumb);
       const thumbUrl = data.secure_url;
+
+      if(imageError){
+          console.error(imageError);
+          setError(imageError.message);
+        }
 
       let videoUrl = "";
 
@@ -47,8 +60,13 @@ const PhotoModal = () => {
         videoData.append("upload_preset", "my_preset");
 
         const videoEndpoint = CLOUDINARY_URL.replace("/image/", "/video/");
-        const videoRes = await axios.post(videoEndpoint, videoData);
-        videoUrl = videoRes.data.secure_url;
+        const {data: videoUpload, error: videoError} = await axios.post(videoEndpoint, videoData);
+
+        if(videoError){
+          console.error(videoError);
+          setError(videoError.message);
+        }
+        videoUrl = videoUpload.secure_url;
       }
 
       console.log(thumbUrl, videoUrl);
@@ -69,11 +87,11 @@ const PhotoModal = () => {
         .single();
 
       if (mediaError) {
+        console.log(mediaError.message);
         console.error(mediaError);
         throw mediaError;
       }
 
-      console.log(mediaData);
 
       if (form.isVideo && videoUrl) {
         const videoPayload = [
@@ -92,13 +110,19 @@ const PhotoModal = () => {
           console.error(videoError);
           throw videoError;
         }
-
-        console.log(videoData);
-        
+        mediaData.video_details = videoData;
       }
+
+      const index = photoData.findIndex(
+        (section) => section.section_id === newPhoto.section_id,
+      );
+
+      photoData[index].media.push(mediaData);
+      setNewPhoto(null);
     } catch (err) {
       console.error("Something went wrong: ", err);
-      setError(err);
+      console.log(err.message);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -112,8 +136,6 @@ const PhotoModal = () => {
     }
   };
 
-  console.log(loading);
-
   return (
     <div
       onClick={handleClick}
@@ -126,6 +148,7 @@ const PhotoModal = () => {
         <h3 className="w-full text-center text-4xl p-1 font-bold font-title2 text-transparent bg-clip-text bg-linear-to-r from-accblue to-accgreendark">
           Agrega Photo
         </h3>
+        {error && <p className="text-red-500 italic text-center">{error}</p>}
         <div className="flex flex-col gap-4">
           <input
             type="text"
@@ -133,6 +156,7 @@ const PhotoModal = () => {
             name="title"
             placeholder="Título"
             onChange={setInfo}
+            onBlur={handleBlur}
             required
             className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
           />
@@ -152,7 +176,7 @@ const PhotoModal = () => {
                     {form.thumb.name}
                   </p>
                   <span className="text-xs text-accgreendark/60">
-                    Click to change
+                    Pincha para cambiar
                   </span>
                 </div>
               </div>
@@ -214,7 +238,7 @@ const PhotoModal = () => {
                       {form.video.name}
                     </p>
                     <span className="text-xs text-accgreendark/60">
-                      Click to change
+                      Pincha para cambiar
                     </span>
                   </div>
                 </div>
@@ -254,9 +278,13 @@ const PhotoModal = () => {
 
         <button
           type="submit"
-          className="w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
+          className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
         >
-          Subir Foto
+          {loading ? (
+            <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+          ) : (
+            "Subir Foto"
+          )}
         </button>
       </form>
     </div>

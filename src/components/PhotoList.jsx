@@ -10,7 +10,7 @@ const PhotoList = ({ section }) => {
       {section.media.map((image) => (
         <PhotoCard key={image.media_id} image={image} />
       ))}
-      {user && <div className="flex justify-center items-center w-full">
+      {user?.role === "ADMIN" && <div className="flex justify-center items-center w-full">
         <button
           onClick={() => setNewPhoto(section)}
           type="button"

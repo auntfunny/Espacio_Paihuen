@@ -2,7 +2,7 @@ import { useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 import PageHeader from "../components/PageHeader";
 import edit from "../assets/svg/edit.svg";
-import ConfirmModal from "../components/ConfirmModal";
+import SuccessModal from "../components/SuccessModal";
 
 const NewComment = () => {
   const [commentInfo, setCommentInfo] = useState({
@@ -73,7 +73,7 @@ const NewComment = () => {
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       {commentSaved && (
-        <ConfirmModal
+        <SuccessModal
           close={closeModal}
           title={"¡Gracias por tu commentario!"}
           caption={
