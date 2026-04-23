@@ -39,7 +39,7 @@ const NewComment = () => {
         throw loginError;
       }
 
-      setUser(data);
+      setUser(data.user);
       console.log(data);
       return {data: data, loginError: loginError};
     } catch (err) {
