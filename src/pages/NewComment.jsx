@@ -26,14 +26,14 @@ const NewComment = () => {
   const anonSignIn = async () => {
     setLoading(true);
     try {
-      const { data, error: loginError } =
-        await supabase.auth.signInAnonymously({
+      const { data, error: loginError } = await supabase.auth.signInAnonymously(
+        {
           options: {
             captchaToken,
           },
-        });
+        },
+      );
 
-        
       if (loginError) {
         setError(loginError.message);
         throw loginError;
@@ -41,7 +41,7 @@ const NewComment = () => {
 
       setUser(data.user);
       console.log(data);
-      return {data: data, loginError: loginError};
+      return { data: data, loginError: loginError };
     } catch (err) {
       setError(err.message);
       console.error(err);
@@ -92,25 +92,18 @@ const NewComment = () => {
       let payload = commentInfo;
 
       if (!user && !authLoading) {
-        const {data, loginError} = await anonSignIn();
+        const { data, loginError } = await anonSignIn();
         if (loginError) {
           console.error(loginError);
           captcha.current.resetCaptcha();
           throw loginError;
         }
-        payload = {...payload, user_id: data.user.id};
+        payload = { ...payload, user_id: data.user.id };
       }
       const { data, error: dberror } = await supabase
         .from("comments")
         .insert([payload]);
 
-      if (dberror?.code === "42501") {
-        setError("Has llegado al limite de comentarios por ahora");
-        throw dberror;
-      } else if (dberror) {
-        setError(dberror.message);
-        throw dberror;
-      }
       setCommentSaved(true);
       setCommentInfo({
         name: "",
@@ -122,8 +115,13 @@ const NewComment = () => {
       });
       captcha.current.resetCaptcha();
     } catch (err) {
-      setError(err.message);
-      console.error(err);
+      if (err?.code === "42501") {
+        setError("Has llegado al limite de comentarios por ahora");
+        console.error("Comment limit: ", err.message);
+      } else {
+        setError(err.message);
+        console.error(err);
+      }
     } finally {
       setLoading(false);
     }
