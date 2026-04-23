@@ -104,6 +104,7 @@ const NewComment = () => {
         .from("comments")
         .insert([payload]);
 
+        console.log(dberror);
       if (dberror) {
         if (dberror.code === "42501") {
           setError("Has llegado al limite de comentarios por ahora");
