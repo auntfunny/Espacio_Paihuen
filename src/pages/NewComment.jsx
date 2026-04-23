@@ -104,6 +104,16 @@ const NewComment = () => {
         .from("comments")
         .insert([payload]);
 
+      if (dberror) {
+        if (dberror.code === "42501") {
+          setError("Has llegado al limite de comentarios por ahora");
+          throw dberror;
+        } else {
+          console.error("An unexpected error occurred:", dberror.message);
+          throw dberror
+        }
+      }
+
       setCommentSaved(true);
       setCommentInfo({
         name: "",
