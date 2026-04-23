@@ -79,12 +79,13 @@ const NewComment = () => {
     setLoading(true);
     if (!captchaToken) {
       setError("Por favor, completa la captcha");
+      setLoading(false);
       return;
     }
 
     try {
       if (!user && !authLoading) {
-        const loginError = anonSignIn({
+        const loginError = await anonSignIn({
           options: {
             captchaToken,
           },
@@ -252,7 +253,8 @@ const NewComment = () => {
             )}
             <button
               type="submit"
-              className="w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
+              disabled={loading}
+              className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
               {loading ? (
                 <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
