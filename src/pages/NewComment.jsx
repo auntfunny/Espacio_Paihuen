@@ -29,6 +29,7 @@ const NewComment = () => {
       const { data, error: loginError } =
         await supabase.auth.signInAnonymously();
 
+        
       if (loginError) {
         setError(loginError.message);
         throw loginError;
@@ -36,7 +37,7 @@ const NewComment = () => {
 
       setUser(data);
       console.log(data);
-      return loginError;
+      return {data, loginError};
     } catch (err) {
       setError(err.message);
       console.error(err);
@@ -84,8 +85,10 @@ const NewComment = () => {
     }
 
     try {
+      let payload = commentInfo;
+
       if (!user && !authLoading) {
-        const loginError = await anonSignIn({
+        const {data, loginError} = await anonSignIn({
           options: {
             captchaToken,
           },
@@ -95,10 +98,11 @@ const NewComment = () => {
           captcha.current.resetCaptcha();
           throw loginError;
         }
+        payload = {...payload, user_id: data.id};
       }
       const { data, error: dberror } = await supabase
         .from("comments")
-        .insert([commentInfo]);
+        .insert([payload]);
 
       if (dberror.code === "42501") {
         setError("Has llegado al limite de comentarios por ahora");
