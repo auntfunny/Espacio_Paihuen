@@ -13,7 +13,7 @@ const MainFeatures = () => {
         <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img
-              src="/images/Cama_Naranja.jpeg"
+              src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/Cama_Naranja_gt74bq.jpg"
               alt="Cama de Cabaña"
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
@@ -44,7 +44,7 @@ const MainFeatures = () => {
         <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img
-              src="/images/De_Frente.jpeg"
+              src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/De_Frente_zdlitz.jpg"
               alt="Entorno de Cabañas"
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
@@ -107,7 +107,7 @@ const MainFeatures = () => {
         <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img
-              src="/images/Playa.jpeg"
+              src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Playa_x9nqzl.jpg"
               alt="Playa"
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />

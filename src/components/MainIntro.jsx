@@ -15,7 +15,7 @@ const MainIntro = () => {
             <div className="absolute inset-0 bg-linear-to-br from-accgreendark/30 to-accgreenlight/40 rounded-full blur-2xl"></div>
             <div className="absolute inset-2 bg-linear-to-br from-accgreenlight/30 to-accgreendark/30 rounded-full blur-xl"></div>
             <img
-              src="/images/Logo.jpeg"
+              src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085713/Logo_he7dxc.jpg"
               alt="Logo"
               className="w-60 h-60 z-10 rounded-full mask-image-[linear-linear(to_bottom,black_80%,transparent)]"
             />

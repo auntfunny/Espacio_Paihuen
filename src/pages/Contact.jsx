@@ -2,12 +2,20 @@ import { useRef, useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 import { Link } from "react-router-dom";
 import ContactCard from "../components/ContactCard";
+import PageHeader from "../components/PageHeader";
+import whatsapp from "../assets/svg/whatsapp.svg"
+import email from "../assets/svg/email.svg"
+import phone from "../assets/svg/phone.svg"
+import envelope from "../assets/svg/envelope.svg"
+import instagram from "../assets/svg/instagram.svg"
+import facebook from "../assets/svg/facebook.svg"
+import form from "../assets/svg/form.svg"
 
 const contacts = [
   {
     id: 1,
     title: "WhatsApp",
-    svg: "/svg/whatsapp.svg",
+    svg: whatsapp,
     color: "accgreenlight",
     message: "Chatea con nosotros de forma instantánea para respuestas rápidas y personalizadas",
     button: "Iniciar Chat",
@@ -16,7 +24,7 @@ const contacts = [
   {
     id: 2,
     title: "Teléfono",
-    svg: "/svg/phone.svg",
+    svg: phone,
     color: "accblue",
     message: "Llámanos directamente para una conversación inmediata y detallada",
     button: "Llamar Ahora",
@@ -25,7 +33,7 @@ const contacts = [
   {
     id: 3,
     title: "Email",
-    svg: "/svg/envelope.svg",
+    svg: envelope,
     color: "accblue",
     message: "Envíanos un correo electrónico para consultas detalladas o reservas",
     button: "Enviar Email",
@@ -34,7 +42,7 @@ const contacts = [
   {
     id: 4,
     title: "Instagram",
-    svg: "/svg/instagram.svg",
+    svg: instagram,
     color: "pink-500",
     message: "Síguenos en Instagram para ver nuestras últimas fotos y actualizaciones",
     button: "@espacio_paihuen",
@@ -43,7 +51,7 @@ const contacts = [
   {
     id: 5,
     title: "Facebook",
-    svg: "/svg/facebook.svg",
+    svg: facebook,
     color: "blue-500",
     message: "Únete a nuestra comunidad en Facebook y mantente informado",
     button: "Visitar Página",
@@ -52,7 +60,7 @@ const contacts = [
   {
     id: 6,
     title: "Formulario",
-    svg: "/svg/form.svg",
+    svg: form,
     color: "accgreendark",
     message: "Completa nuestro formulario detallado para consultas específicas",
     button: "Completar Formulario",
@@ -81,37 +89,17 @@ const Contact = () => {
     event.preventDefault();
   };
 
+  const headerInfo = {
+    image: email,
+    label: "Contacto",
+    title: "Contáctanos",
+    message: "Estamos aquí para tus dudas y consultas. Hablános con una de las opciones y estaremos en contacto pronto."
+  }
+
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center pt-32 pb-20 gap-16 px-4 md:px-8">
-        <div className="flex flex-col items-center gap-6 max-w-4xl">
-          <div className="flex items-center gap-3 bg-linear-to-r from-accgreenlight/20 to-accblue/20 px-6 py-3 rounded-full border border-acclight/30">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-5 text-accgreendark"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-              />
-            </svg>
-
-            <span className="text-sm font-medium text-accgray">Contacto</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-title2 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight bg-clip-text text-transparent leading-tight">
-            Contáctanos
-          </h1>
-          <p className="text-lg/7 md:text-xl/7 text-center text-accgray/80 max-w-3xl mx-auto">
-            Estamos aquí para tus dudas y consultas. Hablános con una de las
-            opciones y estaremos en contacto pronto.
-          </p>
-          <SectionHeaderDesign />
-        </div>
+        <PageHeader info={headerInfo} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
           {contacts.map((contact) =>

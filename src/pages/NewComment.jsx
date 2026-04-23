@@ -1,5 +1,8 @@
 import { useState } from "react";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
+import PageHeader from "../components/PageHeader";
+import edit from "../assets/svg/edit.svg";
+import ConfirmModal from "../components/ConfirmModal";
 
 const NewComment = () => {
   const [commentInfo, setCommentInfo] = useState({
@@ -8,9 +11,9 @@ const NewComment = () => {
     title: "",
     content: "",
     rating: "",
-    createdAt: new Date()
+    createdAt: new Date(),
   });
-  const [stayReserved, setStayReserved] = useState(false);
+  const [commentSaved, setCommentSaved] = useState(false);
 
   const setInfo = (event) => {
     if (event.target.name === "rating" && event.target.value > 5) {
@@ -38,7 +41,7 @@ const NewComment = () => {
     event.preventDefault();
     event.target.reset();
     console.log(commentInfo);
-    setStayReserved(true);
+    setCommentSaved(true);
     setCommentInfo({
       name: "",
       email: "",
@@ -55,84 +58,32 @@ const NewComment = () => {
     setCoords(((event.clientX - rect.left) / 32).toFixed(1));
   };
 
+  const closeModal = () => {
+    setCommentSaved(false);
+  };
+
+  const headerInfo = {
+    image: edit,
+    label: "Comentarios",
+    title: "Cuentanos Tu Experiencia",
+    message:
+      "Completa el formulario y dejanos un comentario sobre tu experiencia en nuestro Espacio Paihuen.",
+  };
+
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
-      {stayReserved && (
-        <div
-          onClick={() => setStayReserved(false)}
-          className="fixed inset-0 bg-accgray/60 backdrop-blur-md flex items-center justify-center z-50 p-4 transition-all"
-        >
-          <div className="bg-white/90 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white max-w-sm w-full text-center space-y-6 transform animate-in fade-in zoom-in duration-300">
-            <div className="mx-auto w-20 h-20 bg-accgreenlight/20 rounded-full flex items-center justify-center">
-              <svg
-                className="w-10 h-10 text-accgreendark"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-2xl font-bold text-accgray">
-                ¡Gracias por tu commentario!
-              </h3>
-              <p className="text-accgray/70">
-                Te lo agradecemos y revisaremos tu experiencia en Espacio
-                Paihuen
-              </p>
-            </div>
-            <img
-              src="/images/Logo.jpeg"
-              alt="Espacio Paihuen"
-              className="w-32 mx-auto rounded-xl shadow-sm"
-            />
-            <button className="w-full py-3 bg-accblue text-white rounded-2xl font-bold hover:bg-accgreendark transition-colors hover:cursor-pointer">
-              Cerrar
-            </button>
-          </div>
-        </div>
+      {commentSaved && (
+        <ConfirmModal
+          close={closeModal}
+          title={"¡Gracias por tu commentario!"}
+          caption={
+            "Te lo agradecemos y revisaremos tu experiencia en Espacio Paihuen"
+          }
+        />
       )}
 
       <div className="relative z-10 flex flex-col items-center pt-32 pb-20 px-4 md:px-8">
-        <div className="flex flex-col items-center text-center space-y-6 max-w-4xl">
-          <div className="inline-flex items-center gap-3 bg-linear-to-r from-accgreenlight/20 to-accblue/20 px-6 py-3 rounded-full border border-acclight/30">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-5 text-accgreendark"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-              />
-            </svg>
-
-            <span className="text-sm font-medium text-accgray">
-              Comentarios
-            </span>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold font-title2 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight bg-clip-text text-transparent leading-tight">
-            Cuentanos Tu Experiencia
-          </h1>
-
-          <p className="text-lg/7 text-accgray/80 max-w-2xl">
-            Completa el formulario y dejanos un comentario sobre tu experiencia
-            en nuestro Espacio Paihuen.
-          </p>
-
-          <SectionHeaderDesign />
-        </div>
+        <PageHeader info={headerInfo} />
 
         <div className="w-full max-w-xl mt-12">
           <form

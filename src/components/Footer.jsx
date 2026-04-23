@@ -7,7 +7,7 @@ const Footer = () => {
       <nav className="flex justify-between items-center py-6 px-6 lg:px-8 max-w-7xl mx-auto">
         <Link to="/"  className="group  focus:outline-none focus:ring-2 focus:ring-accblue/50 rounded-full">
           <img
-            src="/images/Logo_sin_bg.png"
+            src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1776871508/Logo_sin_bg_zaejfz.png"
             alt="Espacio Paihuen"
             className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-linear-to-br from-acclight to-acclight/80 p-1 shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-300 ease-out"
           />
@@ -51,6 +51,14 @@ const Footer = () => {
             className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
           >
             Fotos
+            <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
+          </Link>
+          <Link
+            
+            to="/login"
+            className="relative text-accgray font-medium hover:text-accblue focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
+          >
+            Login
             <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
           </Link>
         </nav>

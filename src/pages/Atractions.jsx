@@ -1,28 +1,22 @@
 import ContactUs from "../components/ContactUs";
+import PageHeader from "../components/PageHeader";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
+import map from "../assets/svg/map.svg"
 
 const Atractions = () => {
+
+  const headerInfo = {
+    image: map,
+    label: "Explora la Región de Los Lagos",
+    title: "Atracciones Cercanas",
+    message: "Ubicados estratégicamente en la Carretera Austral, somos el punto de partida perfecto para descubrir tesoros naturales."
+  }
+
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       
       <div className="relative z-10 flex flex-col items-center pt-32 pb-16 px-4 md:px-8">
-        <div className="text-center space-y-6 max-w-4xl">
-          <div className="inline-flex items-center gap-3 bg-linear-to-r from-accgreenlight/20 to-accblue/20 px-6 py-3 rounded-full border border-acclight/30">
-            <svg className="w-5 h-5 text-accgreendark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-            <span className="text-sm font-medium text-accgray">Explora la Región de Los Lagos</span>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold font-title2 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight bg-clip-text text-transparent leading-tight">
-            Atracciones Cercanas
-          </h1>
-
-          <p className="text-lg text-accgray/80 max-w-2xl mx-auto">
-            Ubicados estratégicamente en la Carretera Austral, somos el punto de partida perfecto para descubrir tesoros naturales.
-          </p>
-          <SectionHeaderDesign />
-        </div>
+        <PageHeader info={headerInfo} />
 
         <div className="w-full max-w-7xl mt-20 space-y-24">
           

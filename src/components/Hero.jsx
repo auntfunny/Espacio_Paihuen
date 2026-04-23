@@ -7,7 +7,7 @@ const Hero = () => {
       className="relative flex justify-center items-center min-h-screen text-acclight overflow-hidden"
     >
       <img
-        src="/images/De_Frente_2.jpeg"
+        src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085843/De_Frente_2_na2oll.jpg"
         alt="Espacio Paihuen"
         className="absolute inset-0 w-full h-full object-cover scale-105"
       />
@@ -29,7 +29,7 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
           <Link
-            to="/reserva"
+            to="/reserve"
             className="group relative bg-linear-to-r from-accblue to-accgreendark text-acclight text-xl font-semibold py-4 px-8 rounded-full shadow-2xl hover:shadow-accblue/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accblue/50 transition-all duration-300 ease-out overflow-hidden"
           >
             <span className="relative z-10">Reservar ahora</span>
@@ -38,7 +38,7 @@ const Hero = () => {
           </Link>
 
           <Link
-            to="/sobre"
+            to="/about"
             className="group border-2 border-acclight/60 text-acclight text-xl font-medium py-4 px-8 rounded-full hover:bg-acclight/10 hover:border-acclight focus:outline-none focus:ring-4 focus:ring-acclight/50 transition-all duration-300 ease-out backdrop-blur-sm"
           >
             Conoce más

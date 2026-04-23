@@ -1,33 +1,22 @@
 import { Link } from "react-router-dom";
 import ContactUs from "../components/ContactUs";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
+import PageHeader from "../components/PageHeader";
+import about from "../assets/svg/about.svg"
 
 const About = () => {
+
+  const headerInfo = {
+    image: about,
+    label: "Carretera Austral, Chile",
+    title: "Sobre Nosotros",
+    message: "Descubre la esencia de Espacio Paihuen, donde la naturaleza se encuentra con el confort"
+  }
+
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center pt-32 pb-20 gap-16 px-4 md:px-8">
-        <div className="text-center space-y-6 max-w-4xl">
-          <div className="inline-flex items-center gap-3 bg-linear-to-r from-accgreenlight/20 to-accblue/20 px-6 py-3 rounded-full border border-acclight/30">
-            <svg
-              className="w-5 h-5 text-accgreendark"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
-            <span className="text-sm font-medium text-accgray">
-              Carretera Austral, Chile
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-title2 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight bg-clip-text text-transparent leading-tight">
-            Sobre Nosotros
-          </h1>
-          <p className="text-lg/7 md:text-xl/7 text-accgray/80 max-w-3xl mx-auto">
-            Descubre la esencia de Espacio Paihuen, donde la naturaleza se
-            encuentra con el confort
-          </p>
-          <SectionHeaderDesign />
-        </div>
+        <PageHeader info={headerInfo} />
 
         <section className="w-full max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -85,7 +74,7 @@ const About = () => {
             <div className="relative order-1 lg:order-2">
               <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
                 <img
-                  src="/images/Reja_de_Frente_2.jpeg"
+                  src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Reja_de_Frente_2_tdmugg.jpg"
                   alt="Vista al mar de la propiedad"
                   className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
@@ -105,7 +94,7 @@ const About = () => {
             <div className="relative">
               <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
                 <img
-                  src="/images/Playa.jpeg"
+                  src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Playa_x9nqzl.jpg"
                   alt="Vista al mar de la propiedad"
                   className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
@@ -240,7 +229,7 @@ const About = () => {
             <div className="relative order-1 lg:order-2">
               <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
                 <img
-                  src="/images/Cama_Naranja_2.jpeg"
+                  src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/Cama_Naranja_2_ue1p4t.jpg"
                   alt="Cama de la cabaña"
                   className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />

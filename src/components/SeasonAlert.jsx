@@ -56,7 +56,7 @@ const SeasonAlert = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
-            to="/reserva"
+            to="/reserve"
             className="group relative bg-linear-to-r from-accgreenlight to-accgreendark text-accgray font-bold text-xl py-5 px-10 rounded-full shadow-2xl hover:shadow-accgreenlight/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accgreenlight/50 transition-all duration-300 ease-out overflow-hidden"
           >
             <span className="relative z-10 flex items-center gap-3">

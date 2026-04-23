@@ -9,6 +9,7 @@ import Atractions from "./pages/Atractions";
 import NewComment from "./pages/NewComment";
 import { useEffect } from "react";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
 
 function App() {
   const { pathname } = useLocation();
@@ -29,6 +30,7 @@ function App() {
           <Route path="/atractions" element={<Atractions />} />
           <Route path="/newcomment" element={<NewComment />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
     </>
