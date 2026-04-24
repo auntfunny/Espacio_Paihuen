@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import reservation from "../assets/svg/reservation.svg";
 import PageHeader from "../components/PageHeader";
 import { supabase } from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
+import AuthLoading from "../components/AuthLoading";
 import ReservationItem from "../components/ReservationItem";
 
 const Reservations = () => {
+  const { loading: authLoading } = useAuth();
   const [reservationData, setReservationData] = useState([]); // Default to empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeReservation, setActiveReservation] = useState(null);
+
+  if (authLoading) return <AuthLoading />;
 
   useEffect(() => {
     const getReservations = async () => {
