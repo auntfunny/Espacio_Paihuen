@@ -37,9 +37,9 @@ const Login = () => {
       if (!captchaToken || !isSubmitting) return;
 
       try {
-        const { data } = await login(credentials, captchaToken);
+        const profile  = await login(credentials, captchaToken);
 
-        console.log("Welcome ", data.username);
+        console.log(profile);
         navigate("/");
       } catch (err) {
         setError(err.message);
