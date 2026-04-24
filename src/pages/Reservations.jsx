@@ -35,7 +35,8 @@ const Reservations = () => {
     image: reservation,
     label: "Maneja Reservaciones",
     title: "Reservaciones",
-    message: "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
+    message:
+      "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
   };
 
   return (
@@ -44,22 +45,24 @@ const Reservations = () => {
         <PageHeader info={headerInfo} />
 
         <div className="w-full max-w-3xl mt-12 bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl space-y-5">
-          
-          {error && <div className="text-red-500 text-center font-bold">{error}</div>}
+          {error && (
+            <div className="text-red-500 text-center font-bold">{error}</div>
+          )}
 
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
-              <thead>
+              <thead className="relative">
                 <tr>
-                  {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map((header) => (
-                    <th
-                      key={header}
-                      className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium relative"
-                    >
-                      
-                      <span className="relative z-10">{header}</span>
-                    </th>
-                  ))}
+                  {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map(
+                    (header) => (
+                      <th
+                        key={header}
+                        className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
+                      >
+                        <span className="relative z-10">{header}</span>
+                      </th>
+                    ),
+                  )}
                   <span className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
                 </tr>
               </thead>
@@ -74,8 +77,13 @@ const Reservations = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="py-10 text-center text-accgray italic">
-                      {loading ? "Cargando..." : "No hay reservaciones disponibles"}
+                    <td
+                      colSpan="5"
+                      className="py-10 text-center text-accgray italic"
+                    >
+                      {loading
+                        ? "Cargando..."
+                        : "No hay reservaciones disponibles"}
                     </td>
                   </tr>
                 )}
