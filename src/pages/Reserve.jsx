@@ -14,7 +14,7 @@ const Reserve = () => {
   const [clientInfo, setClientInfo] = useState({
     name: "",
     email: "",
-    ckeck_in: "",
+    check_in: "",
     check_out: "",
     phone: "",
     withHotTub: false,
@@ -82,7 +82,7 @@ const Reserve = () => {
       setClientInfo({
         name: "",
         email: "",
-        ckeck_in: "",
+        check_in: "",
         check_out: "",
         phone: "",
         withHotTub: false,
@@ -215,8 +215,8 @@ const Reserve = () => {
                 </label>
                 <input
                   type="date"
-                  value={clientInfo.ckeck_in}
-                  name="ckeck_in"
+                  value={clientInfo.check_in}
+                  name="check_in"
                   onChange={setInfo}
                   min={today}
                   required
@@ -232,7 +232,7 @@ const Reserve = () => {
                   value={clientInfo.check_out}
                   name="check_out"
                   onChange={setInfo}
-                  min={clientInfo.ckeck_in || today}
+                  min={clientInfo.check_in || today}
                   required
                   className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none text-accgray"
                 />
@@ -268,7 +268,7 @@ const Reserve = () => {
                 options={{
                   mode: "multiple",
                   dateFormat: "Y-m-d",
-                  minDate: clientInfo.ckeck_in || today,
+                  minDate: clientInfo.check_in || today,
                   maxDate: clientInfo.check_out || null,
                   disableMobile: true,
                 }}
@@ -298,7 +298,7 @@ const Reserve = () => {
               {loading || authLoading ? (
                 <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
               ) : (
-                "Enviar Commentario"
+                "Confirmar Reserva"
               )}
             </button>
 
