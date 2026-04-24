@@ -1,10 +1,10 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const ProtectedAdmin = ({children}) => {
+const ProtectedAdmin = () => {
     const {user} = useAuth();
     if(user?.role !== "ADMIN") return <Navigate to="/" />
-    else return {children} 
+    else return <Outlet /> 
 }
 
 export default ProtectedAdmin;
