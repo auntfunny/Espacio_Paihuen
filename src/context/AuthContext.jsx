@@ -54,7 +54,6 @@ export function AuthProvider({ children }) {
       if (error) throw error;
 
       const profile = await getProfileData(data.user.id);
-      console.log(profile);
 
       setUser(profile);
       return profile;

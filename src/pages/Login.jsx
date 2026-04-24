@@ -39,7 +39,7 @@ const Login = () => {
       try {
         const profile  = await login(credentials, captchaToken);
 
-        console.log(profile);
+        console.log("Welcome ", profile.username);
         navigate("/");
       } catch (err) {
         setError(err.message);
