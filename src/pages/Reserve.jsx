@@ -143,18 +143,18 @@ const Reserve = () => {
               puedes ver los precios antes de hacer tu reserva.
             </p>
             <div className="w-full self-center max-w-lg bg-linear-to-br p-4 rounded-2xl from-accgreendark/20 to-acclight/70 shadow-md">
-              <ul className="w-full space-y-3 text-accgray">
-                <li className="flex w-full justify-between items-center">
+              <ul className="w-full text-accgray">
+                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center border-b border-accgreendark">
                   <span className="italic">
                     Precio por noche para hasta 3 personas:
                   </span>
                   <span className="text-xl">$60.000 CLP</span>
                 </li>
-                <li className="flex w-full justify-between items-center">
+                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center border-b border-accgreendark">
                   <span className="italic">Precio para la tinaja rústica:</span>
                   <span className="text-xl">$20.000 CLP</span>
                 </li>
-                <li className="flex w-full justify-between items-center">
+                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center">
                   <span className="italic">
                     Precio por hora de uso de kayak por persona:
                   </span>
@@ -274,7 +274,10 @@ const Reserve = () => {
                 }}
                 placeholder="Seleciona las fechas para la tinaja"
                 onChange={(selectedDates) => {
-                  setClientInfo({ ...clientInfo, hot_tub_dates: selectedDates }); // Updates state with array of dates
+                  setClientInfo({
+                    ...clientInfo,
+                    hot_tub_dates: selectedDates,
+                  }); // Updates state with array of dates
                 }}
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none text-accgray"
               />
