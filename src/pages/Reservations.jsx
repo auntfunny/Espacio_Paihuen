@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabase";
 import ReservationItem from "../components/ReservationItem";
 
 const Reservations = () => {
-  const [reservationData, setReservationData] = useState(null);
+  const [reservationData, setReservationData] = useState([]); // Default to empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeReservation, setActiveReservation] = useState(null);
@@ -19,15 +19,10 @@ const Reservations = () => {
           .select("*")
           .order("created_at", { ascending: false });
 
-        if (dberror) {
-          setError(dberror.message);
-          throw dberror;
-        }
-        setReservationData(data);
-        console.log(data);
+        if (dberror) throw dberror;
+        setReservationData(data || []);
       } catch (err) {
-        setError(err.message);
-        console.error(err.message);
+        setError(err.message || "Ocurrió un error inesperado");
       } finally {
         setLoading(false);
       }
@@ -40,42 +35,53 @@ const Reservations = () => {
     image: reservation,
     label: "Maneja Reservaciones",
     title: "Reservaciones",
-    message:
-      "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
+    message: "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
   };
+
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center pt-32 pb-16 px-4 md:px-8">
         <PageHeader info={headerInfo} />
 
         <div className="w-full max-w-3xl mt-12 bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl space-y-5">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="relative">
-                {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map(
-                  (header) => (
+          
+          {error && <div className="text-red-500 text-center font-bold">{error}</div>}
+
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr>
+                  {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map((header) => (
                     <th
                       key={header}
-                      className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
+                      className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium relative"
                     >
-                      {header}
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
+                      
+                      <span className="relative z-10">{header}</span>
+                      <span className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
                     </th>
-                  ),
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {!loading && reservationData.length > 0 ? (
+                  reservationData.map((item) => (
+                    <ReservationItem
+                      key={item.reservation_id}
+                      reservation={item}
+                      setActiveReservation={setActiveReservation}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="py-10 text-center text-accgray italic">
+                      {loading ? "Cargando..." : "No hay reservaciones disponibles"}
+                    </td>
+                  </tr>
                 )}
-              </tr>
-            </thead>
-            <tbody className="before:block before:h-2s">
-              {reservationData &&
-                reservationData.map((item) => (
-                  <ReservationItem
-                    key={item.reservation_id}
-                    reservation={item}
-                    setActiveReservation={setActiveReservation}
-                  />
-                ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
