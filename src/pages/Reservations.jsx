@@ -8,6 +8,7 @@ const Reservations = () => {
   const [reservationData, setReservationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeReservation, setActiveReservation] = useState(null);
 
   useEffect(() => {
     const getReservations = async () => {
@@ -18,12 +19,12 @@ const Reservations = () => {
           .select("*")
           .order("created_at", { ascending: false });
 
-          if(dberror) {
-            setError(dberror.message);
-            throw dberror;
-          }
-          setReservationData(data);
-          console.log(data);
+        if (dberror) {
+          setError(dberror.message);
+          throw dberror;
+        }
+        setReservationData(data);
+        console.log(data);
       } catch (err) {
         setError(err.message);
         console.error(err.message);
@@ -48,19 +49,33 @@ const Reservations = () => {
         <PageHeader info={headerInfo} />
 
         <div className="w-full max-w-3xl mt-12 bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl space-y-5">
-          <div className="w-full">
-            <div className="grid grid-cols-5 place-items-center">
-              <p className="font-title2 text-lg italic text-accgray">Nombre</p>
-              <p className="font-title2 text-lg italic text-accgray">Número</p>
-              <p className="font-title2 text-lg italic text-accgray">Entrada</p>
-              <p className="font-title2 text-lg italic text-accgray">Salida</p>
-              <p className="font-title2 text-lg italic text-accgray">Estatus</p>
-              <div className="col-span-5 w-full h-1 rounded-full bg-linear-to-r from-accblue via-accgreendark to-accgreenlight"></div>
-            </div>
-            {reservationData && reservationData.map((item) => (
-              <ReservationItem key={item.reservation_id} reservation={item} />
-            ))}
-          </div>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="relative">
+                {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map(
+                  (header) => (
+                    <th
+                      key={header}
+                      className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
+                    >
+                      {header}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
+                    </th>
+                  ),
+                )}
+              </tr>
+            </thead>
+            <tbody className="before:block before:h-2s">
+              {reservationData &&
+                reservationData.map((item) => (
+                  <ReservationItem
+                    key={item.reservation_id}
+                    reservation={item}
+                    setActiveReservation={setActiveReservation}
+                  />
+                ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

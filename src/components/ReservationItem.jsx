@@ -1,17 +1,19 @@
 import React from "react";
 
-const ReservationItem = ({reservation}) => {
+const ReservationItem = ({reservation, setActiveReservation}) => {
   const dateIn = new Date(reservation.check_in).toDateString();
   const dateout = new Date(reservation.check_out).toDateString();
 
   return (
-    <div className="grid grid-cols-5 place-items-center pt-2">
-      <p>{reservation.name}</p>
-      <p>{reservation.phone}</p>
-      <p>{dateIn}</p>
-      <p>{dateout}</p>
-      <p>{reservation.confirmed ? "Confirmado" : "Pendiente"}</p>
-    </div>
+    <>
+      <tr onClick={() => setActiveReservation(reservation)} className="text-sm hover:bg-gray-100 hover:cursor-pointer border-b border-accblue/20">
+        <td className="p-2 text-center">{reservation.name}</td>
+        <td className="p-2 text-center">{reservation.phone}</td>
+        <td className="p-2 text-center">{dateIn}</td>
+        <td className="p-2 text-center">{dateout}</td>
+        <td className="p-2 text-center">{reservation.confirmed ? "Confirmado" : "Pendiente"}</td>
+      </tr>
+    </>
   );
 };
 
