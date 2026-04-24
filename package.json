@@ -14,8 +14,10 @@
     "@supabase/supabase-js": "^2.104.0",
     "@tailwindcss/vite": "^4.2.1",
     "axios": "^1.13.6",
+    "flatpickr": "^4.6.13",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-flatpickr": "^4.0.11",
     "react-router-dom": "^7.13.2"
   },
   "devDependencies": {

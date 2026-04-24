@@ -10,6 +10,8 @@ import NewComment from "./pages/NewComment";
 import { useEffect } from "react";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Reservations from "./pages/Reservations";
+import ProtectedAdmin from "./routes/ProtectedAdmin";
 
 function App() {
   const { pathname } = useLocation();
@@ -31,6 +33,9 @@ function App() {
           <Route path="/newcomment" element={<NewComment />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route element={<ProtectedAdmin />}>
+            <Route path="/reservations" element={<Reservations />} />
+          </Route>
         </Route>
       </Routes>
     </>

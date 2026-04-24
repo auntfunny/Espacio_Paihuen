@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const NewComment = () => {
-  const { user, setUser, loading: authLoading } = useAuth();
+  const { user, setUser, loading: authLoading, anonSignIn } = useAuth();
   const [commentInfo, setCommentInfo] = useState({
     name: "",
     email: "",
@@ -21,34 +21,11 @@ const NewComment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [captchaToken, setCaptchaToken] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [coords, setCoords] = useState(0);
   const captcha = useRef();
 
-  const anonSignIn = async () => {
-    setLoading(true);
-    try {
-      const { data, error: loginError } = await supabase.auth.signInAnonymously(
-        {
-          options: {
-            captchaToken,
-          },
-        },
-      );
-
-      if (loginError) {
-        setError(loginError.message);
-        throw loginError;
-      }
-
-      setUser(data.user);
-      console.log(data);
-      return { data: data, loginError: loginError };
-    } catch (err) {
-      setError(err.message);
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
   useEffect(() => {
     if (user?.id) {
@@ -82,62 +59,70 @@ const NewComment = () => {
     event.preventDefault();
     setError(null);
     setLoading(true);
-    if (!captchaToken) {
-      setError("Por favor, completa la captcha");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      let payload = commentInfo;
-
-      if (!user && !authLoading) {
-        const { data, loginError } = await anonSignIn();
-        if (loginError) {
-          console.error(loginError);
-          captcha.current.resetCaptcha();
-          throw loginError;
-        }
-        payload = { ...payload, user_id: data.user.id };
-      }
-      const { data, error: dberror } = await supabase
-        .from("comments")
-        .insert([payload]);
-
-        console.log(dberror);
-      if (dberror) {
-        if (dberror.code === "42501") {
-          setError("Has llegado al limite de comentarios por ahora");
-          throw dberror;
-        } else {
-          console.error("An unexpected error occurred:", dberror.message);
-          throw dberror
-        }
-      }
-
-      setCommentSaved(true);
-      setCommentInfo({
-        name: "",
-        email: "",
-        title: "",
-        content: "",
-        rating: "",
-        user_id: payload.user_id,
-      });
-      captcha.current.resetCaptcha();
-    } catch (err) {
-      if (err?.code === "42501") {
-        setError("Has llegado al limite de comentarios por ahora");
-        console.error("Comment limit: ", err.message);
-      } else {
-        setError(err.message);
-        console.error(err);
-      }
-    } finally {
-      setLoading(false);
-    }
+    setIsSubmitting(true);
+    
+    captcha.current.execute();
   };
-  const [coords, setCoords] = useState(0);
+  
+  useEffect(() => {
+    
+    const completeSubmission = async () => {
+
+      if(!captchaToken || !isSubmitting) return;
+
+      try {
+        let payload = commentInfo;
+    
+        if (!user && !authLoading) {
+          const { data, loginError } = await anonSignIn(captchaToken);
+          if (loginError) {
+            console.error(loginError);
+            captcha.current.resetCaptcha();
+            throw loginError;
+          }
+          payload = { ...payload, user_id: data.user.id };
+        }
+        
+        const { data, error: dberror } = await supabase
+          .from("comments")
+          .insert([payload]);
+    
+        if (dberror) {
+          if (dberror.code === "42501") {
+            setError("Has llegado al limite de comentarios por ahora");
+            throw dberror;
+          } else {
+            console.error("An unexpected error occurred:", dberror.message);
+            throw dberror
+          }
+        }
+    
+        setCommentSaved(true);
+        setCommentInfo({
+          name: "",
+          email: "",
+          title: "",
+          content: "",
+          rating: "",
+          user_id: payload.user_id,
+        });
+        captcha.current.resetCaptcha();
+      } catch (err) {
+        if (err?.code === "42501") {
+          setError("Has llegado al limite de comentarios por ahora");
+          console.error("Comment limit: ", err.message);
+        } else {
+          setError(err.message);
+          console.error(err);
+        }
+      } finally {
+        setLoading(false);
+      }
+      
+    }
+    
+  }, [captchaToken, isSubmitting]);
+  
 
   const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -261,6 +246,7 @@ const NewComment = () => {
               onVerify={(token) => {
                 setCaptchaToken(token);
               }}
+              size="invisible"
             />
             {error && (
               <p className="text-red-500 text-center italic">{error}</p>

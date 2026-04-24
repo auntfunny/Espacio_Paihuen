@@ -34,7 +34,7 @@ const WeatherWidgit = () => {
         Clima en Quillaipe
       </span>
       {error ? (
-        <p className="text-acclight">Error al cargar el tiempo</p>
+        <p className="text-acclight">Error al cargar el clima</p>
       ) : loading ? (
         <div className="w-16 h-16 border-4 border-acclight border-t-accgreenlight animate-spin rounded-full"></div>
       ) : (

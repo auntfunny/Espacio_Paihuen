@@ -41,20 +41,49 @@ export function AuthProvider({ children }) {
     initializeAuth();
   }, []);
 
-  const login = async ({ email, password }) => {
+  const login = async ({ email, password }, captchaToken) => {
     setLoading(true);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: email,
+        password: password,
+        options: {
+          captchaToken,
+        },
       });
       if (error) throw error;
 
       const profile = await getProfileData(data.user.id);
 
       setUser(profile);
-      return data;
+      return profile;
     } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const anonSignIn = async (captchaToken) => {
+    setLoading(true);
+    try {
+      const { data, error: loginError } = await supabase.auth.signInAnonymously(
+        {
+          options: {
+            captchaToken,
+          },
+        },
+      );
+
+      if (loginError) {
+        setError(loginError.message);
+        throw loginError;
+      }
+
+      setUser(data.user);
+      return { data: data, loginError: loginError };
+    } catch (err) {
+      setError(err.message);
       console.error(err);
     } finally {
       setLoading(false);
@@ -65,10 +94,11 @@ export function AuthProvider({ children }) {
     await supabase.auth.signOut();
     setUser(null);
   };
-  console.log(user);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, loading, login, anonSignIn, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
