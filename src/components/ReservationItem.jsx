@@ -17,3 +17,5 @@ const ReservationItem = ({ reservation, setActiveReservation }) => {
     </tr>
   );
 };
+
+export default ReservationItem
