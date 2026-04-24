@@ -7,6 +7,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_green.css";
 import { useAuth } from "../context/AuthContext";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { supabase } from "../lib/supabase";
 
 const Reserve = () => {
   const { user, setUser, loading: authLoading, anonSignIn } = useAuth();
