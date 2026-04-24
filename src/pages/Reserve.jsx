@@ -17,8 +17,8 @@ const Reserve = () => {
     check_in: "",
     check_out: "",
     phone: "",
-    withHotTub: false,
-    hotTubDates: [],
+    with_hot_tub: false,
+    hot_tub_dates: [],
     user_id: "",
   });
   const [stayReserved, setStayReserved] = useState(false);
@@ -35,8 +35,8 @@ const Reserve = () => {
   }, [user]);
 
   const setInfo = (event) => {
-    if (event.target.name === "withHotTub") {
-      setClientInfo({ ...clientInfo, withHotTub: event.target.checked });
+    if (event.target.name === "with_hot_tub") {
+      setClientInfo({ ...clientInfo, with_hot_tub: event.target.checked });
     } else {
       setClientInfo({ ...clientInfo, [event.target.name]: event.target.value });
     }
@@ -85,8 +85,8 @@ const Reserve = () => {
         check_in: "",
         check_out: "",
         phone: "",
-        withHotTub: false,
-        hotTubDates: [],
+        with_hot_tub: false,
+        hot_tub_dates: [],
         user_id: payload.user_id,
       });
       captcha.current.resetCaptcha();
@@ -239,18 +239,18 @@ const Reserve = () => {
               </div>
             </div>
             <label
-              htmlFor="withHotTub"
+              htmlFor="with_hot_tub"
               className="flex justify-between items-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 px-8 focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
             >
               <span className="text-xl font-bold font-title2 text-accgray">
                 Tinaja
               </span>
               <input
-                value={clientInfo.withHotTub}
+                value={clientInfo.with_hot_tub}
                 onChange={setInfo}
                 type="checkbox"
-                name="withHotTub"
-                id="withHotTub"
+                name="with_hot_tub"
+                id="with_hot_tub"
                 className="sr-only peer"
               />
               <div className="group relative w-10 h-6 md:w-14 md:h-8 rounded-full bg-gray-400 transition-colors duration-300 ease-in-out peer-hover:bg-gray-500 peer-checked:bg-acc4">
@@ -259,12 +259,12 @@ const Reserve = () => {
               </div>
             </label>
             <div
-              className={`w-full overflow-hidden transition-all duration-300 ease-in-out ${clientInfo.withHotTub ? "max-h-96" : "max-h-0"}`}
+              className={`w-full overflow-hidden transition-all duration-300 ease-in-out ${clientInfo.with_hot_tub ? "max-h-96" : "max-h-0"}`}
             >
               <Flatpickr
-                id="hotTubDates"
-                value={clientInfo.hotTubDates}
-                disabled={!clientInfo.withHotTub}
+                id="hot_tub_dates"
+                value={clientInfo.hot_tub_dates}
+                disabled={!clientInfo.with_hot_tub}
                 options={{
                   mode: "multiple",
                   dateFormat: "Y-m-d",
@@ -274,7 +274,7 @@ const Reserve = () => {
                 }}
                 placeholder="Seleciona las fechas para la tinaja"
                 onChange={(selectedDates) => {
-                  setClientInfo({ ...clientInfo, hotTubDates: selectedDates }); // Updates state with array of dates
+                  setClientInfo({ ...clientInfo, hot_tub_dates: selectedDates }); // Updates state with array of dates
                 }}
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none text-accgray"
               />
