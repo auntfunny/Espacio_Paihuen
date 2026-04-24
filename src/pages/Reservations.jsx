@@ -58,7 +58,7 @@ const Reservations = () => {
               <div className="col-span-5 w-full h-1 rounded-full bg-linear-to-r from-accblue via-accgreendark to-accgreenlight"></div>
             </div>
             {reservationData && reservationData.map((item) => (
-              <ReservationItem key={item.reservation_id} />
+              <ReservationItem key={item.reservation_id} reservation={item} />
             ))}
           </div>
         </div>
