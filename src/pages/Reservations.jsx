@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import reservation from "../assets/svg/reservation.svg";
 import PageHeader from "../components/PageHeader";
 import { supabase } from "../lib/supabase";
+import ReservationItem from "../components/ReservationItem";
 
 const Reservations = () => {
   const [reservationData, setReservationData] = useState(null);
@@ -56,13 +57,9 @@ const Reservations = () => {
               <p className="font-title2 text-lg italic text-accgray">Estatus</p>
               <div className="col-span-5 w-full h-1 rounded-full bg-linear-to-r from-accblue via-accgreendark to-accgreenlight"></div>
             </div>
-            <div className="grid grid-cols-5 place-items-center pt-2">
-              <p>Juan Perez</p>
-              <p>123456789</p>
-              <p>Apr 27 2026</p>
-              <p>Apr 30 2026</p>
-              <p>Pendiente</p>
-            </div>
+            {reservationData && reservationData.map((item) => (
+              <ReservationItem key={item.reservation_id} />
+            ))}
           </div>
         </div>
       </div>
