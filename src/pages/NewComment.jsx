@@ -69,7 +69,7 @@ const NewComment = () => {
     const completeSubmission = async () => {
 
       if(!captchaToken || !isSubmitting) return;
-
+      console.log("debug");
       try {
         let payload = commentInfo;
     
@@ -120,7 +120,7 @@ const NewComment = () => {
       }
       
     }
-    
+    completeSubmission();
   }, [captchaToken, isSubmitting]);
   
 
