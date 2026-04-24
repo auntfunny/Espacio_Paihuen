@@ -70,7 +70,7 @@ const Reserve = () => {
 
       if (dberror) {
         if (dberror.code === "42501") {
-          setError("Has llegado al limite de comentarios por ahora");
+          setError("Has llegado al limite de reservas por ahora");
           throw dberror;
         } else {
           console.error("An unexpected error occurred:", dberror.message);
