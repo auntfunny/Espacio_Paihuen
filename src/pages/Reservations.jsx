@@ -58,9 +58,9 @@ const Reservations = () => {
                     >
                       
                       <span className="relative z-10">{header}</span>
-                      <span className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
                     </th>
                   ))}
+                  <span className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
                 </tr>
               </thead>
               <tbody>
