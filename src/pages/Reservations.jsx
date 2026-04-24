@@ -2,18 +2,16 @@ import { useEffect, useState } from "react";
 import reservation from "../assets/svg/reservation.svg";
 import PageHeader from "../components/PageHeader";
 import { supabase } from "../lib/supabase";
-import { useAuth } from "../context/AuthContext";
-import AuthLoading from "../components/AuthLoading";
 import ReservationItem from "../components/ReservationItem";
+import ReservationInfoModal from "../components/ReservationInfoModal";
+import { preview } from "vite";
 
 const Reservations = () => {
-  const { loading: authLoading } = useAuth();
-  const [reservationData, setReservationData] = useState([]); // Default to empty array
+  const [reservationData, setReservationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeReservation, setActiveReservation] = useState(null);
-
-  if (authLoading) return <AuthLoading />;
+  const [updateLoading, setUpdateLoading] = useState(false);
 
   useEffect(() => {
     const getReservations = async () => {
@@ -22,7 +20,7 @@ const Reservations = () => {
         const { data, error: dberror } = await supabase
           .from("reservations")
           .select("*")
-          .order("created_at", { ascending: false });
+          .order("check_in", { ascending: true });
 
         if (dberror) throw dberror;
         setReservationData(data || []);
@@ -35,6 +33,35 @@ const Reservations = () => {
 
     getReservations();
   }, []);
+
+  const toggleStatus = async ({ resId, resStatus }) => {
+    setUpdateLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("reservations")
+        .update({ confirmed: resStatus })
+        .eq("reservation_id", resId)
+        .select()
+        .single();
+
+      console.log(data);
+
+      const resIndex = reservationData.findIndex(
+        (reserve) => reserve.reservation_id === data.reservation_id,
+      );
+
+      setReservationData((prev) => (prev[resIndex].confirmed = resStatus));
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  const closeModal = () => {
+    setActiveReservation(null);
+  };
 
   const headerInfo = {
     image: reservation,
@@ -56,7 +83,7 @@ const Reservations = () => {
 
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
-              <thead className="relative">
+              <thead className="relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-linear-to-r after:from-accblue after:via-accgreendark after:to-accgreenlight">
                 <tr>
                   {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map(
                     (header) => (
@@ -64,11 +91,10 @@ const Reservations = () => {
                         key={header}
                         className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
                       >
-                        <span className="relative z-10">{header}</span>
+                        {header}
                       </th>
                     ),
                   )}
-                  <span className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-accblue via-accgreendark to-accgreenlight" />
                 </tr>
               </thead>
               <tbody>
@@ -97,6 +123,14 @@ const Reservations = () => {
           </div>
         </div>
       </div>
+      {activeReservation && (
+        <ReservationInfoModal
+          reservation={activeReservation}
+          onClose={closeModal}
+          onToggleConfirm={toggleStatus}
+          loading={updateLoading}
+        />
+      )}
     </div>
   );
 };
