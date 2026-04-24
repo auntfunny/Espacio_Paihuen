@@ -17,6 +17,10 @@ const Reservations = () => {
           .select("*")
           .order("created_at", { ascending: false });
 
+          if(dberror) {
+            setError(dberror.message);
+            throw dberror;
+          }
           setReservationData(data);
           console.log(data);
       } catch (err) {
