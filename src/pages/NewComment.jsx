@@ -120,7 +120,7 @@ const NewComment = () => {
       }
       
     }
-    
+    completeSubmission();
   }, [captchaToken, isSubmitting]);
   
 
