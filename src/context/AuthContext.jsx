@@ -61,14 +61,39 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const anonSignIn = async (captchaToken) => {
+    setLoading(true);
+    try {
+      const { data, error: loginError } = await supabase.auth.signInAnonymously(
+        {
+          options: {
+            captchaToken,
+          },
+        },
+      );
+
+      if (loginError) {
+        setError(loginError.message);
+        throw loginError;
+      }
+
+      setUser(data.user);
+      return { data: data, loginError: loginError };
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
   };
-  console.log(user);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, login, anonSignIn, logout }}>
       {children}
     </AuthContext.Provider>
   );

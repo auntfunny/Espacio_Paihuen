@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const NewComment = () => {
-  const { user, setUser, loading: authLoading } = useAuth();
+  const { user, setUser, loading: authLoading, anonSignIn } = useAuth();
   const [commentInfo, setCommentInfo] = useState({
     name: "",
     email: "",
@@ -23,32 +23,7 @@ const NewComment = () => {
   const [captchaToken, setCaptchaToken] = useState();
   const captcha = useRef();
 
-  const anonSignIn = async () => {
-    setLoading(true);
-    try {
-      const { data, error: loginError } = await supabase.auth.signInAnonymously(
-        {
-          options: {
-            captchaToken,
-          },
-        },
-      );
-
-      if (loginError) {
-        setError(loginError.message);
-        throw loginError;
-      }
-
-      setUser(data.user);
-      console.log(data);
-      return { data: data, loginError: loginError };
-    } catch (err) {
-      setError(err.message);
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
   useEffect(() => {
     if (user?.id) {
@@ -92,7 +67,7 @@ const NewComment = () => {
       let payload = commentInfo;
 
       if (!user && !authLoading) {
-        const { data, loginError } = await anonSignIn();
+        const { data, loginError } = await anonSignIn(captchaToken);
         if (loginError) {
           console.error(loginError);
           captcha.current.resetCaptcha();
@@ -100,11 +75,11 @@ const NewComment = () => {
         }
         payload = { ...payload, user_id: data.user.id };
       }
+      
       const { data, error: dberror } = await supabase
         .from("comments")
         .insert([payload]);
 
-        console.log(dberror);
       if (dberror) {
         if (dberror.code === "42501") {
           setError("Has llegado al limite de comentarios por ahora");
