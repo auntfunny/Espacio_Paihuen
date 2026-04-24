@@ -21,6 +21,8 @@ const NewComment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [captchaToken, setCaptchaToken] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [coords, setCoords] = useState(0);
   const captcha = useRef();
 
   
@@ -57,62 +59,70 @@ const NewComment = () => {
     event.preventDefault();
     setError(null);
     setLoading(true);
-    if (!captchaToken) {
-      setError("Por favor, completa la captcha");
-      setLoading(false);
-      return;
-    }
+    setIsSubmitting(true);
+    
+    captcha.current.execute();
+  };
+  
+  useEffect(() => {
+    
+    const completeSubmission = async () => {
 
-    try {
-      let payload = commentInfo;
+      if(!captchaToken || !isSubmitting) return;
 
-      if (!user && !authLoading) {
-        const { data, loginError } = await anonSignIn(captchaToken);
-        if (loginError) {
-          console.error(loginError);
-          captcha.current.resetCaptcha();
-          throw loginError;
+      try {
+        let payload = commentInfo;
+    
+        if (!user && !authLoading) {
+          const { data, loginError } = await anonSignIn(captchaToken);
+          if (loginError) {
+            console.error(loginError);
+            captcha.current.resetCaptcha();
+            throw loginError;
+          }
+          payload = { ...payload, user_id: data.user.id };
         }
-        payload = { ...payload, user_id: data.user.id };
+        
+        const { data, error: dberror } = await supabase
+          .from("comments")
+          .insert([payload]);
+    
+        if (dberror) {
+          if (dberror.code === "42501") {
+            setError("Has llegado al limite de comentarios por ahora");
+            throw dberror;
+          } else {
+            console.error("An unexpected error occurred:", dberror.message);
+            throw dberror
+          }
+        }
+    
+        setCommentSaved(true);
+        setCommentInfo({
+          name: "",
+          email: "",
+          title: "",
+          content: "",
+          rating: "",
+          user_id: payload.user_id,
+        });
+        captcha.current.resetCaptcha();
+      } catch (err) {
+        if (err?.code === "42501") {
+          setError("Has llegado al limite de comentarios por ahora");
+          console.error("Comment limit: ", err.message);
+        } else {
+          setError(err.message);
+          console.error(err);
+        }
+      } finally {
+        setLoading(false);
       }
       
-      const { data, error: dberror } = await supabase
-        .from("comments")
-        .insert([payload]);
-
-      if (dberror) {
-        if (dberror.code === "42501") {
-          setError("Has llegado al limite de comentarios por ahora");
-          throw dberror;
-        } else {
-          console.error("An unexpected error occurred:", dberror.message);
-          throw dberror
-        }
-      }
-
-      setCommentSaved(true);
-      setCommentInfo({
-        name: "",
-        email: "",
-        title: "",
-        content: "",
-        rating: "",
-        user_id: payload.user_id,
-      });
-      captcha.current.resetCaptcha();
-    } catch (err) {
-      if (err?.code === "42501") {
-        setError("Has llegado al limite de comentarios por ahora");
-        console.error("Comment limit: ", err.message);
-      } else {
-        setError(err.message);
-        console.error(err);
-      }
-    } finally {
-      setLoading(false);
     }
-  };
-  const [coords, setCoords] = useState(0);
+    
+  }, [captchaToken, isSubmitting]);
+  
 
   const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -236,6 +246,7 @@ const NewComment = () => {
               onVerify={(token) => {
                 setCaptchaToken(token);
               }}
+              size="invisible"
             />
             {error && (
               <p className="text-red-500 text-center italic">{error}</p>

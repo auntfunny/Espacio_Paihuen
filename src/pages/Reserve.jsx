@@ -17,6 +17,7 @@ const Reserve = () => {
     check_in: "",
     check_out: "",
     phone: "",
+    guests: 0,
     with_hot_tub: false,
     hot_tub_dates: [],
     user_id: "",
@@ -26,6 +27,9 @@ const Reserve = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [captchaToken, setCaptchaToken] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [totalNights, setTotalNights] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const captcha = useRef();
 
   useEffect(() => {
@@ -43,66 +47,90 @@ const Reserve = () => {
   };
 
   const handleSubmit = async (event) => {
+    if(clientInfo.guests === 0){
+      setError("Por favor, ingresa numero de húespedes")
+    }
     event.preventDefault();
     setError(null);
     setLoading(true);
-    if (!captchaToken) {
-      setError("Por favor, completa la captcha");
-      setLoading(false);
-      return;
-    }
-    try {
-      let payload = clientInfo;
+    setIsSubmitting(true);
 
-      if (!user && !authLoading) {
-        const { data, loginError } = await anonSignIn(captchaToken);
-        if (loginError) {
-          console.error(loginError);
-          captcha.current.resetCaptcha();
-          throw loginError;
-        }
-        payload = { ...payload, user_id: data.user.id };
-      }
-
-      const { data, error: dberror } = await supabase
-        .from("reservations")
-        .insert([payload]);
-
-      if (dberror) {
-        if (dberror.code === "42501") {
-          setError("Has llegado al limite de reservas por ahora");
-          throw dberror;
-        } else {
-          console.error("An unexpected error occurred:", dberror.message);
-          throw dberror;
-        }
-      }
-
-      setStayReserved(true);
-      setClientInfo({
-        name: "",
-        email: "",
-        check_in: "",
-        check_out: "",
-        phone: "",
-        with_hot_tub: false,
-        hot_tub_dates: [],
-        user_id: payload.user_id,
-      });
-      captcha.current.resetCaptcha();
-    } catch (err) {
-      if (err?.code === "42501") {
-        setError("Has llegado al limite de reservas por ahora");
-        console.error("Comment limit: ", err.message);
-      } else {
-        setError(err.message);
-        console.error(err);
-      }
-    } finally {
-      setLoading(false);
-    }
+    captcha.current.execute();
   };
 
+  useEffect(() => {
+    const completeSubmission = async () => {
+
+      if(!isSubmitting || !captchaToken) return;
+      try {
+        let payload = clientInfo;
+
+        if (!user && !authLoading) {
+          const { data, loginError } = await anonSignIn(captchaToken);
+          if (loginError) {
+            console.error(loginError);
+            captcha.current.resetCaptcha();
+            throw loginError;
+          }
+          payload = { ...payload, user_id: data.user.id };
+        }
+
+        const { data, error: dberror } = await supabase
+          .from("reservations")
+          .insert([payload]);
+
+        if (dberror) {
+          if (dberror.code === "42501") {
+            setError("Has llegado al limite de reservas por ahora");
+            throw dberror;
+          } else {
+            console.error("An unexpected error occurred:", dberror.message);
+            throw dberror;
+          }
+        }
+
+        setStayReserved(true);
+        setClientInfo({
+          name: "",
+          email: "",
+          check_in: "",
+          check_out: "",
+          phone: "",
+          guests: 0,
+          with_hot_tub: false,
+          hot_tub_dates: [],
+          user_id: payload.user_id,
+        });
+        captcha.current.resetCaptcha();
+      } catch (err) {
+        if (err?.code === "42501") {
+          setError("Has llegado al limite de reservas por ahora");
+          console.error("Comment limit: ", err.message);
+        } else {
+          setError(err.message);
+          console.error(err);
+        }
+      } finally {
+        setLoading(false);
+        setIsSubmitting(false);
+      }
+    };
+
+    completeSubmission();
+  }, [captchaToken, isSubmitting]);
+
+  useEffect(() => {
+    if(clientInfo.check_in && clientInfo.check_out){
+      const dateIn = new Date(clientInfo.check_in);
+      const dateOut = new Date(clientInfo.check_out);
+      setTotalNights ((dateOut - dateIn) / 86400000)
+    } 
+  }, [clientInfo.check_in, clientInfo.check_out]);
+
+  useEffect(() => {
+    setTotalPrice((60 * totalNights * Math.ceil(clientInfo.guests /3)) + (20 * clientInfo.hot_tub_dates.length))
+  }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests]);
+  
   const closeModal = () => {
     setStayReserved(false);
   };
@@ -238,6 +266,43 @@ const Reserve = () => {
                 />
               </div>
             </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-accgreendark uppercase ml-2 tracking-wider">
+                Huéspedes
+              </label>
+              <div className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 flex items-center justify-between gap-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (clientInfo.guests > 1) {
+                      setClientInfo({ ...clientInfo, guests: clientInfo.guests - 1 });
+                    }
+                  }}
+                  className="w-10 h-10 rounded-lg bg-linear-to-r from-accblue to-accgreendark text-white font-bold text-lg cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={clientInfo.guests <= 1}
+                >
+                  -
+                </button>
+                <span className="text-2xl font-bold text-accgray min-w-12 text-center">
+                  {clientInfo.guests}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (clientInfo.guests < 9) {
+                      setClientInfo({ ...clientInfo, guests: clientInfo.guests + 1 });
+                    }
+                  }}
+                  disabled={clientInfo.guests >= 9}
+                  className="w-10 h-10 rounded-lg bg-linear-to-r from-accblue to-accgreendark text-white font-bold text-lg cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  +
+                </button>
+              </div>
+              <p className="text-center text-xs text-accgray/50 italic pt-2">*Solo 3 húespedes por cabaña</p>
+            </div>
+
             <label
               htmlFor="with_hot_tub"
               className="flex justify-between items-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 px-8 focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -246,7 +311,7 @@ const Reserve = () => {
                 Tinaja
               </span>
               <input
-                value={clientInfo.with_hot_tub}
+                checked={clientInfo.with_hot_tub}
                 onChange={setInfo}
                 type="checkbox"
                 name="with_hot_tub"
@@ -282,6 +347,14 @@ const Reserve = () => {
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none text-accgray"
               />
             </div>
+            <div className="flex items-center gap-6">
+              <span className="text-xl italic font-title2 text-accgray">
+                Total:
+              </span>
+              <span className="text-2xl font-bold text-accgray">
+                ${totalPrice.toFixed(3)}
+              </span>
+            </div>
 
             <HCaptcha
               ref={captcha}
@@ -289,6 +362,7 @@ const Reserve = () => {
               onVerify={(token) => {
                 setCaptchaToken(token);
               }}
+              size="invisible"
             />
             {error && (
               <p className="text-red-500 text-center italic">{error}</p>

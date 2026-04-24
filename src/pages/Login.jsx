@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageHeader from "../components/PageHeader";
-import enter from "../assets/svg/login.svg"
+import enter from "../assets/svg/login.svg";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const Login = () => {
-  const {login, loading} = useAuth();
+  const { login, loading: authLoading } = useAuth();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
   const [togglePassword, setTogglePassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const captcha = useRef();
   const navigate = useNavigate();
 
   const setInfo = (event) => {
@@ -19,10 +25,32 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login(credentials);
-    navigate("/")
-    setCredentials({ email: "", password: "" });
+    setError(null);
+    setLoading(true);
+    setIsSubmitting(true);
+
+    captcha.current.execute();
   };
+
+  useEffect(() => {
+    const completeSubmission = async () => {
+      if (!captchaToken || !isSubmitting) return;
+
+      try {
+        const { data } = await login(credentials, captchaToken);
+
+        console.log("Welcome ", data.username);
+        navigate("/");
+      } catch (err) {
+        setError(err.message);
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    completeSubmission();
+  }, [captchaToken, isSubmitting]);
 
   const headerInfo = {
     image: enter,
@@ -61,7 +89,11 @@ const Login = () => {
                 required
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
               />
-              <button type="button" onClick={() => setTogglePassword(!togglePassword)} className="absolute top-3.25 right-6 text-accgreendark hover:text-accgreenlight hover:cursor-pointer transition-colors duration-300 ease-in-out">
+              <button
+                type="button"
+                onClick={() => setTogglePassword(!togglePassword)}
+                className="absolute top-3.25 right-6 text-accgreendark hover:text-accgreenlight hover:cursor-pointer transition-colors duration-300 ease-in-out"
+              >
                 {togglePassword ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -101,13 +133,26 @@ const Login = () => {
               </button>
             </div>
           </div>
+          <HCaptcha
+            ref={captcha}
+            sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
+            onVerify={(token) => {
+              setCaptchaToken(token);
+            }}
+            size="invisible"
+          />
 
+          {error && <p className="text-red-500 text-center italic">{error}</p>}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || authLoading}
             className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
           >
-            {loading ? <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div> : "Login"}
+            {loading || authLoading ? (
+              <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
       </div>

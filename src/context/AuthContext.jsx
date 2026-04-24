@@ -41,19 +41,22 @@ export function AuthProvider({ children }) {
     initializeAuth();
   }, []);
 
-  const login = async ({ email, password }) => {
+  const login = async ({ email, password }, captchaToken) => {
     setLoading(true);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: email,
+        password: password,
+        options: {
+          captchaToken,
+        },
       });
       if (error) throw error;
 
       const profile = await getProfileData(data.user.id);
 
       setUser(profile);
-      return data;
+      return profile;
     } catch (err) {
       console.error(err);
     } finally {
@@ -93,7 +96,9 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, anonSignIn, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, loading, login, anonSignIn, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

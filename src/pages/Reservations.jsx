@@ -1,9 +1,37 @@
-import enter from "../assets/svg/login.svg";
+import { useEffect, useState } from "react";
+import reservation from "../assets/svg/reservation.svg";
 import PageHeader from "../components/PageHeader";
+import { supabase } from "../lib/supabase";
 
 const Reservations = () => {
+  const [reservationData, setReservationData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getReservations = async () => {
+      setLoading(true);
+      try {
+        const { data, error: dberror } = await supabase
+          .from("reservations")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+          setReservationData(data);
+          console.log(data);
+      } catch (err) {
+        setError(err.message);
+        console.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getReservations();
+  }, []);
+
   const headerInfo = {
-    image: enter,
+    image: reservation,
     label: "Maneja Reservaciones",
     title: "Reservaciones",
     message:
@@ -25,11 +53,11 @@ const Reservations = () => {
               <div className="col-span-5 w-full h-1 rounded-full bg-linear-to-r from-accblue via-accgreendark to-accgreenlight"></div>
             </div>
             <div className="grid grid-cols-5 place-items-center pt-2">
-                <p>Juan Perez</p>
-                <p>123456789</p>
-                <p>Apr 27 2026</p>
-                <p>Apr 30 2026</p>
-                <p>Pendiente</p>
+              <p>Juan Perez</p>
+              <p>123456789</p>
+              <p>Apr 27 2026</p>
+              <p>Apr 30 2026</p>
+              <p>Pendiente</p>
             </div>
           </div>
         </div>
