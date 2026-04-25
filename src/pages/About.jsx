@@ -2,16 +2,31 @@ import { Link } from "react-router-dom";
 import ContactUs from "../components/ContactUs";
 import SectionHeaderDesign from "../components/SectionHeaderDesign";
 import PageHeader from "../components/PageHeader";
-import about from "../assets/svg/about.svg"
+import about from "../assets/svg/about.svg";
+import ActivityCard from "../components/ActivityCard";
 
 const About = () => {
-
+  const activities = [
+    {
+      title: "Tinaja Rústica Personal",
+      info: "Disfruta de un atardecer sentado en una tinaja caliente mirando al mar. Nuestras tinajas son calentadas a leña y personal por cada cabaña. Son perfectas para compartir un picadillo y un lindo puesto del sol",
+    },
+    {
+      title: "Kayak Personal y Doble",
+      info: "Explora el bahía Quillaipe en un kayak solo o con un compañero. Disfruta del lindo entorno y las aguas calmadas que tenemos aquí donde estamos protegidos de las olas fuertes."
+    },
+    {
+      title: "Espacio Central",
+      info: "Relajate en los espacios abiertos y pasea por nuestro hermoso Espacio Paihuen, disfrutando de los lindo pajaros como el Colibrí Chico que nos visitan todos los días",
+    }
+  ];
   const headerInfo = {
     image: about,
     label: "Carretera Austral, Chile",
     title: "Sobre Nosotros",
-    message: "Descubre la esencia de Espacio Paihuen, donde la naturaleza se encuentra con el confort"
-  }
+    message:
+      "Descubre la esencia de Espacio Paihuen, donde la naturaleza se encuentra con el confort",
+  };
 
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
@@ -241,6 +256,20 @@ const About = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-12 items-center justify-center w-full">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-3xl/6 md:text-4xl/6 font-bold text-accgray">
+              Nuestras Actividades
+            </h2>
+            <div className="w-16 h-1 bg-linear-to-r from-accgreenlight to-accblue rounded-full"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
+            {activities.map((activity, index) => (
+              <ActivityCard key={index} title={activity.title} info={activity.info} />
+            ))}
           </div>
         </section>
 

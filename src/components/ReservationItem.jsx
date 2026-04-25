@@ -34,7 +34,7 @@ const ReservationItem = ({ reservation, setActiveReservation }) => {
             reservation.confirmed ? "text-green-600" : "text-amber-600"
           }
         >
-          {reservation.confirmed ? "Confirmado" : "Pendiente"}
+          {reservation.confirmed ? "Confirmada" : "Pendiente"}
         </span>
       </td>
     </tr>
