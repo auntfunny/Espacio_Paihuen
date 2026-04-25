@@ -4,7 +4,6 @@ import PageHeader from "../components/PageHeader";
 import { supabase } from "../lib/supabase";
 import ReservationItem from "../components/ReservationItem";
 import ReservationInfoModal from "../components/ReservationInfoModal";
-import { preview } from "vite";
 
 const Reservations = () => {
   const [reservationData, setReservationData] = useState([]);
@@ -25,7 +24,7 @@ const Reservations = () => {
         if (dberror) throw dberror;
         setReservationData(data || []);
       } catch (err) {
-        setError(err.message || "Ocurrió un error inesperado");
+        setError("Ocurrió un error inesperado");
       } finally {
         setLoading(false);
       }
@@ -37,22 +36,22 @@ const Reservations = () => {
   const toggleStatus = async ({ resId, resStatus }) => {
     setUpdateLoading(true);
     try {
-      const { data, error } = await supabase
+      const { data, error: dberror } = await supabase
         .from("reservations")
         .update({ confirmed: resStatus })
         .eq("reservation_id", resId)
         .select()
         .single();
 
-      console.log(data);
+      if (dberror) {
+        setError("Ocurrió un error inesperado");
+        throw dberror;
+      }
 
-      const resIndex = reservationData.findIndex(
-        (reserve) => reserve.reservation_id === data.reservation_id,
-      );
 
-      setReservationData((prev) => (prev[resIndex].confirmed = resStatus));
+      setReservationData((prev) => prev.map((item) => (item.reservation_id === resId ? data : item)));
     } catch (err) {
-      setError(err.message);
+      setError("Ocurrió un error inesperado");
       console.error(err);
     } finally {
       setUpdateLoading(false);
@@ -70,6 +69,7 @@ const Reservations = () => {
     message:
       "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
   };
+
 
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
@@ -98,7 +98,7 @@ const Reservations = () => {
                 </tr>
               </thead>
               <tbody>
-                {!loading && reservationData.length > 0 ? (
+                {!loading && reservationData?.length > 0 ? (
                   reservationData.map((item) => (
                     <ReservationItem
                       key={item.reservation_id}

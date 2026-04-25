@@ -126,9 +126,14 @@ const ReservationInfoModal = ({
 
         <button
           onClick={onClose}
-          className="w-full mt-1 bg-linear-to-r from-accblue to-accgreendark text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base shadow-lg hover:scale-[1.02] transition-all"
+          disabled={loading}
+          className="flex justify-center items-center w-full mt-1 bg-linear-to-r from-accblue to-accgreendark text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base shadow-lg hover:scale-[1.02] transition-all disabled:cursor-wait hover:cursor-pointer"
         >
-          {loading ? "Cargando..." : "Cerrar"}
+          {loading ? (
+            <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+          ) : (
+            "Cerrar"
+          )}
         </button>
       </div>
     </div>
