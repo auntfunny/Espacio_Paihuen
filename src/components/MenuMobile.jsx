@@ -58,7 +58,7 @@ const MenuMobile = () => {
           onClick={handleClick}
           className="relative py-3 px-4 border-b border-acclight/30 text-accgray font-medium hover:text-accblue hover:bg-accblue/5 focus:outline-none focus:ring-2 focus:ring-accblue/50 transition-all duration-300 ease-out group"
         >
-          Atracciones
+          Attracciones
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-accblue to-accgreenlight group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
         </Link>
         <Link
