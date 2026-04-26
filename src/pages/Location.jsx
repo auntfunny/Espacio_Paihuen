@@ -121,6 +121,7 @@ const Location = () => {
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                allow="unload"
               ></iframe>
             </div>
             <div className="text-center mt-8">

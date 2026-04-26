@@ -10,15 +10,21 @@ const About = () => {
     {
       title: "Tinaja Rústica Personal",
       info: "Disfruta de un atardecer sentado en una tinaja caliente mirando al mar. Nuestras tinajas son calentadas a leña y personal por cada cabaña. Son perfectas para compartir un picadillo y un lindo puesto del sol",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_mwoL1L4YjtedG3nvnQsliiMdzaxZlKlcSg&s",
     },
     {
       title: "Kayak Personal y Doble",
-      info: "Explora el bahía Quillaipe en un kayak solo o con un compañero. Disfruta del lindo entorno y las aguas calmadas que tenemos aquí donde estamos protegidos de las olas fuertes."
+      info: "Explora el bahía Quillaipe en un kayak solo o con un compañero. Disfruta del lindo entorno y las aguas calmadas que tenemos aquí donde estamos protegidos de las olas fuertes.",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBRr2wnfIWgKIAAYPDhWKK6w6cuatmW06YSA&s",
     },
     {
       title: "Espacio Central",
       info: "Relajate en los espacios abiertos y pasea por nuestro hermoso Espacio Paihuen, disfrutando de los lindo pajaros como el Colibrí Chico que nos visitan todos los días",
-    }
+      image:
+        "https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Reja_de_Frente_2_tdmugg.jpg",
+    },
   ];
   const headerInfo = {
     image: about,
@@ -259,16 +265,130 @@ const About = () => {
           </div>
         </section>
 
+        <section className="w-full max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
+                <img
+                  src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Reja_de_Frente_2_tdmugg.jpg"
+                  alt="Paneles solares y naturaleza"
+                  className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
+                <div className="absolute bottom-4 left-4 bg-acclight/90 backdrop-blur-sm px-4 py-2 rounded-full border border-acclight/30">
+                  <span className="text-sm font-medium text-accgray">
+                    Energía Sostenible
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h2 className="text-3xl/6 md:text-4xl/6 font-bold text-accgray">
+                  Nuestro Compromiso Ambiental
+                </h2>
+                <div className="w-16 h-1 bg-linear-to-r from-accgreenlight to-accblue rounded-full"></div>
+              </div>
+
+              <p className="text-accgray/80 md:text-lg/7">
+                En Espacio Paihuen, creemos que el verdadero lujo es vivir en
+                armonía con la naturaleza. Por eso, todas nuestras cabañas
+                funcionan con energía solar, permitiéndote disfrutar de todas
+                las comodidades modernas sin impactar negativamente el entorno.
+              </p>
+
+              <p className="text-accgray/80 md:text-lg/7">
+                Además, contamos con nuestro propio pozo de agua, lo que nos
+                permite ser completamente autosuficientes y reducir nuestra
+                huella ambiental. Cada gota de agua que utilizamos proviene de
+                fuentes naturales protegidas, asegurando la calidad y
+                sostenibilidad de nuestras operaciones.
+              </p>
+
+              <p className="text-accgray/80 md:text-lg/7">
+                Tu estancia con nosotros contribuye a la preservación del medio
+                ambiente, permitiéndote viajar con conciencia ambiental mientras
+                disfrutas de la máxima comodidad en uno de los lugares más
+                hermosos de Chile.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="bg-linear-to-br from-acclight to-acclight/80 p-4 rounded-2xl border border-acclight/30">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-linear-to-br text-acclight from-accgreenlight to-accgreendark rounded-full flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-5"
+                      >
+                        <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-accgray">
+                        Energía Solar
+                      </div>
+                      <div className="text-xs text-accgray/70">
+                        100% Renovable
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-linear-to-br from-acclight to-acclight/80 p-4 rounded-2xl border border-acclight/30">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-linear-to-br from-accblue to-accgreendark rounded-full flex items-center justify-center">
+                      <svg
+                      className="text-acclight size-5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                      >
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></g>
+                        <g id="SVGRepo_iconCarrier">
+                          {" "}
+                          <path d="M12,20a6,6,0,0,1-6-6c0-4,6-10.8,6-10.8S18,10,18,14A6,6,0,0,1,12,20Z"></path>{" "}
+                          <rect width="24" height="24" fill="none"></rect>{" "}
+                        </g>
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-accgray">
+                        Agua de Pozo
+                      </div>
+                      <div className="text-xs text-accgray/70">
+                        Pura y Natural
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="flex flex-col gap-12 items-center justify-center w-full">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-4">
             <h2 className="text-3xl/6 md:text-4xl/6 font-bold text-accgray">
               Nuestras Actividades
             </h2>
-            <div className="w-16 h-1 bg-linear-to-r from-accgreenlight to-accblue rounded-full"></div>
+            <div className="w-24 h-1 bg-linear-to-r from-accgreenlight to-accblue rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
             {activities.map((activity, index) => (
-              <ActivityCard key={index} title={activity.title} info={activity.info} />
+              <ActivityCard
+                key={index}
+                title={activity.title}
+                info={activity.info}
+                image={activity.image}
+              />
             ))}
           </div>
         </section>

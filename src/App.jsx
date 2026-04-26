@@ -5,7 +5,7 @@ import Photos from "./pages/Photos";
 import About from "./pages/About";
 import Reserve from "./pages/Reserve";
 import MainLayout from "./layouts/MainLayout";
-import Atractions from "./pages/Atractions";
+import Attractions from "./pages/Attractions";
 import NewComment from "./pages/NewComment";
 import { useEffect } from "react";
 import Contact from "./pages/Contact";
@@ -29,7 +29,7 @@ function App() {
           <Route path="/location" element={<Location />} />
           <Route path="/reserve" element={<Reserve />} />
           <Route path="/photos" element={<Photos />} />
-          <Route path="/atractions" element={<Atractions />} />
+          <Route path="/attractions" element={<Attractions />} />
           <Route path="/newcomment" element={<NewComment />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
