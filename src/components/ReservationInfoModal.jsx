@@ -8,8 +8,8 @@ const ReservationInfoModal = ({
 }) => {
   if (!reservation) return null;
 
-  const dateIn = new Date(reservation.check_in);
-  const dateOut = new Date(reservation.check_out);
+  const dateIn = new Date(reservation.check_in.replace(/-/g, '/'));
+  const dateOut = new Date(reservation.check_out.replace(/-/g, '/'));
   const days = (dateOut - dateIn) / 86400000;
   const price =
     60 * days * Math.ceil(reservation.guests / 3) +
