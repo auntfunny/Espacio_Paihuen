@@ -9,8 +9,6 @@ const ReservationItem = ({ reservation, setActiveReservation }) => {
     .toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
     .replace('.', ''),
   };
-  console.log(reservation);
-  console.log(formattedDates);
 
   if (!reservation) return null;
 
@@ -21,8 +19,8 @@ const ReservationItem = ({ reservation, setActiveReservation }) => {
     >
       <td className="p-2 text-center">{reservation.name || "Sin nombre"}</td>
       <td className="p-2 text-center">{reservation.phone || "Sin número"}</td>
-      <td className="p-2 text-center">{formattedDates.in}</td>
-      <td className="p-2 text-center">{formattedDates.out}</td>
+      <td className="p-2 text-center capitalize">{formattedDates.in}</td>
+      <td className="p-2 text-center capitalize">{formattedDates.out}</td>
       <td className="p-2 text-center">
         <span
           className={
