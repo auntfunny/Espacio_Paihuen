@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 
 const ReservationItem = ({ reservation, setActiveReservation }) => {
   const formattedDates = {
-    in: new Date(reservation.check_in.replace(/-/g, '/')).toUTCString(),
-    out: new Date(reservation.check_out.replace(/-/g, '/')).toUTCString(),
+    in: new Date(reservation.check_in.replace(/-/g, '/')).toUTCString().split(" ").slice(0,4),
+    out: new Date(reservation.check_out.replace(/-/g, '/')).toUTCString().split(" ").slice(0,4),
   };
   console.log(reservation);
   console.log(formattedDates);
-  
+
   if (!reservation) return null;
 
   return (
