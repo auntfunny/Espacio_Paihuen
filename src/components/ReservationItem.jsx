@@ -1,24 +1,13 @@
 import { useState, useEffect } from "react";
 
 const ReservationItem = ({ reservation, setActiveReservation }) => {
-  const [formattedDates, setFormattedDates] = useState({
-    in: "...",
-    out: "...",
-  });
+  const formattedDates = {
+    in: new Date(reservation.check_in.replace(/-/g, '/')).toUTCString(),
+    out: new Date(reservation.check_out.replace(/-/g, '/')).toUTCString(),
+  };
   console.log(reservation);
   console.log(formattedDates);
-
-  useEffect(() => {
-    setFormattedDates({
-      in: reservation.check_in
-        ? new Date(reservation.check_in).toDateString()
-        : "N/A",
-      out: reservation.check_out
-        ? new Date(reservation.check_out).toDateString()
-        : "N/A",
-    });
-  }, [reservation.check_in, reservation.check_out]);
-
+  
   if (!reservation) return null;
 
   return (
