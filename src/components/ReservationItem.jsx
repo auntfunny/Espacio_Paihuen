@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
 
 const ReservationItem = ({ reservation, setActiveReservation }) => {
-  const [formattedDates, setFormattedDates] = useState({
-    in: "...",
-    out: "...",
-  });
-
-  useEffect(() => {
-    setFormattedDates({
-      in: reservation.check_in
-        ? new Date(reservation.check_in).toDateString()
-        : "N/A",
-      out: reservation.check_out
-        ? new Date(reservation.check_out).toDateString()
-        : "N/A",
-    });
-  }, [reservation.check_in, reservation.check_out]);
+  const formattedDates = {
+    in: new Date(reservation.check_in.replace(/-/g, '/'))
+    .toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+    .replace('.', ''), 
+  out: new Date(reservation.check_out.replace(/-/g, '/'))
+    .toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+    .replace('.', ''),
+  };
 
   if (!reservation) return null;
 
@@ -26,8 +19,8 @@ const ReservationItem = ({ reservation, setActiveReservation }) => {
     >
       <td className="p-2 text-center">{reservation.name || "Sin nombre"}</td>
       <td className="p-2 text-center">{reservation.phone || "Sin número"}</td>
-      <td className="p-2 text-center">{formattedDates.in}</td>
-      <td className="p-2 text-center">{formattedDates.out}</td>
+      <td className="p-2 text-center capitalize">{formattedDates.in}</td>
+      <td className="p-2 text-center capitalize">{formattedDates.out}</td>
       <td className="p-2 text-center">
         <span
           className={

@@ -8,8 +8,8 @@ const ReservationInfoModal = ({
 }) => {
   if (!reservation) return null;
 
-  const dateIn = new Date(reservation.check_in);
-  const dateOut = new Date(reservation.check_out);
+  const dateIn = new Date(reservation.check_in.replace(/-/g, '/'));
+  const dateOut = new Date(reservation.check_out.replace(/-/g, '/'));
   const days = (dateOut - dateIn) / 86400000;
   const price =
     60 * days * Math.ceil(reservation.guests / 3) +
@@ -51,14 +51,28 @@ const ReservationInfoModal = ({
           <div className="flex gap-2 sm:gap-3">
             <div className="flex-1 bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
               <p className="text-xs font-bold text-accgreendark">LLEGADA</p>
-              <p className="text-xs sm:text-sm font-medium">
-                {dateIn.toDateString()}
+              <p className="text-xs sm:text-sm font-medium capitalize">
+                {dateIn
+                  .toLocaleDateString("es-ES", {
+                    weekday: "short",
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })
+                  .replace(".", "")}
               </p>
             </div>
             <div className="flex-1 bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
               <p className="text-xs font-bold text-accgreendark">SALIDA</p>
-              <p className="text-xs sm:text-sm font-medium">
-                {dateOut.toDateString()}
+              <p className="text-xs sm:text-sm font-medium capitalize">
+                {dateOut
+                  .toLocaleDateString("es-ES", {
+                    weekday: "short",
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })
+                  .replace(".", "")}
               </p>
             </div>
           </div>
