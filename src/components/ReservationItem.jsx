@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 
 const ReservationItem = ({ reservation, setActiveReservation }) => {
   const formattedDates = {
-    in: new Date(reservation.check_in.replace(/-/g, '/')).toUTCString().split(" ").slice(0,4),
-    out: new Date(reservation.check_out.replace(/-/g, '/')).toUTCString().split(" ").slice(0,4),
+    in: new Date(reservation.check_in.replace(/-/g, '/'))
+    .toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+    .replace('.', ''), 
+  out: new Date(reservation.check_out.replace(/-/g, '/'))
+    .toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+    .replace('.', ''),
   };
   console.log(reservation);
   console.log(formattedDates);
