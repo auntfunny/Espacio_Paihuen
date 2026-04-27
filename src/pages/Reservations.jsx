@@ -21,7 +21,7 @@ const Reservations = () => {
         const { data, error: dberror } = await supabase
           .from("reservations")
           .select("*")
-          .lte('check_in', today)
+          .gte('check_in', today)
           .order("check_in", { ascending: true });
 
         if (dberror) throw dberror;
