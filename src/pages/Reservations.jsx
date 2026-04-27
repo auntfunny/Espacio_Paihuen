@@ -13,12 +13,15 @@ const Reservations = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
 
   useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    console.log(today > "2026-05-03");
     const getReservations = async () => {
       setLoading(true);
       try {
         const { data, error: dberror } = await supabase
           .from("reservations")
           .select("*")
+          .lte('check_in', today)
           .order("check_in", { ascending: true });
 
         if (dberror) throw dberror;
@@ -48,8 +51,9 @@ const Reservations = () => {
         throw dberror;
       }
 
-
-      setReservationData((prev) => prev.map((item) => (item.reservation_id === resId ? data : item)));
+      setReservationData((prev) =>
+        prev.map((item) => (item.reservation_id === resId ? data : item)),
+      );
     } catch (err) {
       setError("Ocurrió un error inesperado");
       console.error(err);
@@ -69,7 +73,6 @@ const Reservations = () => {
     message:
       "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
   };
-
 
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
