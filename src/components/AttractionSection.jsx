@@ -4,7 +4,23 @@ const AttractionSection = ({ attraction, style }) => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div
-        className={`flex flex-col gap-6 ${style === 0 ? "order-2 lg:order-1" : "lg:order-2"}`}
+        className={`relative ${style === 0 ? "lg:order-2" : "lg:order-1"} group`}
+      >
+        <div className="overflow-hidden rounded-3xl shadow-xl">
+          <img
+            src={attraction.image}
+            alt={attraction.title}
+            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+        <div
+          className={`absolute top-4 ${style === 0 ? "right-4" : "left-4"} bg-acclight/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-bold text-accgray`}
+        >
+          {attraction.distance} DE DISTANCIA
+        </div>
+      </div>
+      <div
+        className={`flex flex-col gap-6 ${style === 0 ? " lg:order-1" : "lg:order-2"}`}
       >
         <div className="flex flex-col gap-4">
           <h2 className="text-3xl md:text-4xl font-bold text-accgray">
@@ -36,22 +52,6 @@ const AttractionSection = ({ attraction, style }) => {
             </svg>
           </a>
         )}
-      </div>
-      <div
-        className={`relative ${style === 0 ? "order-1 lg:order-2" : "lg:order-1"} group`}
-      >
-        <div className="overflow-hidden rounded-3xl shadow-xl">
-          <img
-            src={attraction.image}
-            alt={attraction.title}
-            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-        </div>
-        <div
-          className={`absolute top-4 ${style === 0 ? "right-4" : "left-4"} bg-acclight/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-bold text-accgray`}
-        >
-          {attraction.distance} DE DISTANCIA
-        </div>
       </div>
     </section>
   );
