@@ -5,6 +5,8 @@ const ReservationItem = ({ reservation, setActiveReservation }) => {
     in: "...",
     out: "...",
   });
+  console.log(reservation);
+  console.log(formattedDates);
 
   useEffect(() => {
     setFormattedDates({
