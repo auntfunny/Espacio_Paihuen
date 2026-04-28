@@ -9,7 +9,7 @@ const MainFeatures = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-accgreendark/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-8 w-full max-w-7xl mx-auto">
+      <div className="relative z-10 flex flex-wrap justify-center items-center gap-12 lg:gap-8 w-full max-w-7xl mx-auto">
         <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img

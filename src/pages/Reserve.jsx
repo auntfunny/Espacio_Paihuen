@@ -7,8 +7,14 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_green.css";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useReservation } from "../hooks/useReservation";
+import PricesSection from "../components/PricesSection";
 
 const Reserve = () => {
+  const [prices, setPrices] = useState({
+    night: 60.0,
+    hot_tub: 20.0,
+    kayak: 5.0,
+  });
   const {
     clientInfo,
     setClientInfo,
@@ -24,13 +30,9 @@ const Reserve = () => {
     setInfo,
     handleSubmit,
     closeModal,
-  } = useReservation();
+  } = useReservation(prices);
 
-  const [prices, setPrices] = useState({
-    night: 60.0,
-    hot_tub: 20.0,
-    kayak: 5.0,
-  });
+
 
   const headerInfo = {
     image: calendar,
@@ -67,32 +69,7 @@ const Reserve = () => {
               Nosotros ofrecemos varios servicios para nuestros clientes. Aquí
               puedes ver los precios antes de hacer tu reserva.
             </p>
-            <div className="w-full self-center max-w-lg bg-linear-to-br p-4 rounded-2xl from-accgreendark/20 to-acclight/70 shadow-md">
-              <ul className="w-full text-accgray">
-                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center border-b border-accgreendark">
-                  <span className="italic">
-                    Precio por noche para hasta 3 personas:
-                  </span>
-                  <span className="text-xl">
-                    ${prices.night.toFixed(3)} CLP
-                  </span>
-                </li>
-                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center border-b border-accgreendark">
-                  <span className="italic">Precio para la tinaja rústica:</span>
-                  <span className="text-xl">
-                    ${prices.hot_tub.toFixed(3)} CLP
-                  </span>
-                </li>
-                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center">
-                  <span className="italic">
-                    Precio por hora de uso de kayak por persona:
-                  </span>
-                  <span className="text-xl">
-                    ${prices.kayak.toFixed(3)} CLP
-                  </span>
-                </li>
-              </ul>
-            </div>
+            <PricesSection prices={prices} setPrices={setPrices} />
             <p className="text-accgray/50 italic text-xs text-center">
               *Los kayak estan sujeto a disponibilidad en el momento, no se
               pueden reservar

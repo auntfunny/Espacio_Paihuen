@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
 
-export const useReservation = () => {
+export const useReservation = (prices) => {
   const { user, loading: authLoading, anonSignIn } = useAuth();
   
   const [clientInfo, setClientInfo] = useState({
@@ -44,8 +44,8 @@ export const useReservation = () => {
 
   useEffect(() => {
     setTotalPrice(
-      60 * totalNights * Math.ceil(clientInfo.guests / 3) +
-        20 * clientInfo.hot_tub_dates.length
+      prices.night * totalNights * Math.ceil(clientInfo.guests / 3) +
+        prices.hot_tub * clientInfo.hot_tub_dates.length
     );
   }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests]);
 
