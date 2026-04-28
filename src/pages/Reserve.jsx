@@ -15,6 +15,7 @@ const Reserve = () => {
     stayReserved,
     loading,
     error,
+    setError,
     setCaptchaToken,
     totalPrice,
     captcha,

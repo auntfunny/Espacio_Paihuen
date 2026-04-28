@@ -21,6 +21,7 @@ export const useReservation = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [captchaToken, setCaptchaToken] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [totalNights, setTotalNights] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   
@@ -60,42 +61,80 @@ export const useReservation = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (clientInfo.guests === 0) return setError("Por favor, ingresa número de huéspedes");
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const token = await captcha.current.execute(); 
-      
-      let currentUserId = user?.id;
-
-      if (!currentUserId && !authLoading) {
-        const { data, error: loginError } = await anonSignIn(token);
-        if (loginError) throw loginError;
-        currentUserId = data.user.id;
-      }
-
-      const payload = { 
-        ...clientInfo, 
-        user_id: currentUserId || null 
-      };
-
-      const { error: dberror } = await supabase
-        .from("reservations")
-        .insert([payload]);
-
-      if (dberror) throw dberror;
-
-      setStayReserved(true);
-      resetForm(currentUserId);
-    } catch (err) {
-      setError(err.code === "42501" ? "Has llegado al límite de reservas" : err.message);
-    } finally {
-      setLoading(false);
-      captcha.current.resetCaptcha();
+    
+    if (clientInfo.guests === 0) {
+      setError("Por favor, ingresa numero de húespedes");
+      return;
     }
+    
+    setError(null);
+    setLoading(true);
+    setIsSubmitting(true);
+    captcha.current.execute();
   };
+
+  useEffect(() => {
+    const completeSubmission = async () => {
+      if (!isSubmitting || !captchaToken) return;
+
+      try {
+        let payload = clientInfo;
+
+        if (!user && !authLoading) {
+          const { data, loginError } = await anonSignIn(captchaToken);
+          if (loginError) {
+            console.error(loginError);
+            captcha.current.resetCaptcha();
+            throw loginError;
+          }
+          payload = { ...payload, user_id: data.user.id };
+        }
+
+        const { data, error: dberror } = await supabase
+          .from("reservations")
+          .insert([payload]);
+
+        if (dberror) {
+          if (dberror.code === "42501") {
+            setError("Has llegado al limite de reservas por ahora");
+            throw dberror;
+          } else {
+            console.error("An unexpected error occurred:", dberror.message);
+            throw dberror;
+          }
+        }
+
+        // Success
+        setStayReserved(true);
+        setClientInfo({
+          name: "",
+          email: "",
+          check_in: "",
+          check_out: "",
+          phone: "",
+          guests: 0,
+          with_hot_tub: false,
+          hot_tub_dates: [],
+          user_id: payload.user_id,
+        });
+        captcha.current.resetCaptcha();
+      } catch (err) {
+        if (err?.code === "42501") {
+          setError("Has llegado al limite de reservas por ahora");
+          console.error("Comment limit: ", err.message);
+        } else {
+          setError(err.message);
+          console.error(err);
+        }
+      } finally {
+        setLoading(false);
+        setIsSubmitting(false);
+        setCaptchaToken(null);
+      }
+    };
+
+    completeSubmission();
+  }, [captchaToken, isSubmitting, user, authLoading]);
 
   const resetForm = (uid) => {
     setClientInfo({
@@ -116,6 +155,7 @@ export const useReservation = () => {
     stayReserved,
     loading,
     error,
+    setError,
     setCaptchaToken,
     totalPrice,
     captcha,
