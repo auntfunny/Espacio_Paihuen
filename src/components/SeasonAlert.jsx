@@ -178,7 +178,7 @@ const SeasonAlert = () => {
           {hasEdited && (
             <button
               onClick={handleConfirmEdit}
-              className="flex justify-center items-center w-50 mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
+              className="flex justify-center items-center w-50 mx-auto my-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
               {editLoading ? (
                 <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
