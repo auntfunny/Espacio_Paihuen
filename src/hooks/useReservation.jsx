@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabase";
 
 export const useReservation = (pageData) => {
   const { user, loading: authLoading, anonSignIn } = useAuth();
-  
+
   const [clientInfo, setClientInfo] = useState({
     name: "",
     email: "",
@@ -24,7 +24,7 @@ export const useReservation = (pageData) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [totalNights, setTotalNights] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  
+
   const captcha = useRef();
   const today = new Date().toISOString().split("T")[0];
 
@@ -43,17 +43,19 @@ export const useReservation = (pageData) => {
   }, [clientInfo.check_in, clientInfo.check_out]);
 
   useEffect(() => {
-    if(pageData){
+    if (pageData) {
       setTotalPrice(
-        Number(pageData?.night) * totalNights * Math.ceil(clientInfo.guests / 3) +
-          Number(pageData?.hot_tub) * clientInfo.hot_tub_dates.length
+        Number(pageData?.night) *
+          totalNights *
+          Math.ceil(clientInfo.guests / 3) +
+          Number(pageData?.hot_tub) * clientInfo.hot_tub_dates.length,
       );
     }
   }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests, pageData]);
 
   const setInfo = (event) => {
     const { name, value, checked, type } = event.target;
-    
+
     if (type === "checkbox") {
       setClientInfo((prev) => ({ ...prev, [name]: checked }));
     } else {
@@ -63,12 +65,12 @@ export const useReservation = (pageData) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     if (clientInfo.guests === 0) {
       setError("Por favor, ingresa numero de húespedes");
       return;
     }
-    
+
     setError(null);
     setLoading(true);
     setIsSubmitting(true);
@@ -97,27 +99,22 @@ export const useReservation = (pageData) => {
           .insert([payload]);
 
         if (dberror) {
-          if (dberror.code === "42501") {
-            setError("Has llegado al limite de reservas por ahora");
-            throw dberror;
-          } else {
-            console.error("An unexpected error occurred:", dberror.message);
-            throw dberror;
-          }
+          throw dberror;
+        } else {
+          setStayReserved(true);
+          setClientInfo({
+            name: "",
+            email: "",
+            check_in: "",
+            check_out: "",
+            phone: "",
+            guests: 0,
+            with_hot_tub: false,
+            hot_tub_dates: [],
+            user_id: payload.user_id,
+          });
         }
 
-        setStayReserved(true);
-        setClientInfo({
-          name: "",
-          email: "",
-          check_in: "",
-          check_out: "",
-          phone: "",
-          guests: 0,
-          with_hot_tub: false,
-          hot_tub_dates: [],
-          user_id: payload.user_id,
-        });
         captcha.current.resetCaptcha();
       } catch (err) {
         if (err?.code === "42501") {
@@ -139,9 +136,15 @@ export const useReservation = (pageData) => {
 
   const resetForm = (uid) => {
     setClientInfo({
-      name: "", email: "", check_in: "", check_out: "", phone: "",
-      guests: 0, with_hot_tub: false, hot_tub_dates: [],
-      user_id: uid, 
+      name: "",
+      email: "",
+      check_in: "",
+      check_out: "",
+      phone: "",
+      guests: 0,
+      with_hot_tub: false,
+      hot_tub_dates: [],
+      user_id: uid,
     });
   };
 
