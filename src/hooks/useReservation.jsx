@@ -66,7 +66,7 @@ export const useReservation = () => {
     setError(null);
 
     try {
-      const token = await captcha.current.execute({ async: true }); 
+      const token = await captcha.current.execute(); 
       
       let currentUserId = user?.id;
 
@@ -116,10 +116,7 @@ export const useReservation = () => {
     stayReserved,
     loading,
     error,
-    setError,
-    captchaToken,
     setCaptchaToken,
-    totalNights,
     totalPrice,
     captcha,
     today,
