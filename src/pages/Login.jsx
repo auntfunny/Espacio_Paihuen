@@ -42,7 +42,7 @@ const Login = () => {
         console.log("Welcome ", profile?.username);
         navigate("/");
       } catch (err) {
-        if (err.code === 400) {
+        if (err.message === "Invalid login credentials") {
           setError("Correo o contraseña incorrecto");
         } else {
           setError(err.message);
