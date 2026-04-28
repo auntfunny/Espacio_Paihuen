@@ -36,7 +36,7 @@ const PricesSection = () => {
                 value={pageData?.night}
                 onChange={setInfo}
                 onBlur={resetActiveEdit}
-                className="w-30 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
+                className="w-30 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             ) : (
               <span className="text-xl">
@@ -65,7 +65,7 @@ const PricesSection = () => {
                 value={pageData?.hot_tub}
                 onChange={setInfo}
                 onBlur={resetActiveEdit}
-                className="w-30 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
+                className="w-30 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             ) : (
               <span className="text-xl">
@@ -96,7 +96,7 @@ const PricesSection = () => {
                 value={pageData?.kayak}
                 onChange={setInfo}
                 onBlur={resetActiveEdit}
-                className="w-30 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
+                className="w-30 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             ) : (
               <span className="text-xl">

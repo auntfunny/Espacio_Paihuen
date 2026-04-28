@@ -82,7 +82,7 @@ export const InfoProvider = ({ children }) => {
     setError(null);
     setEditLoading(true);
     try {
-        const { error: dberror } = await supabase.from("page_info").update(pageData).eq("page_info_id", pageData.page_info_id);
+        const { error: dberror } = await supabase.from("page_info").update({...pageData, edited_at: new Date().toISOString()}).eq("page_info_id", pageData.page_info_id);
 
         if(dberror){
             throw dberror;
