@@ -28,12 +28,14 @@ export const useReservation = () => {
   const captcha = useRef();
   const today = new Date().toISOString().split("T")[0];
 
+  // Update user_id when user changes
   useEffect(() => {
     if (user?.id) {
       setClientInfo((prev) => ({ ...prev, user_id: user.id }));
     }
   }, [user]);
 
+  // Update total nights when dates change
   useEffect(() => {
     if (clientInfo.check_in && clientInfo.check_out) {
       const dateIn = new Date(clientInfo.check_in);
@@ -42,6 +44,7 @@ export const useReservation = () => {
     }
   }, [clientInfo.check_in, clientInfo.check_out]);
 
+  // Calculate total price
   useEffect(() => {
     setTotalPrice(
       60 * totalNights * Math.ceil(clientInfo.guests / 3) +
@@ -49,6 +52,7 @@ export const useReservation = () => {
     );
   }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests]);
 
+  // Handle form input changes
   const setInfo = (event) => {
     const { name, value, checked, type } = event.target;
     
@@ -59,6 +63,7 @@ export const useReservation = () => {
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -157,6 +162,7 @@ export const useReservation = () => {
     error,
     setError,
     setCaptchaToken,
+    totalNights,
     totalPrice,
     captcha,
     today,
