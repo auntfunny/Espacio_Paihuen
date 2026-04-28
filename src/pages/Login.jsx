@@ -37,12 +37,16 @@ const Login = () => {
       if (!captchaToken || !isSubmitting) return;
 
       try {
-        const profile  = await login(credentials, captchaToken);
+        const profile = await login(credentials, captchaToken);
 
-        console.log("Welcome ", profile.username);
+        console.log("Welcome ", profile?.username);
         navigate("/");
       } catch (err) {
-        setError(err.message);
+        if (err.message === "Invalid login credentials") {
+          setError("Correo o contraseña incorrecto");
+        } else {
+          setError(err.message);
+        }
         console.error(err);
       } finally {
         setLoading(false);

@@ -5,135 +5,34 @@ import calendar from "../assets/svg/calendar.svg";
 import SuccessModal from "../components/SuccessModal";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_green.css";
-import { useAuth } from "../context/AuthContext";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
-import { supabase } from "../lib/supabase";
+import { useReservation } from "../hooks/useReservation";
+import PricesSection from "../components/PricesSection";
 
 const Reserve = () => {
-  const { user, setUser, loading: authLoading, anonSignIn } = useAuth();
-  const [clientInfo, setClientInfo] = useState({
-    name: "",
-    email: "",
-    check_in: "",
-    check_out: "",
-    phone: "",
-    guests: 0,
-    with_hot_tub: false,
-    hot_tub_dates: [],
-    user_id: "",
+  const [prices, setPrices] = useState({
+    night: 60.0,
+    hot_tub: 20.0,
+    kayak: 5.0,
   });
-  const [stayReserved, setStayReserved] = useState(false);
-  const today = new Date().toISOString().split("T")[0];
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [captchaToken, setCaptchaToken] = useState();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [totalNights, setTotalNights] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const captcha = useRef();
+  const {
+    clientInfo,
+    setClientInfo,
+    stayReserved,
+    loading,
+    error,
+    setError,
+    setCaptchaToken,
+    totalPrice,
+    captcha,
+    today,
+    authLoading,
+    setInfo,
+    handleSubmit,
+    closeModal,
+  } = useReservation(prices);
 
-  useEffect(() => {
-    if (user?.id) {
-      setClientInfo({ ...clientInfo, user_id: user.id });
-    }
-  }, [user]);
 
-  const setInfo = (event) => {
-    if (event.target.name === "with_hot_tub") {
-      setClientInfo({ ...clientInfo, with_hot_tub: event.target.checked });
-    } else {
-      setClientInfo({ ...clientInfo, [event.target.name]: event.target.value });
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    if(clientInfo.guests === 0){
-      setError("Por favor, ingresa numero de húespedes")
-    }
-    event.preventDefault();
-    setError(null);
-    setLoading(true);
-    setIsSubmitting(true);
-
-    captcha.current.execute();
-  };
-
-  useEffect(() => {
-    const completeSubmission = async () => {
-
-      if(!isSubmitting || !captchaToken) return;
-      try {
-        let payload = clientInfo;
-
-        if (!user && !authLoading) {
-          const { data, loginError } = await anonSignIn(captchaToken);
-          if (loginError) {
-            console.error(loginError);
-            captcha.current.resetCaptcha();
-            throw loginError;
-          }
-          payload = { ...payload, user_id: data.user.id };
-        }
-
-        const { data, error: dberror } = await supabase
-          .from("reservations")
-          .insert([payload]);
-
-        if (dberror) {
-          if (dberror.code === "42501") {
-            setError("Has llegado al limite de reservas por ahora");
-            throw dberror;
-          } else {
-            console.error("An unexpected error occurred:", dberror.message);
-            throw dberror;
-          }
-        }
-
-        setStayReserved(true);
-        setClientInfo({
-          name: "",
-          email: "",
-          check_in: "",
-          check_out: "",
-          phone: "",
-          guests: 0,
-          with_hot_tub: false,
-          hot_tub_dates: [],
-          user_id: payload.user_id,
-        });
-        captcha.current.resetCaptcha();
-      } catch (err) {
-        if (err?.code === "42501") {
-          setError("Has llegado al limite de reservas por ahora");
-          console.error("Comment limit: ", err.message);
-        } else {
-          setError(err.message);
-          console.error(err);
-        }
-      } finally {
-        setLoading(false);
-        setIsSubmitting(false);
-      }
-    };
-
-    completeSubmission();
-  }, [captchaToken, isSubmitting]);
-
-  useEffect(() => {
-    if(clientInfo.check_in && clientInfo.check_out){
-      const dateIn = new Date(clientInfo.check_in);
-      const dateOut = new Date(clientInfo.check_out);
-      setTotalNights ((dateOut - dateIn) / 86400000)
-    } 
-  }, [clientInfo.check_in, clientInfo.check_out]);
-
-  useEffect(() => {
-    setTotalPrice((60 * totalNights * Math.ceil(clientInfo.guests /3)) + (20 * clientInfo.hot_tub_dates.length))
-  }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests]);
-  
-  const closeModal = () => {
-    setStayReserved(false);
-  };
 
   const headerInfo = {
     image: calendar,
@@ -170,26 +69,7 @@ const Reserve = () => {
               Nosotros ofrecemos varios servicios para nuestros clientes. Aquí
               puedes ver los precios antes de hacer tu reserva.
             </p>
-            <div className="w-full self-center max-w-lg bg-linear-to-br p-4 rounded-2xl from-accgreendark/20 to-acclight/70 shadow-md">
-              <ul className="w-full text-accgray">
-                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center border-b border-accgreendark">
-                  <span className="italic">
-                    Precio por noche para hasta 3 personas:
-                  </span>
-                  <span className="text-xl">$60.000 CLP</span>
-                </li>
-                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center border-b border-accgreendark">
-                  <span className="italic">Precio para la tinaja rústica:</span>
-                  <span className="text-xl">$20.000 CLP</span>
-                </li>
-                <li className="flex flex-col md:flex-row gap-2 p-2 w-full justify-between items-center">
-                  <span className="italic">
-                    Precio por hora de uso de kayak por persona:
-                  </span>
-                  <span className="text-xl">$5.000 CLP</span>
-                </li>
-              </ul>
-            </div>
+            <PricesSection prices={prices} setPrices={setPrices} />
             <p className="text-accgray/50 italic text-xs text-center">
               *Los kayak estan sujeto a disponibilidad en el momento, no se
               pueden reservar
@@ -276,7 +156,10 @@ const Reserve = () => {
                   type="button"
                   onClick={() => {
                     if (clientInfo.guests > 1) {
-                      setClientInfo({ ...clientInfo, guests: clientInfo.guests - 1 });
+                      setClientInfo({
+                        ...clientInfo,
+                        guests: clientInfo.guests - 1,
+                      });
                     }
                   }}
                   className="w-10 h-10 rounded-lg bg-linear-to-r from-accblue to-accgreendark text-white font-bold text-lg cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -291,7 +174,10 @@ const Reserve = () => {
                   type="button"
                   onClick={() => {
                     if (clientInfo.guests < 9) {
-                      setClientInfo({ ...clientInfo, guests: clientInfo.guests + 1 });
+                      setClientInfo({
+                        ...clientInfo,
+                        guests: clientInfo.guests + 1,
+                      });
                     }
                   }}
                   disabled={clientInfo.guests >= 9}
@@ -300,7 +186,9 @@ const Reserve = () => {
                   +
                 </button>
               </div>
-              <p className="text-center text-xs text-accgray/50 italic pt-2">*Solo 3 húespedes por cabaña</p>
+              <p className="text-center text-xs text-accgray/50 italic pt-2">
+                *Solo 3 húespedes por cabaña
+              </p>
             </div>
 
             <label
