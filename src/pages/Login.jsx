@@ -58,6 +58,12 @@ const Login = () => {
     completeSubmission();
   }, [captchaToken, isSubmitting]);
 
+  useEffect(() => {
+    if(window.HCaptcha){
+      setIsReady(true);
+    }
+  }, []);
+
   const headerInfo = {
     image: enter,
     label: "Inicia Sesión",

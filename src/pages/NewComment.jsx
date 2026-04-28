@@ -131,6 +131,12 @@ const NewComment = () => {
     setCommentSaved(false);
   };
 
+  useEffect(() => {
+    if(window.HCaptcha){
+      setIsReady(true);
+    }
+  }, []);
+
   const headerInfo = {
     image: edit,
     label: "Comentarios",

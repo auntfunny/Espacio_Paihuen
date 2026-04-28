@@ -33,6 +33,12 @@ const Reserve = () => {
 
   const [isReady, setIsReady] = useState(false);
 
+  useEffect(() => {
+    if(window.HCaptcha){
+      setIsReady(true);
+    }
+  }, []);
+
   const headerInfo = {
     image: calendar,
     label: "Reservas en Línea",
