@@ -59,7 +59,7 @@ export function AuthProvider({ children }) {
       return profile;
     } catch (err) {
       console.error(err);
-      throw error;
+      throw err;
     } finally {
       setLoading(false);
     }
