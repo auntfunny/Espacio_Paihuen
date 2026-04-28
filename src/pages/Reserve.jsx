@@ -9,8 +9,10 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useReservation } from "../hooks/useReservation";
 import PricesSection from "../components/PricesSection";
 import { useInfo } from "../context/InfoContext";
+import { useLocation } from "react-router-dom";
 
 const Reserve = () => {
+  const { pathname } = useLocation();
   const { pageData } = useInfo();
   const {
     clientInfo,
@@ -242,6 +244,7 @@ const Reserve = () => {
             </div>
 
             <HCaptcha
+              key={pathname}
               ref={captcha}
               sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
               onVerify={(token) => {

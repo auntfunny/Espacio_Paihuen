@@ -95,7 +95,6 @@ export const InfoProvider = ({ children }) => {
         console.error(err);
     } finally {
         setEditLoading(false);
-        
     }
   }
 

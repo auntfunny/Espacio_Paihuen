@@ -6,9 +6,11 @@ import SuccessModal from "../components/SuccessModal";
 import { supabase } from "../lib/supabase";
 import { useAuth } from "../context/AuthContext";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { useLocation } from "react-router-dom";
 
 const NewComment = () => {
   const { user, setUser, loading: authLoading, anonSignIn } = useAuth();
+  const { pathname } = useLocation();
   const [commentInfo, setCommentInfo] = useState({
     name: "",
     email: "",
@@ -25,8 +27,6 @@ const NewComment = () => {
   const [coords, setCoords] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const captcha = useRef();
-
-  
 
   useEffect(() => {
     if (user?.id) {
@@ -61,19 +61,17 @@ const NewComment = () => {
     setError(null);
     setLoading(true);
     setIsSubmitting(true);
-    
+
     captcha.current.execute();
   };
-  
-  useEffect(() => {
-    
-    const completeSubmission = async () => {
 
-      if(!captchaToken || !isSubmitting) return;
+  useEffect(() => {
+    const completeSubmission = async () => {
+      if (!captchaToken || !isSubmitting) return;
 
       try {
         let payload = commentInfo;
-    
+
         if (!user && !authLoading) {
           const { data, loginError } = await anonSignIn(captchaToken);
           if (loginError) {
@@ -83,21 +81,21 @@ const NewComment = () => {
           }
           payload = { ...payload, user_id: data.user.id };
         }
-        
+
         const { data, error: dberror } = await supabase
           .from("comments")
           .insert([payload]);
-    
+
         if (dberror) {
           if (dberror.code === "42501") {
             setError("Has llegado al limite de comentarios por ahora");
             throw dberror;
           } else {
             console.error("An unexpected error occurred:", dberror.message);
-            throw dberror
+            throw dberror;
           }
         }
-    
+
         setCommentSaved(true);
         setCommentInfo({
           name: "",
@@ -119,11 +117,9 @@ const NewComment = () => {
       } finally {
         setLoading(false);
       }
-      
-    }
+    };
     completeSubmission();
   }, [captchaToken, isSubmitting]);
-  
 
   const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -242,6 +238,7 @@ const NewComment = () => {
               </div>
             </div>
             <HCaptcha
+              key={pathname}
               ref={captcha}
               sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
               onVerify={(token) => {

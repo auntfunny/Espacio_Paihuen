@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import enter from "../assets/svg/login.svg";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const Login = () => {
+  const { pathname } = useLocation();
   const { login, loading: authLoading } = useAuth();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -16,6 +17,7 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isReady, setIsReady] = useState(false);
   const captcha = useRef();
   const navigate = useNavigate();
 
@@ -138,21 +140,23 @@ const Login = () => {
             </div>
           </div>
           <HCaptcha
+          key={pathname}
             ref={captcha}
             sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
             onVerify={(token) => {
               setCaptchaToken(token);
             }}
+            onLoad={() => setIsReady(true)}
             size="invisible"
           />
 
           {error && <p className="text-red-500 text-center italic">{error}</p>}
           <button
             type="submit"
-            disabled={loading || authLoading}
+            disabled={loading || authLoading || !isReady}
             className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
           >
-            {loading || authLoading ? (
+            {loading || authLoading || !isReady ? (
               <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
             ) : (
               "Login"
