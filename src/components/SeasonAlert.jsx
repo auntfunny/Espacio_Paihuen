@@ -175,7 +175,7 @@ const SeasonAlert = () => {
             </div>
           </div>
 
-          {hasEdited && (
+          {hasEdited ? (
             <button
               onClick={handleConfirmEdit}
               className="flex justify-center items-center w-50 mx-auto my-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
@@ -186,35 +186,35 @@ const SeasonAlert = () => {
                 "Guardar Cambios"
               )}
             </button>
-          )}
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/reserve"
+                className="group relative bg-linear-to-r from-accgreenlight to-accgreendark text-accgray font-bold text-xl py-5 px-10 rounded-full shadow-2xl hover:shadow-accgreenlight/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accgreenlight/50 transition-all duration-300 ease-out overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <svg
+                    className="w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Reservar Ahora
+                </span>
+                <div className="absolute inset-0 bg-linear-to-r from-accgreendark to-accgreenlight opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
+              </Link>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              to="/reserve"
-              className="group relative bg-linear-to-r from-accgreenlight to-accgreendark text-accgray font-bold text-xl py-5 px-10 rounded-full shadow-2xl hover:shadow-accgreenlight/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accgreenlight/50 transition-all duration-300 ease-out overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Reservar Ahora
-              </span>
-              <div className="absolute inset-0 bg-linear-to-r from-accgreendark to-accgreenlight opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
-              <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
-            </Link>
-
-            <div className="text-sm text-acclight/70 font-medium">
-              Oferta limitada • Sujeta a disponibilidad
+              <div className="text-sm text-acclight/70 font-medium">
+                Oferta limitada • Sujeta a disponibilidad
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {user?.role === "ADMIN" && (
