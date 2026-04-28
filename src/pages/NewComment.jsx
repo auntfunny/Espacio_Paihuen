@@ -132,7 +132,7 @@ const NewComment = () => {
   };
 
   useEffect(() => {
-    if(window.HCaptcha){
+    if(window.hcaptcha){
       setIsReady(true);
     }
   }, []);

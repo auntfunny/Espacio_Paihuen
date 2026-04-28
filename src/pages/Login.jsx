@@ -59,7 +59,7 @@ const Login = () => {
   }, [captchaToken, isSubmitting]);
 
   useEffect(() => {
-    if(window.HCaptcha){
+    if(window.hcaptcha){
       setIsReady(true);
     }
   }, []);

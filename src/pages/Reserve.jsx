@@ -34,7 +34,7 @@ const Reserve = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if(window.HCaptcha){
+    if(window.hcaptcha){
       setIsReady(true);
     }
   }, []);
