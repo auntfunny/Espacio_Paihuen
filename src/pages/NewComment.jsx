@@ -258,7 +258,7 @@ const NewComment = () => {
               disabled={loading || authLoading || !isReady}
               className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
-              {loading || authLoading ? (
+              {loading || authLoading || !isReady ? (
                 <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
               ) : (
                 "Enviar Commentario"

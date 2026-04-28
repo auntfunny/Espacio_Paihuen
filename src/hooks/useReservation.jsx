@@ -119,7 +119,7 @@ export const useReservation = (pageData) => {
       } catch (err) {
         if (err?.code === "42501") {
           setError("Has llegado al limite de reservas por ahora");
-          console.error("Comment limit: ", err.message);
+          console.error("Reservation limit: ", err.message);
         } else {
           setError(err.message);
           console.error(err);
