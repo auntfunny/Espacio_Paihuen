@@ -51,8 +51,7 @@ const Photos = () => {
                   video_id,
                   media_id,
                   video_url,
-                  duration_seconds,
-                  resolution
+                  duration_seconds
                 )
               )
             `,
