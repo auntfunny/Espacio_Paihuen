@@ -23,6 +23,7 @@ const NewComment = () => {
   const [captchaToken, setCaptchaToken] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [coords, setCoords] = useState(0);
+  const [isReady, setIsReady] = useState(false);
   const captcha = useRef();
 
   
@@ -246,6 +247,7 @@ const NewComment = () => {
               onVerify={(token) => {
                 setCaptchaToken(token);
               }}
+              onLoad={() => setIsReady(true)}
               size="invisible"
             />
             {error && (
@@ -253,7 +255,7 @@ const NewComment = () => {
             )}
             <button
               type="submit"
-              disabled={loading || authLoading}
+              disabled={loading || authLoading || !isReady}
               className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
               {loading || authLoading ? (

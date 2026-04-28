@@ -8,13 +8,10 @@ import "flatpickr/dist/themes/material_green.css";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useReservation } from "../hooks/useReservation";
 import PricesSection from "../components/PricesSection";
+import { useInfo } from "../context/InfoContext";
 
 const Reserve = () => {
-  const [prices, setPrices] = useState({
-    night: 60.0,
-    hot_tub: 20.0,
-    kayak: 5.0,
-  });
+  const { pageData } = useInfo();
   const {
     clientInfo,
     setClientInfo,
@@ -30,9 +27,9 @@ const Reserve = () => {
     setInfo,
     handleSubmit,
     closeModal,
-  } = useReservation(prices);
+  } = useReservation(pageData);
 
-
+  const [isReady, setIsReady] = useState(false);
 
   const headerInfo = {
     image: calendar,
@@ -69,7 +66,7 @@ const Reserve = () => {
               Nosotros ofrecemos varios servicios para nuestros clientes. Aquí
               puedes ver los precios antes de hacer tu reserva.
             </p>
-            <PricesSection prices={prices} setPrices={setPrices} />
+            <PricesSection />
             <p className="text-accgray/50 italic text-xs text-center">
               *Los kayak estan sujeto a disponibilidad en el momento, no se
               pueden reservar
@@ -250,6 +247,7 @@ const Reserve = () => {
               onVerify={(token) => {
                 setCaptchaToken(token);
               }}
+              onLoad={() => setIsReady(true)}
               size="invisible"
             />
             {error && (
@@ -257,7 +255,7 @@ const Reserve = () => {
             )}
             <button
               type="submit"
-              disabled={loading || authLoading}
+              disabled={loading || authLoading || !isReady}
               className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
               {loading || authLoading ? (

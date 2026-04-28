@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
 
-export const useReservation = (prices) => {
+export const useReservation = (pageData) => {
   const { user, loading: authLoading, anonSignIn } = useAuth();
   
   const [clientInfo, setClientInfo] = useState({
@@ -43,11 +43,13 @@ export const useReservation = (prices) => {
   }, [clientInfo.check_in, clientInfo.check_out]);
 
   useEffect(() => {
-    setTotalPrice(
-      prices.night * totalNights * Math.ceil(clientInfo.guests / 3) +
-        prices.hot_tub * clientInfo.hot_tub_dates.length
-    );
-  }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests]);
+    if(pageData){
+      setTotalPrice(
+        Number(pageData?.night) * totalNights * Math.ceil(clientInfo.guests / 3) +
+          Number(pageData?.hot_tub) * clientInfo.hot_tub_dates.length
+      );
+    }
+  }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests, pageData]);
 
   const setInfo = (event) => {
     const { name, value, checked, type } = event.target;
