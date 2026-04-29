@@ -19,7 +19,7 @@ const MenuMobile = () => {
   };
 
   return (
-    <div className="md:hidden relative">
+    <div className="lg:hidden relative">
       <button
         onClick={() => setMenuToggle(!menuToggle)}
         className="relative z-50 p-2 focus:outline-none focus:ring-2 focus:ring-accblue/50 text-accgray hover:text-accblue transition-colors duration-300 ease-out rounded-md"

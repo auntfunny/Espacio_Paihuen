@@ -20,7 +20,7 @@ const Footer = () => {
           />
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden lg:flex items-center space-x-6">
           <Link
             to="/reserve"
             className="relative text-accgray font-medium hover:text-accblue transition-all duration-300 group"
