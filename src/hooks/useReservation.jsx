@@ -84,20 +84,21 @@ export const useReservation = (pageData) => {
       if (!isSubmitting || !captchaToken) return;
 
       try {
+        let currentUserId = user?.id;
         let payload = { ...clientInfo, total: totalPrice };
 
-        if (!user && !authLoading) {
+        if (!currentUserId) {
           const { data, loginError } = await anonSignIn(captchaToken);
           if (loginError) {
             captcha.current.resetCaptcha();
             throw loginError;
           }
-          payload = { ...payload, user_id: data.user.id };
+          currentUserId = data.user.id ;
         }
 
         const { data, error: dberror } = await supabase
           .from("reservations")
-          .insert([payload], { returning: 'minimal' })
+          .insert([{ ...payload, user_id: currentUserId }], { returning: 'minimal' })
 
         if (dberror) {
           throw dberror;
@@ -121,7 +122,7 @@ export const useReservation = (pageData) => {
     };
 
     completeSubmission();
-  }, [captchaToken, isSubmitting, user, authLoading, t]);
+  }, [captchaToken, isSubmitting, t]);
 
   const resetForm = (uid) => {
     setClientInfo({
