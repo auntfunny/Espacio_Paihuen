@@ -79,8 +79,7 @@ const NewComment = () => {
         }
         const { error: dberror } = await supabase
           .from("comments")
-          .insert([payload])
-          .select();
+          .insert([payload], { returning: 'minimal' })
         if (dberror) {
           setError(
             dberror.code === "42501"

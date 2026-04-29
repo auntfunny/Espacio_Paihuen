@@ -97,8 +97,7 @@ export const useReservation = (pageData) => {
 
         const { data, error: dberror } = await supabase
           .from("reservations")
-          .insert([payload])
-          .select();
+          .insert([payload], { returning: 'minimal' })
 
         if (dberror) {
           throw dberror;
