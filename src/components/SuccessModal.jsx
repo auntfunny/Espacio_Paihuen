@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const SuccessModal = ({close, title, caption}) => {
+  const { t } = useTranslation();
+
   return (
     <div
       onClick={close}
@@ -32,11 +35,14 @@ const SuccessModal = ({close, title, caption}) => {
         </div>
         <img
           src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085713/Logo_he7dxc.jpg"
-          alt="Espacio Paihuen"
+          alt={t('common.logo_alt')}
           className="w-32 mx-auto rounded-xl shadow-sm"
         />
-        <button className="w-full py-3 bg-accblue text-white rounded-2xl font-bold hover:bg-accgreendark transition-colors hover:cursor-pointer">
-          Cerrar
+        <button 
+          onClick={close}
+          className="w-full py-3 bg-accblue text-white rounded-2xl font-bold hover:bg-accgreendark transition-colors hover:cursor-pointer"
+        >
+          {t('common.buttons.close')}
         </button>
       </div>
     </div>

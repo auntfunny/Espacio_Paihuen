@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { useInfo } from "../context/InfoContext";
 
 const ReservationInfoModal = ({
   reservation,
@@ -6,14 +8,12 @@ const ReservationInfoModal = ({
   onToggleConfirm,
   loading,
 }) => {
+  const { t, i18n } = useTranslation();
+
   if (!reservation) return null;
 
-  const dateIn = new Date(reservation.check_in.replace(/-/g, '/'));
-  const dateOut = new Date(reservation.check_out.replace(/-/g, '/'));
-  const days = (dateOut - dateIn) / 86400000;
-  const price =
-    60 * days * Math.ceil(reservation.guests / 3) +
-    20 * reservation.hot_tub_dates.length;
+  const dateIn = new Date(reservation.check_in.replace(/-/g, "/"));
+  const dateOut = new Date(reservation.check_out.replace(/-/g, "/"));
 
   const statusInfo = {
     resId: reservation.reservation_id,
@@ -32,14 +32,14 @@ const ReservationInfoModal = ({
       <div className="relative flex flex-col gap-3 w-xs md:w-full max-w-lg bg-white/40 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-white shadow-2xl">
         <div className="text-center">
           <h3 className="text-xl sm:text-2xl font-bold font-title2 text-transparent bg-clip-text bg-linear-to-r from-accblue to-accgreendark">
-            Reserva
+            {t("admin_reservations.modal.title")}
           </h3>
         </div>
 
         <div className="grid grid-cols-1 gap-2 sm:gap-3 text-accgray">
           <div className="bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
             <p className="text-xs font-bold uppercase tracking-wider text-accgreendark mb-1">
-              Cliente
+              {t("admin_reservations.modal.client")}
             </p>
             <p className="text-sm sm:text-base font-semibold">
               {reservation.name}
@@ -50,28 +50,38 @@ const ReservationInfoModal = ({
 
           <div className="flex gap-2 sm:gap-3">
             <div className="flex-1 bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
-              <p className="text-xs font-bold text-accgreendark">LLEGADA</p>
+              <p className="text-xs font-bold text-accgreendark">
+                {t("admin_reservations.modal.check_in")}
+              </p>
               <p className="text-xs sm:text-sm font-medium capitalize">
                 {dateIn
-                  .toLocaleDateString("es-ES", {
-                    weekday: "short",
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })
+                  .toLocaleDateString(
+                    t("admin_reservations.modal.date_locale"),
+                    {
+                      weekday: "short",
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    },
+                  )
                   .replace(".", "")}
               </p>
             </div>
             <div className="flex-1 bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
-              <p className="text-xs font-bold text-accgreendark">SALIDA</p>
+              <p className="text-xs font-bold text-accgreendark">
+                {t("admin_reservations.modal.check_out")}
+              </p>
               <p className="text-xs sm:text-sm font-medium capitalize">
                 {dateOut
-                  .toLocaleDateString("es-ES", {
-                    weekday: "short",
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })
+                  .toLocaleDateString(
+                    t("admin_reservations.modal.date_locale"),
+                    {
+                      weekday: "short",
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    },
+                  )
                   .replace(".", "")}
               </p>
             </div>
@@ -79,15 +89,21 @@ const ReservationInfoModal = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             <div className="bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
-              <p className="text-xs font-bold text-accgreendark">HUÉSPEDES</p>
+              <p className="text-xs font-bold text-accgreendark">
+                {t("admin_reservations.modal.guests")}
+              </p>
               <p className="text-sm sm:text-base font-bold">
                 {reservation.guests}
               </p>
             </div>
             <div className="bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
-              <p className="text-xs font-bold text-accgreendark">TINAJA</p>
+              <p className="text-xs font-bold text-accgreendark">
+                {t("admin_reservations.modal.hot_tub")}
+              </p>
               <p className="text-xs sm:text-sm font-medium">
-                {reservation.with_hot_tub ? "Incluida" : "No Incluida"}
+                {reservation.with_hot_tub
+                  ? t("admin_reservations.modal.included")
+                  : t("admin_reservations.modal.not_included")}
               </p>
             </div>
           </div>
@@ -95,35 +111,33 @@ const ReservationInfoModal = ({
           {reservation.with_hot_tub && reservation.hot_tub_dates && (
             <div className="bg-white/60 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-accgray/10">
               <p className="text-xs font-bold text-accgreendark mb-1">
-                FECHAS TINAJA
+                {t("admin_reservations.modal.hot_tub_dates")}
               </p>
               <div className="flex flex-wrap gap-1">
-                {reservation.hot_tub_dates.map((date, index) => {
-                  const formattedDate = new Date(date).toDateString();
-                  return (
-                    <span
-                      key={index}
-                      className="text-xs bg-accblue/10 px-2 py-0.5 rounded-lg"
-                    >
-                      {formattedDate}
-                    </span>
-                  );
-                })}
+                {reservation.hot_tub_dates.map((date, index) => (
+                  <span
+                    key={index}
+                    className="text-xs bg-accblue/10 px-2 py-0.5 rounded-lg"
+                  >
+                    {new Date(date).toLocaleDateString(i18n.language)}
+                  </span>
+                ))}
               </div>
             </div>
           )}
 
           <div className="flex justify-between items-center w-full bg-white/60 border border-accgray/10 rounded-lg sm:rounded-xl p-2 sm:p-3 px-3 sm:px-6 hover:cursor-pointer transition-all">
             <p className="text-sm sm:text-base font-bold font-title2 text-accgray">
-              Precio Total:
+              {t("admin_reservations.modal.total")}
             </p>
             <p className="text-lg font-bold text-accgray">
-              ${price.toFixed(3)}
+              ${Number(reservation.total).toFixed(3)}
             </p>
           </div>
+
           <label className="flex justify-between items-center w-full bg-white/60 border border-accgray/10 rounded-lg sm:rounded-xl p-2 sm:p-3 px-3 sm:px-6 hover:cursor-pointer transition-all">
             <span className="text-sm sm:text-base font-bold font-title2 text-accgray">
-              Confirmada:
+              {t("admin_reservations.modal.confirmed")}
             </span>
             <input
               type="checkbox"
@@ -144,9 +158,9 @@ const ReservationInfoModal = ({
           className="flex justify-center items-center w-full mt-1 bg-linear-to-r from-accblue to-accgreendark text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base shadow-lg hover:scale-[1.02] transition-all disabled:cursor-wait hover:cursor-pointer"
         >
           {loading ? (
-            <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+            <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin" />
           ) : (
-            "Cerrar"
+            t("admin_reservations.modal.close")
           )}
         </button>
       </div>

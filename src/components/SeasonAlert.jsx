@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import EditButton from "../components/EditButton";
 import { useAuth } from "../context/AuthContext";
 import { useInfo } from "../context/InfoContext";
+import { useTranslation } from "react-i18next";
 
 const SeasonAlert = () => {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const {
     pageData,
@@ -23,7 +25,7 @@ const SeasonAlert = () => {
     <div
       className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${!loading && (pageData?.season_active || user?.role === "ADMIN") ? "max-h-250" : "max-h-0"}`}
     >
-      <section className={`relative w-full py-20 px-6`}>
+      <section className={`relative w-full h-160 py-20 px-6`}>
         {error && <p className="text-red-500 text-center italic">{error}</p>}
         <div className="absolute inset-0 bg-linear-to-br from-accgreendark via-accgray to-accblue opacity-90"></div>
         <div
@@ -54,16 +56,16 @@ const SeasonAlert = () => {
             {activeEdit.title_active ? (
               <input
                 autoFocus
-                name="season_title"
-                id="season_title"
-                value={pageData?.season_title}
+                name={"season_title_" + i18n.language}
+                id={"season_title_" + i18n.language}
+                value={pageData?.["season_title_" + i18n.language]}
                 onChange={setInfo}
                 onBlur={resetActiveEdit}
                 className="w-full max-w-xl bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
               />
             ) : (
               <h2 className="text-2xl md:text-5xl font-bold font-title2 text-acclight drop-shadow-lg">
-                {pageData?.season_title}
+                {pageData?.["season_title_" + i18n.language]}
               </h2>
             )}
             <EditButton
@@ -81,8 +83,9 @@ const SeasonAlert = () => {
                   {activeEdit.discount_active ? (
                     <input
                       autoFocus
-                      name="season_discount"
-                      id="season_discount"
+                      name={"season_discount"}
+                      id={"season_discount"}
+                      placeholder={t("promo.placeholders.discount")}
                       value={pageData?.season_discount}
                       onChange={setInfo}
                       onBlur={resetActiveEdit}
@@ -94,7 +97,7 @@ const SeasonAlert = () => {
                     </div>
                   )}
                   <div className="text-xl text-acclight/90 font-medium">
-                    de descuento
+                    {t("promo.discount_label")}
                   </div>
                   <EditButton
                     activeEdit={activeEdit}
@@ -108,31 +111,33 @@ const SeasonAlert = () => {
                   {activeEdit.time_active ? (
                     <input
                       autoFocus
-                      name="season_time"
-                      id="season_time"
-                      value={pageData?.season_time}
+                      name={"season_time_" + i18n.language}
+                      id={"season_time_" + i18n.language}
+                      placeholder={t("promo.placeholders.time")}
+                      value={pageData?.["season_time_" + i18n.language]}
                       onChange={setInfo}
                       onBlur={resetActiveEdit}
                       className="w-full max-w-xs bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                     />
                   ) : (
                     <div className="text-2xl font-bold text-acclight mb-1">
-                      {pageData?.season_time}
+                      {pageData?.["season_time_" + i18n.language]}
                     </div>
                   )}
                   {activeEdit.limit_active ? (
                     <input
                       autoFocus
-                      name="season_limit"
-                      id="season_limit"
-                      value={pageData?.season_limit}
+                      name={"season_limit_" + i18n.language}
+                      id={"season_limit_" + i18n.language}
+                      placeholder={t("promo.placeholders.limit")}
+                      value={pageData?.["season_limit_" + i18n.language]}
                       onChange={setInfo}
                       onBlur={resetActiveEdit}
                       className="w-full max-w-xs bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                     />
                   ) : (
                     <div className="text-lg text-acclight/80">
-                      {pageData?.season_limit}
+                      {pageData?.["season_limit_" + i18n.language]}
                     </div>
                   )}
                   <EditButton
@@ -154,16 +159,17 @@ const SeasonAlert = () => {
               {activeEdit.message_active ? (
                 <input
                   autoFocus
-                  name="season_message"
-                  id="season_message"
-                  value={pageData?.season_message}
+                  name={"season_message_" + i18n.language}
+                  id={"season_message_" + i18n.language}
+                  placeholder={t("promo.placeholders.message")}
+                  value={pageData?.["season_message_" + i18n.language]}
                   onChange={setInfo}
                   onBlur={resetActiveEdit}
                   className="w-full max-w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                 />
               ) : (
                 <p className="text-xl text-acclight/90 max-w-2xl mx-auto leading-relaxed font-medium">
-                  {pageData?.season_message}
+                  {pageData?.["season_message_" + i18n.language]}
                 </p>
               )}
               <EditButton
@@ -183,7 +189,7 @@ const SeasonAlert = () => {
               {editLoading ? (
                 <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
               ) : (
-                "Guardar Cambios"
+                t("promo.save_changes")
               )}
             </button>
           ) : (
@@ -204,14 +210,14 @@ const SeasonAlert = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Reservar Ahora
+                  {t("promo.reserve_now")}
                 </span>
                 <div className="absolute inset-0 bg-linear-to-r from-accgreendark to-accgreenlight opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
                 <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
               </Link>
 
               <div className="text-sm text-acclight/70 font-medium">
-                Oferta limitada • Sujeta a disponibilidad
+                {t("promo.footer_note")}
               </div>
             </div>
           )}

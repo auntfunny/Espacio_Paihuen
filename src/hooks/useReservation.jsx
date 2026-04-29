@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
+import { useTranslation } from "react-i18next";
 
 export const useReservation = (pageData) => {
+  const { t } = useTranslation();
   const { user, loading: authLoading, anonSignIn } = useAuth();
 
   const [clientInfo, setClientInfo] = useState({
@@ -67,7 +69,7 @@ export const useReservation = (pageData) => {
     event.preventDefault();
 
     if (clientInfo.guests === 0) {
-      setError("Por favor, ingresa numero de húespedes");
+      setError(t("reserve.errors.no_guests"));
       return;
     }
 
@@ -82,47 +84,35 @@ export const useReservation = (pageData) => {
       if (!isSubmitting || !captchaToken) return;
 
       try {
-        let payload = clientInfo;
+        let currentUserId = user?.id;
+        let payload = { ...clientInfo, total: totalPrice };
 
-        if (!user && !authLoading) {
+        if (!currentUserId) {
           const { data, loginError } = await anonSignIn(captchaToken);
           if (loginError) {
-            console.error(loginError);
             captcha.current.resetCaptcha();
             throw loginError;
           }
-          payload = { ...payload, user_id: data.user.id };
+          currentUserId = data.user.id ;
         }
 
         const { data, error: dberror } = await supabase
           .from("reservations")
-          .insert([payload]);
+          .insert([{ ...payload, user_id: currentUserId }], { returning: 'minimal' })
 
         if (dberror) {
           throw dberror;
         } else {
           setStayReserved(true);
-          setClientInfo({
-            name: "",
-            email: "",
-            check_in: "",
-            check_out: "",
-            phone: "",
-            guests: 0,
-            with_hot_tub: false,
-            hot_tub_dates: [],
-            user_id: payload.user_id,
-          });
+          resetForm(payload.user_id);
         }
 
         captcha.current.resetCaptcha();
       } catch (err) {
         if (err?.code === "42501") {
-          setError("Has llegado al limite de reservas por ahora");
-          console.error("Reservation limit: ", err.message);
+          setError(t("reserve.errors.limit_reached"));
         } else {
-          setError(err.message);
-          console.error(err);
+          setError(err.message || t("reserve.errors.unexpected"));
         }
       } finally {
         setLoading(false);
@@ -132,7 +122,7 @@ export const useReservation = (pageData) => {
     };
 
     completeSubmission();
-  }, [captchaToken, isSubmitting, user, authLoading]);
+  }, [captchaToken, isSubmitting, t]);
 
   const resetForm = (uid) => {
     setClientInfo({
@@ -148,7 +138,6 @@ export const useReservation = (pageData) => {
     });
   };
 
-  // Close success modal
   const closeModal = () => {
     setStayReserved(false);
   };

@@ -1,17 +1,21 @@
+import React from "react";
+import { useTranslation, Trans } from "react-i18next";
 import ContactUs from "../components/ContactUs";
 import PageHeader from "../components/PageHeader";
-import SectionHeaderDesign from "../components/SectionHeaderDesign";
-import location from "../assets/svg/location.svg"
+import location from "../assets/svg/location.svg";
 import WeatherWidgit from "../components/WeatherWidgit";
 
 const Location = () => {
+  const { t } = useTranslation();
 
   const headerInfo = {
     image: location,
-    label: "Carretera Austral Km 21.8",
-    title: "Dónde Encontrarnos",
-    message: "Estamos ubicados en el inicio de la hermosa Carretera Austral, a tan solo 25 minutos de Puerto Montt."
-  }
+    label: t('location.header.label'),
+    title: t('location.header.title'),
+    message: t('location.header.message')
+  };
+
+  const directionsSteps = t('location.directions.steps', { returnObjects: true });
 
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
@@ -22,35 +26,15 @@ const Location = () => {
           <div className="bg-white/50 backdrop-blur-md p-8 rounded-3xl border border-acclight/50 shadow-xl space-y-6">
             <h2 className="text-2xl font-bold text-accgray flex items-center gap-2">
               <span className="w-8 h-8 bg-accblue/10 text-accblue rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </span>
-              Cómo llegar
+              {t('location.directions.title')}
             </h2>
             <ol className="space-y-4">
-              {[
-                "Sal de Puerto Montt con dirección a la Carretera Austral.",
-                "Continúa durante 25 minutos hasta llegar a Quillaipe.",
-                "En el km 21.8, gira a la derecha (junto al negocio Costa Quillaipe).",
-                "Sigue hasta el final de la calle para llegar a Espacio Paihuen.",
-              ].map((step, index) => (
+              {Array.isArray(directionsSteps) && directionsSteps.map((step, index) => (
                 <li key={index} className="flex gap-4">
                   <span className="shrink-0 w-6 h-6 rounded-full bg-accgreenlight/20 text-accgreendark text-xs font-bold flex items-center justify-center">
                     {index + 1}
@@ -60,7 +44,7 @@ const Location = () => {
               ))}
             </ol>
             <div className="pt-6 border-t border-accgray/10">
-              <p className="text-accgray font-medium">Coordenadas Exactas:</p>
+              <p className="text-accgray font-medium">{t('location.directions.coords_label')}</p>
               <a
                 href="https://maps.app.goo.gl/PKQrzpyqPhRKEGe37"
                 target="_blank"
@@ -75,44 +59,35 @@ const Location = () => {
           <div className="relative lg:row-span-2 group overflow-hidden rounded-3xl shadow-xl">
             <img
               src="/images/Paihuen_Mapa.png"
-              alt="Mapa de Ruta"
+              alt={t('location.map_alt')}
               className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-linear-to-t from-accgray/40 to-transparent"></div>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-linear-to-br from-accblue/10 to-accgreenlight/10 p-6 rounded-3xl border border-white/40 shadow-lg">
               <h3 className="font-bold text-accgray mb-2 flex items-center gap-2">
-                <svg
-                  className="w-5 h-5 text-accblue"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-                  />
+                <svg className="w-5 h-5 text-accblue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                 </svg>
-                Transporte Público
+                {t('location.public_transport.title')}
               </h3>
               <p className="text-sm text-accgray/70">
-                Toma las líneas <strong>Buses Vargas</strong> o{" "}
-                <strong>Buses J.B.</strong> desde el{" "}
-                <a href="https://terminalpm.cl/" className="underline">
-                  Terminal de Buses
-                </a>
-                . Salidas frecuentes hacia Caleta La Arena; solicita bajar en{" "}
-                <strong>Quillaipe</strong>.
+                <Trans 
+                  i18nKey="location.public_transport.description"
+                  components={{ 
+                    1: <strong />, 
+                    2: <a href="https://terminalpm.cl/" className="underline" /> 
+                  }}
+                />
               </p>
             </div>
 
             <WeatherWidgit />
           </div>
 
-          <div className="lg:col-span-2 w-full max-w-7xl mt-8 ">
+          <div className="lg:col-span-2 w-full max-w-7xl mt-8">
             <div className="h-112.5 w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
               <iframe
                 title="Google Maps Location"
@@ -131,14 +106,15 @@ const Location = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-accblue text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-accgreendark transition-all transform hover:scale-105"
               >
-                Abrir en Google Maps
+                {t('location.google_maps_btn')}
               </a>
             </div>
           </div>
         </div>
+
         <div className="mt-20 text-center">
           <p className="text-2xl md:text-3xl font-title2 italic bg-linear-to-r from-accblue to-accgreendark bg-clip-text text-transparent">
-            ¡Te esperamos en este rincón del paraíso!
+            {t('location.footer_quote')}
           </p>
         </div>
       </div>

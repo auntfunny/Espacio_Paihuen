@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePhoto } from "../context/PhotoContext";
 import picture from "../assets/svg/picture.svg";
 import axios from "axios";
 import { supabase } from "../lib/supabase";
 
 const PhotoModal = ({ photoData, setPhotoData }) => {
+  const { t } = useTranslation();
   const { newPhoto, setNewPhoto } = usePhoto();
   const [form, setForm] = useState({
     title: "",
@@ -35,7 +37,7 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!form.title || !form.thumb) {
-      setError("Por favor, revisa los campos");
+      setError(t("photos.admin.field_errors"));
       return;
     }
     setLoading(true);
@@ -43,13 +45,16 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
     thumb.append("file", form.thumb);
     thumb.append("upload_preset", "my_preset");
     try {
-      const { data, error: imageError } = await axios.post(CLOUDINARY_URL, thumb);
+      const { data, error: imageError } = await axios.post(
+        CLOUDINARY_URL,
+        thumb,
+      );
       const thumbUrl = data.secure_url;
 
-      if(imageError){
-          console.error(imageError);
-          setError(imageError.message);
-        }
+      if (imageError) {
+        console.error(imageError);
+        setError(imageError.message);
+      }
 
       let videoUrl = "";
 
@@ -59,15 +64,17 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
         videoData.append("upload_preset", "my_preset");
 
         const videoEndpoint = CLOUDINARY_URL.replace("/image/", "/video/");
-        const {data: videoUpload, error: videoError} = await axios.post(videoEndpoint, videoData);
+        const { data: videoUpload, error: videoError } = await axios.post(
+          videoEndpoint,
+          videoData,
+        );
 
-        if(videoError){
+        if (videoError) {
           console.error(videoError);
           setError(videoError.message);
         }
         videoUrl = videoUpload.secure_url;
       }
-
 
       const payload = [
         {
@@ -89,7 +96,6 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
         console.error(mediaError);
         throw mediaError;
       }
-
 
       if (form.isVideo && videoUrl) {
         const videoPayload = [
@@ -141,18 +147,18 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
     >
       <form
         onSubmit={handleSubmit}
-        className="relative flex flex-col gap-5 z-50 w-xs md:w-md lg:w-lg bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl "
+        className="relative flex flex-col gap-5 z-50 w-xs md:w-md lg:w-lg bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl"
       >
         <h3 className="w-full text-center text-4xl p-1 font-bold font-title2 text-transparent bg-clip-text bg-linear-to-r from-accblue to-accgreendark">
-          Agrega Photo
+          {t("photos.admin.modal_title")}
         </h3>
         {error && <p className="text-red-500 italic text-center">{error}</p>}
         <div className="flex flex-col gap-4">
           <input
             type="text"
-            value={form.title}
             name="title"
-            placeholder="Título"
+            value={form.title}
+            placeholder={t("photos.admin.placeholders.title")}
             onChange={setInfo}
             onBlur={handleBlur}
             required
@@ -160,7 +166,7 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
           />
           <label
             htmlFor="thumb"
-            className=" flex items-center justify-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgreendark hover:cursor-pointer"
+            className="flex items-center justify-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgreendark hover:cursor-pointer"
           >
             {form.thumb ? (
               <div className="flex gap-2 items-center justify-center">
@@ -174,14 +180,14 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
                     {form.thumb.name}
                   </p>
                   <span className="text-xs text-accgreendark/60">
-                    Pincha para cambiar
+                    {t("photos.admin.placeholders.change_media")}
                   </span>
                 </div>
               </div>
             ) : (
               <div className="flex items-center gap-2 ">
                 <img src={picture} alt="Picture Icon" className="size-5" />
-                <span>Selecciona una imagen</span>
+                <span>{t("photos.admin.placeholders.select_image")}</span>
               </div>
             )}
             <input
@@ -199,7 +205,7 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
             className="flex justify-between items-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 px-8 focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
           >
             <span className="text-xl font-bold font-title2 text-accgray">
-              Video:
+              {t("photos.admin.video_toggle")}
             </span>
             <input
               onChange={setInfo}
@@ -214,15 +220,14 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
             </div>
           </label>
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in-out ${form.isVideo ? "max-h-96" : "max-h-0"}`}
+            className={`overflow-hidden transition-all duration-500 ${form.isVideo ? "max-h-96" : "max-h-0"}`}
           >
             <label
               htmlFor="video"
-              className="flex items-center justify-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgreendark "
+              className="flex items-center justify-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgreendark"
             >
               {form.video ? (
                 <div className="flex items-center justify-center gap-2 w-full">
-                  {/* Video Preview */}
                   <video
                     src={URL.createObjectURL(form.video)}
                     className=" max-h-20 rounded-lg object-cover"
@@ -231,12 +236,12 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
                     onMouseOver={(e) => e.target.play()}
                     onMouseOut={(e) => e.target.pause()}
                   />
-                  <div className="flex flex-col gap-2s">
+                  <div className="flex flex-col gap-2">
                     <p className="text-sm font-medium truncate w-full text-center">
                       {form.video.name}
                     </p>
                     <span className="text-xs text-accgreendark/60">
-                      Pincha para cambiar
+                      {t("photos.admin.placeholders.change_media")}
                     </span>
                   </div>
                 </div>
@@ -256,10 +261,9 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
                       d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
                     />
                   </svg>
-                  <span>Selecciona un video</span>
+                  <span>{t("photos.admin.placeholders.select_video")}</span>
                 </div>
               )}
-
               <input
                 type="file"
                 name="video"
@@ -281,7 +285,7 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
           {loading ? (
             <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
           ) : (
-            "Subir Foto"
+            t("photos.admin.submit_button")
           )}
         </button>
       </form>

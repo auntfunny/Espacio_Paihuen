@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const MainFeatures = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="relative w-full py-20 px-6 bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       <div className="absolute inset-0 opacity-5">
@@ -9,15 +12,14 @@ const MainFeatures = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-accgreendark/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 flex flex-wrap justify-center items-center gap-12 lg:gap-8 w-full max-w-7xl mx-auto">
+      <div className="relative z-10 flex flex-wrap justify-center gap-12 lg:gap-8 w-full max-w-7xl mx-auto">
         <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/Cama_Naranja_gt74bq.jpg"
-              alt="Cama de Cabaña"
+              alt={t("features.cabin.alt")}
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
             <div className="absolute top-4 left-4 w-12 h-12 text-acclight bg-linear-to-br from-accblue to-accgreendark rounded-full flex items-center justify-center shadow-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -32,11 +34,10 @@ const MainFeatures = () => {
           </div>
           <div className="space-y-3">
             <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray group-hover:text-accblue transition-colors duration-300 ease-out">
-              Cabañas Acogedoras
+              {t("features.cabin.title")}
             </h2>
-            <p className="text-accgray/70 leading-relaxed text-base lg:text-lg group-hover:text-accgray transition-colors duration-300 ease-out">
-              Cabañas separadas y bonitas, de un ambiente para una experiencia
-              única
+            <p className="text-accgray/70 leading-relaxed text-base lg:text-lg">
+              {t("features.cabin.description")}
             </p>
           </div>
         </div>
@@ -45,13 +46,12 @@ const MainFeatures = () => {
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/De_Frente_zdlitz.jpg"
-              alt="Entorno de Cabañas"
+              alt={t("features.environment.alt")}
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
             <div className="absolute top-4 left-4 w-12 h-12 bg-linear-to-br from-accblue to-accgreendark rounded-full flex items-center justify-center shadow-lg">
               <svg
-              className="w-6 h-6 text-acclight"
+                className="w-6 h-6 text-acclight"
                 height="200px"
                 width="200px"
                 version="1.1"
@@ -95,11 +95,10 @@ const MainFeatures = () => {
           </div>
           <div className="space-y-3">
             <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray group-hover:text-accblue transition-colors duration-300 ease-out">
-              Entorno Espectacular
+              {t("features.environment.title")}
             </h2>
-            <p className="text-accgray/70 leading-relaxed text-base lg:text-lg group-hover:text-accgray transition-colors duration-300 ease-out">
-              Rodeado de arboles, con el mar al frente, y un espacio silencioso
-              y natural
+            <p className="text-accgray/70 leading-relaxed text-base lg:text-lg">
+              {t("features.environment.description")}
             </p>
           </div>
         </div>
@@ -108,10 +107,9 @@ const MainFeatures = () => {
           <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Playa_x9nqzl.jpg"
-              alt="Playa"
+              alt={t("features.hot_tubs.alt")}
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
             <div className="absolute top-4 left-4 w-12 h-12 bg-linear-to-br from-accgreendark to-accblue rounded-full flex items-center justify-center shadow-lg">
               <svg
                 className="w-6 h-6 text-white"
@@ -128,10 +126,10 @@ const MainFeatures = () => {
           </div>
           <div className="space-y-3">
             <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray group-hover:text-accblue transition-colors duration-300 ease-out">
-              Tinajas Rústicas
+              {t("features.hot_tubs.title")}
             </h2>
-            <p className="text-accgray/70 leading-relaxed text-base lg:text-lg group-hover:text-accgray transition-colors duration-300 ease-out">
-              Tinaja personal para cada cabaña, calentado con leña
+            <p className="text-accgray/70 leading-relaxed text-base lg:text-lg">
+              {t("features.hot_tubs.description")}
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader";
 import enter from "../assets/svg/login.svg";
 import { useAuth } from "../context/AuthContext";
@@ -6,20 +7,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const Login = () => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const { login, loading: authLoading } = useAuth();
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const captcha = useRef();
+
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [togglePassword, setTogglePassword] = useState(false);
   const [captchaToken, setCaptchaToken] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isReady, setIsReady] = useState(false);
-  const captcha = useRef();
-  const navigate = useNavigate();
 
   const setInfo = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -30,7 +30,6 @@ const Login = () => {
     setError(null);
     setLoading(true);
     setIsSubmitting(true);
-
     captcha.current.execute();
   };
 
@@ -39,37 +38,30 @@ const Login = () => {
       if (!captchaToken || !isSubmitting) return;
 
       try {
-        const profile = await login(credentials, captchaToken);
-
-        console.log("Welcome ", profile?.username);
+        await login(credentials, captchaToken);
         navigate("/");
       } catch (err) {
         if (err.message === "Invalid login credentials") {
-          setError("Correo o contraseña incorrecto");
+          setError(t('login.form.errors.invalid'));
         } else {
-          setError(err.message);
+          setError(err.message || t('login.form.errors.generic'));
         }
-        console.error(err);
       } finally {
         setLoading(false);
       }
     };
-
     completeSubmission();
-  }, [captchaToken, isSubmitting]);
+  }, [captchaToken, isSubmitting, t]);
 
   useEffect(() => {
-    if(window.hcaptcha){
-      setIsReady(true);
-    }
+    if (window.hcaptcha) setIsReady(true);
   }, []);
 
   const headerInfo = {
     image: enter,
-    label: "Inicia Sesión",
-    title: "Login",
-    message:
-      "Ingresa tus datos para iniciar sesión y manejar la página de forma dinámica",
+    label: t('login.header.label'),
+    title: t('login.header.title'),
+    message: t('login.header.message'),
   };
 
   return (
@@ -84,9 +76,9 @@ const Login = () => {
           <div className="flex flex-col gap-4">
             <input
               type="email"
-              value={credentials.email}
               name="email"
-              placeholder="Correo Electrónico"
+              value={credentials.email}
+              placeholder={t('login.form.placeholders.email')}
               onChange={setInfo}
               required
               className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -94,9 +86,9 @@ const Login = () => {
             <div className="relative">
               <input
                 type={togglePassword ? "text" : "password"}
-                value={credentials.password}
                 name="password"
-                placeholder="Contraseña"
+                value={credentials.password}
+                placeholder={t('login.form.placeholders.password')}
                 onChange={setInfo}
                 required
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -104,7 +96,7 @@ const Login = () => {
               <button
                 type="button"
                 onClick={() => setTogglePassword(!togglePassword)}
-                className="absolute top-3.25 right-6 text-accgreendark hover:text-accgreenlight hover:cursor-pointer transition-colors duration-300 ease-in-out"
+                className="absolute top-3.25 right-6 text-accgreendark hover:text-accgreenlight hover:cursor-pointer transition-colors duration-300"
               >
                 {togglePassword ? (
                   <svg
@@ -145,18 +137,18 @@ const Login = () => {
               </button>
             </div>
           </div>
+
           <HCaptcha
-          key={pathname}
+            key={pathname}
             ref={captcha}
             sitekey="215ca736-033a-45b2-a1d2-02923b862fd2"
-            onVerify={(token) => {
-              setCaptchaToken(token);
-            }}
+            onVerify={(token) => setCaptchaToken(token)}
             onLoad={() => setIsReady(true)}
             size="invisible"
           />
 
           {error && <p className="text-red-500 text-center italic">{error}</p>}
+
           <button
             type="submit"
             disabled={loading || authLoading || !isReady}
@@ -165,7 +157,7 @@ const Login = () => {
             {loading || authLoading || !isReady ? (
               <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
             ) : (
-              "Login"
+              t('login.form.submit')
             )}
           </button>
         </form>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import SectionHeaderDesign from "../components/SectionHeaderDesign";
+import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader";
 import edit from "../assets/svg/edit.svg";
 import SuccessModal from "../components/SuccessModal";
@@ -9,8 +9,11 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useLocation } from "react-router-dom";
 
 const NewComment = () => {
-  const { user, setUser, loading: authLoading, anonSignIn } = useAuth();
+  const { t, i18n } = useTranslation();
+  const { user, loading: authLoading, anonSignIn } = useAuth();
   const { pathname } = useLocation();
+  const captcha = useRef();
+
   const [commentInfo, setCommentInfo] = useState({
     name: "",
     email: "",
@@ -26,12 +29,9 @@ const NewComment = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [coords, setCoords] = useState(0);
   const [isReady, setIsReady] = useState(false);
-  const captcha = useRef();
 
   useEffect(() => {
-    if (user?.id) {
-      setCommentInfo({ ...commentInfo, user_id: user.id });
-    }
+    if (user?.id) setCommentInfo({ ...commentInfo, user_id: user.id });
   }, [user]);
 
   const setInfo = (event) => {
@@ -61,41 +61,33 @@ const NewComment = () => {
     setError(null);
     setLoading(true);
     setIsSubmitting(true);
-
     captcha.current.execute();
   };
 
   useEffect(() => {
     const completeSubmission = async () => {
       if (!captchaToken || !isSubmitting) return;
-
       try {
-        let payload = commentInfo;
-
+        let payload = {
+          ...commentInfo,
+          language: i18n.language === "es" ? "spanish" : "english",
+        };
         if (!user && !authLoading) {
           const { data, loginError } = await anonSignIn(captchaToken);
-          if (loginError) {
-            console.error(loginError);
-            captcha.current.resetCaptcha();
-            throw loginError;
-          }
+          if (loginError) throw loginError;
           payload = { ...payload, user_id: data.user.id };
         }
-
-        const { data, error: dberror } = await supabase
+        const { error: dberror } = await supabase
           .from("comments")
-          .insert([payload]);
-
+          .insert([payload], { returning: 'minimal' })
         if (dberror) {
-          if (dberror.code === "42501") {
-            setError("Has llegado al limite de comentarios por ahora");
-            throw dberror;
-          } else {
-            console.error("An unexpected error occurred:", dberror.message);
-            throw dberror;
-          }
+          setError(
+            dberror.code === "42501"
+              ? t("new_comment.form.errors.limit")
+              : t("new_comment.form.errors.unexpected"),
+          );
+          throw dberror;
         }
-
         setCommentSaved(true);
         setCommentInfo({
           name: "",
@@ -107,13 +99,11 @@ const NewComment = () => {
         });
         captcha.current.resetCaptcha();
       } catch (err) {
-        if (err?.code === "42501") {
-          setError("Has llegado al limite de comentarios por ahora");
-          console.error("Comment limit: ", err.message);
-        } else {
-          setError(err.message);
-          console.error(err);
-        }
+        setError(
+          err?.code === "42501"
+            ? t("new_comment.form.errors.limit")
+            : err.message,
+        );
       } finally {
         setLoading(false);
       }
@@ -132,34 +122,29 @@ const NewComment = () => {
   };
 
   useEffect(() => {
-    if(window.hcaptcha){
+    if (window.hcaptcha) {
       setIsReady(true);
     }
   }, []);
 
   const headerInfo = {
     image: edit,
-    label: "Comentarios",
-    title: "Cuentanos Tu Experiencia",
-    message:
-      "Completa el formulario y dejanos un comentario sobre tu experiencia en nuestro Espacio Paihuen.",
+    label: t("new_comment.header.label"),
+    title: t("new_comment.header.title"),
+    message: t("new_comment.header.message"),
   };
 
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
       {commentSaved && (
         <SuccessModal
-          close={closeModal}
-          title={"¡Gracias por tu commentario!"}
-          caption={
-            "Te lo agradecemos y revisaremos tu experiencia en Espacio Paihuen"
-          }
+          close={() => setCommentSaved(false)}
+          title={t("new_comment.success_modal.title")}
+          caption={t("new_comment.success_modal.caption")}
         />
       )}
-
       <div className="relative z-10 flex flex-col items-center pt-32 pb-20 px-4 md:px-8">
         <PageHeader info={headerInfo} />
-
         <div className="w-full max-w-xl mt-12">
           <form
             onSubmit={handleSubmit}
@@ -171,7 +156,7 @@ const NewComment = () => {
                   type="text"
                   value={commentInfo.name}
                   name="name"
-                  placeholder="Nombre"
+                  placeholder={t("new_comment.form.name")}
                   onChange={setInfo}
                   required
                   className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -182,7 +167,7 @@ const NewComment = () => {
                 type="email"
                 value={commentInfo.email}
                 name="email"
-                placeholder="Correo Electrónico"
+                placeholder={t("new_comment.form.email")}
                 onChange={setInfo}
                 required
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -191,7 +176,7 @@ const NewComment = () => {
                 type="text"
                 value={commentInfo.title}
                 name="title"
-                placeholder="Título"
+                placeholder={t("new_comment.form.title")}
                 onChange={setInfo}
                 required
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -201,7 +186,7 @@ const NewComment = () => {
                 name="content"
                 id="content"
                 value={commentInfo.content}
-                placeholder="Agrega tu commentario"
+                placeholder={t("new_comment.form.content")}
                 onChange={setInfo}
                 required
                 className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
@@ -262,9 +247,9 @@ const NewComment = () => {
               className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
             >
               {loading || authLoading || !isReady ? (
-                <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
+                <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin" />
               ) : (
-                "Enviar Commentario"
+                t("new_comment.form.submit_button")
               )}
             </button>
           </form>

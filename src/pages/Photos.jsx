@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import PhotoList from "../components/PhotoList";
-import SectionHeaderDesign from "../components/SectionHeaderDesign";
+import { useTranslation } from "react-i18next";
 import ContactUs from "../components/ContactUs";
 import PageHeader from "../components/PageHeader";
 import { supabase } from "../lib/supabase";
@@ -14,6 +13,7 @@ import SectionModal from "../components/SectionModal";
 import ConfirmModal from "../components/ConfirmModal";
 
 const Photos = () => {
+  const { t } = useTranslation();
   const {
     activePhoto,
     setActivePhoto,
@@ -24,6 +24,7 @@ const Photos = () => {
     setConfirmDeleteSection,
     handleDeleteSection,
   } = usePhoto();
+
   const { user } = useAuth();
   const [photoData, setPhotoData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,41 +36,21 @@ const Photos = () => {
     const request = async () => {
       setLoading(true);
       try {
-        const { data, error } = await supabase.from("sections").select(
-          `
-              section_id,
-              name,
-              created_at,
-              caption,
-              media (
-                media_id,
-                section_id,
-                media_type,
-                thumb_url,
-                created_at,
-                video_details (
-                  video_id,
-                  media_id,
-                  video_url,
-                  duration_seconds
-                )
-              )
-            `,
-        );
-
-        if (error) {
-          setError(error);
-          throw error;
-        }
+        const { data, error } = await supabase.from("sections").select(`
+          section_id, name_es, created_at, caption_es, name_en, caption_en,
+          media (
+            media_id, section_id, media_type, thumb_url, created_at,
+            video_details ( video_id, media_id, video_url, duration_seconds )
+          )
+        `);
+        if (error) throw error;
         setPhotoData(data);
       } catch (err) {
-        console.error("Something went wrong: ", err);
         setError(err);
       } finally {
         setLoading(false);
       }
     };
-
     request();
   }, []);
 
@@ -157,10 +138,9 @@ const Photos = () => {
 
   const headerInfo = {
     image: picture,
-    label: "Galería Visual",
-    title: "Nuestras Fotos",
-    message:
-      "Un recorrido visual por los rincones y la vida silvestre que hacen de Espacio Paihuen un lugar único.",
+    label: t("photos.header.label"),
+    title: t("photos.header.title"),
+    message: t("photos.header.message"),
   };
 
   return (
@@ -168,10 +148,10 @@ const Photos = () => {
       <div className="relative z-10 flex flex-col items-center pt-32 pb-12 px-4 md:px-8">
         <PageHeader info={headerInfo} />
 
-        <div className="flex flex-col items-center gap-20 w-full max-w-7xl mt-16 ">
+        <div className="flex flex-col items-center gap-20 w-full max-w-7xl mt-16">
           {error ? (
             <div className="w-full text-center text-xl md:text-2xl text-accblue">
-              Lo sentimos, algo falló. Por favor, intenta mas tarde.
+              {t("photos.error_message")}
             </div>
           ) : loading ? (
             <PhotoSectionSkeleton />
@@ -184,11 +164,11 @@ const Photos = () => {
               />
             ))
           )}
+
           {user?.role === "ADMIN" && (
             <button
               onClick={() => setNewSection(true)}
-              type="button"
-              className="group flex items-center justify-center gap-2 md:w-1/2 relative bg-linear-to-r from-accblue to-accgreendark text-acclight text-xl font-semibold py-4 px-8 rounded-full shadow-2xl hover:cursor-pointer hover:shadow-accblue/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accblue/50 transition-all duration-300 ease-out overflow-hidden"
+              className="group flex items-center justify-center gap-2 md:w-1/2 relative bg-linear-to-r from-accblue to-accgreendark text-acclight text-xl font-semibold py-4 px-8 rounded-full shadow-2xl hover:cursor-pointer hover:shadow-accblue/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accblue/50 transition-all duration-300 ease-out overflow-hidden" // classes omitted for brevity
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +184,9 @@ const Photos = () => {
                   d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
               </svg>
-              <span className="relative z-10">Agrega Sección</span>
+              <span className="relative z-10">
+                {t("photos.admin.add_section")}
+              </span>
               <div className="absolute inset-0 bg-linear-to-r from-accgreendark to-accblue opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
             </button>
@@ -212,6 +194,34 @@ const Photos = () => {
         </div>
       </div>
       <ContactUs />
+
+      {confirmDeletePhoto && (
+        <ConfirmModal
+          title={t("photos.admin.delete_photo_confirm.title")}
+          message={t("photos.admin.delete_photo_confirm.message")}
+          onCancel={() => setConfirmDeletePhoto(false)}
+          onConfirm={handleDelete}
+          item={activePhoto}
+        />
+      )}
+      {confirmDeleteSection && (
+        <ConfirmModal
+          title={t("photos.admin.delete_section_confirm.title")}
+          message={t("photos.admin.delete_section_confirm.message")}
+          onCancel={() => setConfirmDeleteSection(false)}
+          onConfirm={deleteSection}
+          item={confirmDeleteSection}
+        />
+      )}
+      {newPhoto && (
+        <PhotoModal photoData={photoData} setPhotoData={setPhotoData} />
+      )}
+      {newSection && (
+        <SectionModal
+          setNewSection={setNewSection}
+          setPhotoData={setPhotoData}
+        />
+      )}
       {activePhoto && (
         <div
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-40 cursor-pointer"
@@ -255,33 +265,7 @@ const Photos = () => {
           )}
         </div>
       )}
-      {newPhoto && (
-        <PhotoModal photoData={photoData} setPhotoData={setPhotoData} />
-      )}
-      {newSection && (
-        <SectionModal
-          setNewSection={setNewSection}
-          setPhotoData={setPhotoData}
-        />
-      )}
-      {confirmDeletePhoto && (
-        <ConfirmModal
-          title={"Confirma Eliminar"}
-          message={"Estás segur@ que quieres eliminar esta foto o video?"}
-          onCancel={cancelPhoto}
-          onConfirm={handleDelete}
-          item={activePhoto}
-        />
-      )}
-      {confirmDeleteSection && (
-        <ConfirmModal
-          title={"Confirma Eliminar"}
-          message={"Estás segur@ que quieres eliminar esta sección?"}
-          onCancel={cancelSection}
-          onConfirm={deleteSection}
-          item={confirmDeleteSection}
-        />
-      )}
+
     </div>
   );
 };
