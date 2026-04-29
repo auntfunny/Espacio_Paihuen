@@ -205,7 +205,7 @@ const PhotoModal = ({ photoData, setPhotoData }) => {
             className="flex justify-between items-center w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 px-8 focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
           >
             <span className="text-xl font-bold font-title2 text-accgray">
-              {t("photos.admin.labels.video_toggle")}
+              {t("photos.admin.video_toggle")}
             </span>
             <input
               onChange={setInfo}

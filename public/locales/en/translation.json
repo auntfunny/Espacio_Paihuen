@@ -347,11 +347,12 @@
     "admin": {
       "modal_title": "Add Photo",
       "submit_button": "Upload Photo",
+      "video_toggle": "Video:",
+      "add_section": "Add Section",
       "placeholders": {
         "title": "Title",
         "change_media": "Click to change",
         "select_image": "Select an image",
-        "video_toggle": "Video:",
         "select_video": "Select a video"
       },
       "section_modal": {
@@ -363,6 +364,14 @@
           "name_en": "English Title",
           "caption_en": "English Subtitle"
         }
+      },
+      "delete_section_confirm": {
+        "title": "Confirm Delete",
+        "message": "Are you sure you want to delete this section?"
+      },
+      "delete_photo_confirm": {
+        "title": "Confirm Delete",
+        "message": "Are you sure you want to delete this photo or video?"
       }
     }
   },
@@ -389,8 +398,20 @@
     }
   },
   "admin_reservations": {
-    "header": { "title": "Reservations" },
-    "table": { "headers": { "name": "Name", "status": "Status" } },
+    "header": {
+      "title": "Reservations",
+      "label": "Manage Reservations",
+      "message": "View the details of requested reservations and manage their status"
+    },
+    "table": {
+      "headers": {
+        "name": "Name",
+        "status": "Status",
+        "number": "Number",
+        "check_in": "Check-in",
+        "check_out": "Check-out"
+      }
+    },
     "modal": {
       "title": "Reservation",
       "close": "Close",

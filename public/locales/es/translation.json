@@ -347,11 +347,12 @@
     "admin": {
       "modal_title": "Agrega Photo",
       "submit_button": "Subir Foto",
+      "video_toggle": "Video:",
+      "add_section": "Agrega Sección",
       "placeholders": {
         "title": "Título",
         "change_media": "Pincha para cambiar",
         "select_image": "Selecciona una imagen",
-        "video_toggle": "Video:",
         "select_video": "Selecciona un video"
       },
       "section_modal": {
@@ -363,6 +364,14 @@
           "name_en": "Título en inglés",
           "caption_en": "Subtítulo en inglés"
         }
+      },
+      "delete_section_confirm": {
+        "title": "Confirma Eliminar",
+        "message": "Estás segur@ que quieres eliminar esta sección?"
+      },
+      "delete_photo_confirm": {
+        "title": "Confirma Eliminar",
+        "message": "Estás segur@ que quieres eliminar esta foto?"
       }
     }
   },
@@ -389,8 +398,20 @@
     }
   },
   "admin_reservations": {
-    "header": { "title": "Reservaciones" },
-    "table": { "headers": { "name": "Nombre", "status": "Estatus" } },
+    "header": {
+      "title": "Reservaciones",
+      "label": "Maneja Reservaciones",
+      "message": "Consulta los datos de las reservaciones solicitadas y gestiona su estado"
+    },
+    "table": {
+      "headers": {
+        "name": "Nombre",
+        "status": "Estatus",
+        "number": "Número",
+        "check_in": "Llegada",
+        "check_out": "Salida"
+      }
+    },
     "modal": {
       "title": "Reserva",
       "close": "Cerrar",
