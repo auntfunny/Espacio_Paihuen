@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { supabase } from "../lib/supabase";
 
 const SectionModal = ({ setNewSection, setPhotoData }) => {
-  const [form, setForm] = useState({ name: "", caption: "" });
+  const { t } = useTranslation();
+  const [form, setForm] = useState({ name_es: "", caption_es: "", name_en: "", caption_en: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -12,8 +14,8 @@ const SectionModal = ({ setNewSection, setPhotoData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!form.caption || !form.name) {
-      setError("Por favor, revisa los campos");
+    if (!form.caption_es || !form.name_es || !form.name_en || !form.caption_en) {
+      setError(t('photos.admin.field_errors'));
       return;
     }
 
@@ -25,16 +27,15 @@ const SectionModal = ({ setNewSection, setPhotoData }) => {
         .select()
         .single();
 
-      if (sectionError) {
-        setError(sectionError.message);
-        throw sectionError;
-      }
+      if (sectionError) throw sectionError;
+      
       data.media = [];
-      setPhotoData((prev) => [...prev, data])
+      setPhotoData((prev) => [...prev, data]);
       setNewSection(false);
     } catch (err) {
-      console.error(err);
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,24 +52,18 @@ const SectionModal = ({ setNewSection, setPhotoData }) => {
   };
 
   return (
-    <div
-      onClick={handleClick}
-      className="fixed inset-0 flex justify-center items-center bg-black/60 z-45"
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="relative flex flex-col gap-5 z-50 w-xs md:w-md lg:w-lg bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl "
-      >
+    <div onClick={handleClick} className="fixed inset-0 flex justify-center items-center bg-black/60 z-45">
+      <form onSubmit={handleSubmit} className="relative flex flex-col gap-5 z-50 w-xs md:w-md lg:w-lg bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl">
         <h3 className="w-full text-center text-4xl p-1 font-bold font-title2 text-transparent bg-clip-text bg-linear-to-r from-accblue to-accgreendark">
-          Nueva Sección
+          {t('photos.admin.section_modal.title')}
         </h3>
         {error && <p className="italic text-red-500">{error}</p>}
         <div className="flex flex-col gap-4">
           <input
             type="text"
-            value={form.name}
-            name="name"
-            placeholder="Título"
+            value={form.name_es}
+            name="name_es"
+            placeholder={t('photos.admin.section_modal.placeholders.name_es')}
             onChange={setInfo}
             onBlur={handleBlur}
             required
@@ -76,9 +71,29 @@ const SectionModal = ({ setNewSection, setPhotoData }) => {
           />
           <input
             type="text"
-            value={form.caption}
-            name="caption"
-            placeholder="Subtítulo"
+            value={form.caption_es}
+            name="caption_es"
+            placeholder={t('photos.admin.section_modal.placeholders.caption_es')}
+            onChange={setInfo}
+            onBlur={handleBlur}
+            required
+            className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
+          />
+          <input
+            type="text"
+            value={form.name_en}
+            name="name_en"
+            placeholder={t('photos.admin.section_modal.placeholders.name_en')}
+            onChange={setInfo}
+            onBlur={handleBlur}
+            required
+            className="w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
+          />
+          <input
+            type="text"
+            value={form.caption_en}
+            name="caption_en"
+            placeholder={t('photos.admin.section_modal.placeholders.caption_en')}
             onChange={setInfo}
             onBlur={handleBlur}
             required
@@ -86,14 +101,11 @@ const SectionModal = ({ setNewSection, setPhotoData }) => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
-        >
+        <button type="submit" className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300">
           {loading ? (
             <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
           ) : (
-            "Agrega"
+            t('photos.admin.section_modal.submit_button')
           )}
         </button>
       </form>

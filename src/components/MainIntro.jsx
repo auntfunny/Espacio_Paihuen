@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const MainIntro = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="relative w-full py-24 px-6 bg-linear-to-r from-accblue to-accgray overflow-hidden">
       <div className="absolute inset-0 opacity-30">
@@ -16,7 +19,7 @@ const MainIntro = () => {
             <div className="absolute inset-2 bg-linear-to-br from-accgreenlight/30 to-accgreendark/30 rounded-full blur-xl"></div>
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085713/Logo_he7dxc.jpg"
-              alt="Logo"
+              alt={t('intro.logo_alt')}
               className="w-60 h-60 z-10 rounded-full mask-image-[linear-linear(to_bottom,black_80%,transparent)]"
             />
           </div>
@@ -25,16 +28,13 @@ const MainIntro = () => {
         <div className="flex flex-col gap-8 max-w-2xl">
           <div>
             <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold font-title2 text-acclight mb-4 leading-tight">
-              Nuestra Historia
+              {t('intro.title')}
             </h2>
             <div className="w-16 h-1 bg-linear-to-r from-accgreenlight to-accblue rounded-full"></div>
           </div>
 
           <p className="text-base md:text-lg leading-relaxed text-acclight/80 max-w-xl">
-            Espacio Paihuen fue fundado en 2025 con la misión de brindar una
-            experiencia de paz y relajación a todos los que lo visitan. Siempre
-            ha tenido un enfoque en la atención del cliente y asegurar que la
-            experiencia que tiene sea la mejor posible en todo aspecto.
+            {t('intro.description')}
           </p>
         </div>
       </div>

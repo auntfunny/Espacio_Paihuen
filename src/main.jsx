@@ -6,6 +6,7 @@ import { HashRouter } from "react-router-dom";
 import { PhotoProvider } from "./context/PhotoContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { InfoProvider } from "./context/InfoContext.jsx";
+import './lib/i18n.js';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

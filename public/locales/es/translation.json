@@ -1,0 +1,419 @@
+{
+  "nav": {
+    "reserve": "Reservar",
+    "about": "Sobre",
+    "attractions": "Atracciones",
+    "location": "Ubicación",
+    "photos": "Fotos",
+    "reservations": "Reservaciones",
+    "login": "Login",
+    "logout": "Logout",
+    "aria_label": "Toggle menú"
+  },
+  "hero": {
+    "image_alt": "Espacio Paihuen",
+    "top_text": "Tu espacio de descanso",
+    "title": "Paihuen",
+    "subtitle": "Donde la naturaleza se encuentra con la tranquilidad",
+    "buttons": {
+      "reserve": "Reservar ahora",
+      "learn_more": "Conoce más"
+    }
+  },
+  "intro": {
+    "logo_alt": "Logo",
+    "title": "Nuestra Historia",
+    "description": "Espacio Paihuen fue fundado en 2025 con la misión de brindar una experiencia de paz y relajación a todos los que lo visitan. Siempre ha tenido un enfoque en la atención del cliente y asegurar que la experiencia que tiene sea la mejor posible en todo aspecto."
+  },
+  "features": {
+    "cabin": {
+      "alt": "Cama de Cabaña",
+      "title": "Cabañas Acogedoras",
+      "description": "Cabañas separadas y bonitas, de un ambiente para una experiencia única"
+    },
+    "environment": {
+      "alt": "Entorno de Cabañas",
+      "title": "Entorno Espectacular",
+      "description": "Rodeado de árboles, con el mar al frente, y un espacio silencioso y natural"
+    },
+    "hot_tubs": {
+      "alt": "Playa",
+      "title": "Tinajas Rústicas",
+      "description": "Tinaja personal para cada cabaña, calentado con leña"
+    }
+  },
+  "promo": {
+    "discount_label": "de descuento",
+    "save_changes": "Guardar Cambios",
+    "reserve_now": "Reservar Ahora",
+    "footer_note": "Oferta limitada • Sujeta a disponibilidad",
+    "placeholders": {
+      "discount": "Ej: 20%",
+      "time": "Ej: Temporada de Invierno",
+      "limit": "Ej: Cupos limitados",
+      "message": "Escribe el mensaje de la oferta..."
+    }
+  },
+  "environmental_commitment": {
+    "badge": "Energía Sostenible",
+    "image_alt": "Paneles solares y naturaleza",
+    "title": "Nuestro Compromiso Ambiental",
+    "description_1": "En Espacio Paihuen, creemos que el verdadero lujo es vivir en armonía con la naturaleza. Por eso, todas nuestras cabañas funcionan con energía solar, permitiéndote disfrutar de todas las comodidades modernas sin impactar negativamente el entorno.",
+    "description_2": "Además, contamos con nuestro propio pozo de agua, lo que nos permite ser completamente autosuficientes y reducir nuestra huella ambiental. Cada gota de agua que utilizamos proviene de fuentes naturales protegidas, asegurando la calidad y sostenibilidad de nuestras operaciones.",
+    "description_3": "Tu estancia con nosotros contribuye a la preservación del medio ambiente, permitiéndote viajar con conciencia ambiental mientras disfrutas de la máxima comodidad en uno de los lugares más hermosos de Chile.",
+    "features": {
+      "solar": { "title": "Energía Solar", "subtitle": "100% Renovable" },
+      "water": { "title": "Agua de Pozo", "subtitle": "Pura y Natural" }
+    }
+  },
+  "about": {
+    "header": {
+      "label": "Carretera Austral, Chile",
+      "title": "Sobre Nosotros",
+      "subtitle": "Descubre la esencia de Espacio Paihuen, donde la naturaleza se encuentra con el confort"
+    },
+    "history": {
+      "title": "Nuestra Historia",
+      "description_1": "Espacio Paihuen se encuentra en la hermosa Carretera Austral del sur de Chile, rodeado de naturaleza y paisajes impresionantes y situado frente al mar. Nuestro objetivo es ofrecer a los viajeros una experiencia única, combinando la comodidad de un alojamiento acogedor con la belleza natural que nos rodea.",
+      "description_2": "En Espacio Paihuen, creemos en la importancia de conectar con la naturaleza y disfrutar de momentos de tranquilidad en un entorno inspirador. Ven y descubre todo lo que tenemos para ofrecerte en este rincón especial del mundo.",
+      "badge_nature": "Naturaleza Pura",
+      "badge_comfort": "Comodidad Total",
+      "image_alt": "Vista al mar de la propiedad",
+      "image_badge": "Vista Panorámica"
+    },
+    "space": {
+      "title": "Nuestro Espacio",
+      "description_1": "Contamos con una vista preciosa del mar, y con tres cabañas equipadas con todo lo necesario para una estancia cómoda y relajante. Cada cabaña está diseñada para brindar un ambiente acogedor y armonioso, permitiéndote disfrutar de la belleza natural que nos rodea.",
+      "description_2": "Además, ofrecemos áreas comunes donde puedes compartir momentos especiales con otros viajeros o simplemente relajarte mientras contemplas el paisaje marino. En Espacio Paihuen, nos esforzamos por crear un ambiente cálido y acogedor para que cada huésped se sienta como en casa durante su estancia con nosotros.",
+      "stats_cabins": "3 Cabañas",
+      "stats_cabins_sub": "Espacios Privados",
+      "stats_view": "Vista al Mar",
+      "stats_view_sub": "Panorámica",
+      "image_alt": "Vista al mar de la propiedad",
+      "image_badge": "Costa Austral"
+    },
+    "cabins_detail": {
+      "title": "Nuestras Cabañas",
+      "description_1": "Nuestras cabañas están diseñadas para ofrecerte una experiencia de alojamiento única y confortable. Cada cabaña cuenta con una decoración acogedora y moderna, equipada con todas las comodidades necesarias para que tu estancia sea inolvidable.",
+      "description_2": "Están hechas con un solo ambiente adentro, con un espacio amplio y bien iluminado. Cada una tiene un ventanal que da a la naturaleza y al mar. También tienen una terraza para poder estar rodeado de la naturaleza, con una tinaja rústica por cada cabaña.",
+      "description_3": "Disfruta de la tranquilidad del entorno natural mientras te relajas en tu cabaña, con vistas impresionantes al mar y a la naturaleza circundante. En Espacio Paihuen, nos esforzamos por brindarte un espacio donde puedas desconectar, recargar energías y crear recuerdos inolvidables durante tu visita a la Carretera Austral.",
+      "tag_terrace": "Terraza Privada",
+      "tag_view": "Vista Panorámica",
+      "tag_tub": "Tinaja Rústica",
+      "image_alt": "Vista al mar de la propiedad",
+      "image_badge": "Costa Austral"
+    },
+    "activities": {
+      "title": "Nuestras Actividades",
+      "items": {
+        "tub": {
+          "title": "Tinaja Rústica Personal",
+          "info": "Disfruta de un atardecer sentado en una tinaja caliente mirando al mar. Nuestras tinajas son calentadas a leña y personal por cada cabaña. Son perfectas para compartir un picadillo y un lindo puesto del sol."
+        },
+        "kayak": {
+          "title": "Kayak Personal y Doble",
+          "info": "Explora el bahía Quillaipe en un kayak solo o con un compañero. Disfruta del lindo entorno y las aguas calmadas que tenemos aquí donde estamos protegidos de las olas fuertes."
+        },
+        "central": {
+          "title": "Espacio Central",
+          "info": "Relajate en los espacios abiertos y pasea por nuestro hermoso Espacio Paihuen, disfrutando de los lindo pajaros como el Colibrí Chico que nos visitan todos los días."
+        }
+      }
+    },
+    "cta": {
+      "title": "¿Listo para tu Escape Perfecto?",
+      "subtitle": "Ven y descubre la magia de Espacio Paihuen, donde cada momento se convierte en un recuerdo inolvidable",
+      "button": "Reservar Ahora"
+    }
+  },
+  "attractions": {
+    "header": {
+      "label": "Explora la Región de Los Lagos",
+      "title": "Atracciones Cercanas",
+      "message": "Ubicados estratégicamente en la Carretera Austral, somos el punto de partida perfecto para descubrir tesoros naturales."
+    },
+    "items": {
+      "alerce": {
+        "title": "Parque Nacional Alerce Andino",
+        "content": "A tan solo 30 minutos de Espacio Paihuen. Disfruta de senderos de trekking rodeados de alerces milenarios y descubre la magia de los Saltos de Chaica. Un encuentro directo con la selva valdiviana.",
+        "distance": "30 MIN"
+      },
+      "caleta": {
+        "title": "Caleta La Arena",
+        "content": "Caleta La Arena es el punto de partida de la Carretera Austral, ubicado a 45 km de Puerto Montt. Destaca por su conexión clave mediante el ferry hacia Caleta Puelche y su famosa merluza frita en puestos locales. Es una parada estratégica e icónica que combina logística de viaje con auténtico sabor marino.",
+        "distance": "30 MIN"
+      },
+      "traditions": {
+        "title": "Ruta de las Tradiciones",
+        "content": "Durante los meses de verano en la Carretera Austral, disfruta de la cultura y las tradiciones del sur al visitar las ferias costumbristas que se llevan a cabo en distintos pueblos cada fin de semana. Siempre hay rica comida, como asado de cordero y empanadas al horno y fritas, y entretención de música típica en viva y bailes todo el día",
+        "distance": "5-30 MIN"
+      },
+      "pvaras": {
+        "title": "Puerto Varas",
+        "content": "La \"Ciudad de las Rosas\" te espera a orillas del Lago Llanquihue. Famosa por su arquitectura de influencia alemana y sus vistas inigualables a los volcanes Osorno y Calbuco. Ideal para una tarde de gastronomía y paseo.Caleta La Arena es el punto de partida de la Carretera Austral, ubicado a 45 km de Puerto Montt. Destaca por su conexión clave mediante el ferry hacia Caleta Puelche y su famosa merluza frita en puestos locales. Es una parada estratégica e icónica que combina logística de viaje con auténtico sabor marino.",
+        "distance": "50 MIN"
+      },
+      "chapo": {
+        "title": "Lago Chapo",
+        "content": "Un impresionante cuerpo de agua cordillerano a los pies del imponente Volcán Calbuco. Es el lugar perfecto para quienes buscan una belleza natural más salvaje, rodeada de bosques vírgenes y aire puro de montaña.",
+        "distance": "50 MIN"
+      },
+      "pichicolo": {
+        "title": "Termas de Pichicolo",
+        "content": "Las Termas de Pichicolo son un santuario natural de relajación ubicado a unos 9 km antes de llegar a Hornopirén. Este destino es ideal para quienes buscan desconectarse del ruido y sumergirse en un entorno de bosque nativo.",
+        "distance": "1 H 40 MIN"
+      },
+      "hornopiren": {
+        "title": "Hornopirén",
+        "content": "Hornopirén es la capital de la comuna de Hualaihué y es mundialmente conocida como la \"Puerta de Entrada Norte a la Carretera Austral\". Esta localidad combina la majestuosidad de la cordillera de los Andes con el mar de los fiordos patagónicos.",
+        "distance": "1 H 50 MIN"
+      },
+      "petrohue": {
+        "title": "Saltos de Petrohúe",
+        "content": "Los Saltos de Petrohué son uno de los atractivos naturales más emblemáticos de Chile, ubicados en el corazón del Parque Nacional Vicente Pérez Rosales, el más antiguo del país. Estas cascadas destacan por sus aguas de un intenso color esmeralda y turquesa que fluyen sobre formaciones de lava basáltica originadas por las erupciones del volcán Osorno.",
+        "distance": "1 H 30 MIN"
+      },
+      "cochamo": {
+        "title": "Termas de Cochamó",
+        "content": "Las Termas Cochamó destacan por su innovadora talasoterapia, que fusiona aguas termales con agua de mar mineralizada frente al estuario. Ofrecen una experiencia premium con piscinas y tinajas privadas insertas en un bosque nativo, garantizando tranquilidad mediante cupos limitados. Su acceso es directo por ruta pavimentada, siendo el refugio ideal para relajarse con total comodidad tras explorar la zona.",
+        "distance": "2 H"
+      },
+      "chiloe": {
+        "title": "Chiloé",
+        "content": "Chiloé es un archipiélago mágico famoso por su identidad cultural única, que mezcla mitología, tradiciones madereras y paisajes de colinas verdes frente al mar. Sus puntos fuertes son las iglesias de madera (Patrimonio de la Humanidad), los pintorescos palafitos de colores y una gastronomía icónica basada en el curanto. Es un destino donde la naturaleza salvaje de sus parques nacionales convive con una atmósfera espiritual y legendaria inigualable.",
+        "distance": "2 H"
+      }
+    }
+  },
+  "attraction_section": {
+    "distance_label": "DE DISTANCIA",
+    "official_info": "Ver horarios e información oficial"
+  },
+  "location": {
+    "header": {
+      "label": "Carretera Austral Km 21.8",
+      "title": "Dónde Encontrarnos",
+      "message": "Estamos ubicados en el inicio de la hermosa Carretera Austral, a tan solo 25 minutos de Puerto Montt."
+    },
+    "directions": {
+      "title": "Cómo llegar",
+      "steps": [
+        "Sal de Puerto Montt con dirección a la Carretera Austral.",
+        "Continúa durante 25 minutos hasta llegar a Quillaipe.",
+        "En el km 21.8, gira a la derecha (junto al negocio Costa Quillaipe).",
+        "Sigue hasta el final de la calle para llegar a Espacio Paihuen."
+      ],
+      "coords_label": "Coordenadas Exactas:"
+    },
+    "public_transport": {
+      "title": "Transporte Público",
+      "description": "Toma las líneas <1>Buses Vargas</1> o <1>Buses J.B.</1> desde el <2>Terminal de Buses</2>. Salidas frecuentes hacia Caleta La Arena; solicita bajar en <1>Quillaipe</1>."
+    },
+    "google_maps_btn": "Abrir en Google Maps",
+    "footer_quote": "¡Te esperamos en este rincón del paraíso!",
+    "map_alt": "Mapa a Espacio Paihuen"
+  },
+  "weather": {
+    "label": "Clima en Quillaipe",
+    "error": "Error al cargar el clima",
+    "lang_code": "es"
+  },
+  "reserve": {
+    "header": {
+      "label": "Reservas en Línea",
+      "title": "Reserva Tu Estancia",
+      "message": "Completa el formulario y nos pondremos en contacto contigo lo antes posible para confirmar tu visita a este paraíso austral."
+    },
+    "intro": {
+      "title": "Nuestras Reservaciones",
+      "description": "Nosotros ofrecemos varios servicios para nuestros clientes. Aquí puedes ver los precios antes de hacer tu reserva.",
+      "disclaimer": "*Los kayak estan sujeto a disponibilidad en el momento, no se pueden reservar"
+    },
+    "success_modal": {
+      "title": "¡Gracias por tu reserva!",
+      "caption": "En breve nos comunicaremos con usted para confirmar los detalles."
+    },
+    "form": {
+      "placeholders": {
+        "name": "Nombre Completo",
+        "email": "Correo Electrónico",
+        "phone": "Número de Teléfono (+56 9...)",
+        "hot_tub_dates": "Seleciona las fechas para la tinaja"
+      },
+      "labels": {
+        "check_in": "Llegada",
+        "check_out": "Salida",
+        "guests": "Huéspedes",
+        "hot_tub": "Tinaja",
+        "total": "Total:"
+      },
+      "submit_button": "Confirmar Reserva",
+      "guest_limit": "*Solo 3 húespedes por cabaña",
+      "confirmation_note": "* Tu reserva quedará confirmada una vez que te contactemos."
+    },
+    "errors": {
+      "no_guests": "Por favor, ingresa numero de húespedes",
+      "limit_reached": "Has llegado al limite de reservas por ahora"
+    }
+  },
+  "comments": {
+    "title": "Comentarios",
+    "subtitle": "Lo que dicen nuestros huéspedes sobre su experiencia",
+    "error_message": "Lo sentimos, algo falló. Por favor, intenta mas tarde.",
+    "button": "Agrega Tu Commentario"
+  },
+  "new_comment": {
+    "header": {
+      "title": "Cuéntanos Tu Experiencia",
+      "label": "Comentarios",
+      "message": "Completa el formulario y dejanos un comentario sobre tu experiencia en nuestro Espacio Paihuen."
+    },
+    "success_modal": {
+      "title": "¡Gracias por tu comentario!",
+      "caption": "Te lo agradecemos y revisaremos tu experiencia en Espacio Paihuen"
+    },
+    "form": {
+      "submit_button": "Enviar Comentario",
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "title": "Título",
+      "content": "Agrega tu commentario"
+    }
+  },
+  "contact": {
+    "title": "¿Aún tiene dudas?",
+    "subtitle": "Estamos aquí para ayudarle",
+    "primary_button": "Contáctanos",
+    "secondary_button": "Ver Ubicación"
+  },
+  "contact_page": {
+    "header": {
+      "title": "Contáctanos",
+      "label": "Contacto",
+      "message": "Estamos aquí para tus dudas y consultas. Hablános con una de las opciones y estaremos en contacto pronto."
+    },
+    "form": {
+      "submit": "Enviar Mensaje",
+      "success": "Enviado!",
+      "title": "Formulario de Contacto",
+      "subtitle": "Rellena el formulario y nos pondremos en contacto lo antes posible",
+      "placeholders": {
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "phone": "Número de Teléfono (+56 9...)",
+        "subject": "Título",
+        "message": "Escribe tu mensaje aquí..."
+      }
+    },
+    "cards": {
+      "whatsapp": {
+        "title": "WhatsApp",
+        "message": "Chatea con nosotros de forma instantánea para respuestas rápidas y personalizadas",
+        "button": "Iniciar Chat"
+      },
+      "phone": {
+        "title": "Teléfono",
+        "message": "Llámanos directamente para una conversación inmediata y detallada",
+        "button": "Llamar Ahora"
+      },
+      "email": {
+        "title": "Email",
+        "message": "Envíanos un correo electrónico para consultas detalladas o reservas",
+        "button": "Enviar Email"
+      },
+      "instagram": {
+        "title": "Instagram",
+        "message": "Síguenos en Instagram para ver nuestras últimas fotos y actualizaciones",
+        "button": "@espacio_paihuen"
+      },
+      "facebook": {
+        "title": "Facebook",
+        "message": "Únete a nuestra comunidad en Facebook y mantente informado",
+        "button": "Visitar Página"
+      },
+      "form_card": {
+        "title": "Formulario",
+        "message": "Completa nuestro formulario detallado para consultas específicas",
+        "button": "Completar Formulario"
+      }
+    }
+  },
+  "photos": {
+    "header": {
+      "title": "Nuestras Fotos",
+      "label": "Galería Visual",
+      "message": "Un recorrido visual por los rincones y la vida silvestre que hacen de Espacio Paihuen un lugar único."
+    },
+    "admin": {
+      "modal_title": "Agrega Photo",
+      "submit_button": "Subir Foto",
+      "placeholders": {
+        "title": "Título",
+        "change_media": "Pincha para cambiar",
+        "select_image": "Selecciona una imagen",
+        "video_toggle": "Video:",
+        "select_video": "Selecciona un video"
+      },
+      "section_modal": {
+        "title": "Nueva Sección",
+        "submit_button": "Agrega",
+        "placeholders": {
+          "name_es": "Título en español",
+          "caption_es": "Subtítulo en español",
+          "name_en": "Título en inglés",
+          "caption_en": "Subtítulo en inglés"
+        }
+      }
+    }
+  },
+  "prices": {
+    "night_label": "Precio por noche para hasta 3 personas:",
+    "hot_tub_label": "Precio para la tinaja rústica:",
+    "kayak_label": "Precio por hora de uso de kayak por persona:",
+    "save_changes": "Guardar Cambios",
+    "currency": "CLP"
+  },
+  "login": {
+    "header": {
+      "title": "Login",
+      "label": "Inicia Sesión",
+      "message": "Ingresa tus datos para iniciar sesión y manejar la página de forma dinámica"
+    },
+    "form": {
+      "submit": "Login",
+      "errors": { "invalid": "Correo o contraseña incorrecto" },
+      "placeholders": {
+        "email": "Correo Electrónico",
+        "password": "Contraseña"
+      }
+    }
+  },
+  "admin_reservations": {
+    "header": { "title": "Reservaciones" },
+    "table": { "headers": { "name": "Nombre", "status": "Estatus" } },
+    "modal": {
+      "title": "Reserva",
+      "close": "Cerrar",
+      "date_locale": "es-ES"
+    },
+    "item": {
+      "status_confirmed": "Confirmada",
+      "status_pending": "Pendiente",
+      "date_locale": "es-ES"
+    }
+  },
+  "common": {
+    "buttons": {
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "close": "Cerrar"
+    },
+    "logo_alt": "Espacio Paihuen"
+  },
+  "auth_loading": { "message": "Cargando tu información, por favor espere" },
+  "footer": {
+    "copyright": "©2026 Espacio Paihuen",
+    "rights": "Todos los derechos reservados",
+    "logo_alt": "Espacio Paihuen"
+  }
+}

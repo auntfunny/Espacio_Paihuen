@@ -1,0 +1,419 @@
+{
+  "nav": {
+    "reserve": "Book",
+    "about": "About",
+    "attractions": "Attractions",
+    "location": "Location",
+    "photos": "Photos",
+    "reservations": "Reservations",
+    "login": "Login",
+    "logout": "Logout",
+    "aria_label": "Toggle menu"
+  },
+  "hero": {
+    "image_alt": "Espacio Paihuen",
+    "top_text": "Your space to rest",
+    "title": "Paihuen",
+    "subtitle": "Where nature meets tranquility",
+    "buttons": {
+      "reserve": "Book now",
+      "learn_more": "Learn more"
+    }
+  },
+  "intro": {
+    "logo_alt": "Logo",
+    "title": "Our History",
+    "description": "Espacio Paihuen was founded in 2025 with the mission of providing an experience of peace and relaxation to everyone who visits. It has always focused on customer service and ensuring that your experience is the best possible in every aspect."
+  },
+  "features": {
+    "cabin": {
+      "alt": "Cabin Bed",
+      "title": "Cozy Cabins",
+      "description": "Beautiful separate studio cabins for a unique experience"
+    },
+    "environment": {
+      "alt": "Cabin Surroundings",
+      "title": "Spectacular Surroundings",
+      "description": "Surrounded by trees, facing the sea, in a quiet and natural space"
+    },
+    "hot_tubs": {
+      "alt": "Beach",
+      "title": "Rustic Hot Tubs",
+      "description": "Private wood-fired hot tub for each cabin"
+    }
+  },
+  "promo": {
+    "discount_label": "discount",
+    "save_changes": "Save Changes",
+    "reserve_now": "Book Now",
+    "footer_note": "Limited offer • Subject to availability",
+    "placeholders": {
+      "discount": "e.g.: 20%",
+      "time": "e.g.: Winter Season",
+      "limit": "e.g.: Limited spots",
+      "message": "Write the offer message..."
+    }
+  },
+  "environmental_commitment": {
+    "badge": "Sustainable Energy",
+    "image_alt": "Solar panels and nature",
+    "title": "Our Environmental Commitment",
+    "description_1": "At Espacio Paihuen, we believe that true luxury is living in harmony with nature. That's why all our cabins run on solar energy, allowing you to enjoy all modern comforts without negatively impacting the environment.",
+    "description_2": "Additionally, we have our own water well, which allows us to be completely self-sufficient and reduce our environmental footprint. Every drop of water we use comes from protected natural sources, ensuring the quality and sustainability of our operations.",
+    "description_3": "Your stay with us contributes to the preservation of the environment, allowing you to travel with environmental awareness while enjoying maximum comfort in one of the most beautiful places in Chile.",
+    "features": {
+      "solar": { "title": "Solar Energy", "subtitle": "100% Renewable" },
+      "water": { "title": "Well Water", "subtitle": "Pure and Natural" }
+    }
+  },
+  "about": {
+    "header": {
+      "label": "Carretera Austral, Chile",
+      "title": "About Us",
+      "subtitle": "Discover the essence of Espacio Paihuen, where nature meets comfort"
+    },
+    "history": {
+      "title": "Our History",
+      "description_1": "Espacio Paihuen is located on the beautiful Carretera Austral in southern Chile, surrounded by nature and stunning landscapes right in front of the sea. Our goal is to offer travelers a unique experience, combining the comfort of cozy accommodation with the natural beauty that surrounds us.",
+      "description_2": "At Espacio Paihuen, we believe in the importance of connecting with nature and enjoying moments of tranquility in an inspiring setting. Come and discover everything we have to offer in this special corner of the world.",
+      "badge_nature": "Pure Nature",
+      "badge_comfort": "Total Comfort",
+      "image_alt": "Sea view of the property",
+      "image_badge": "Panoramic View"
+    },
+    "space": {
+      "title": "Our Space",
+      "description_1": "We have a beautiful view of the sea and three cabins equipped with everything necessary for a comfortable and relaxing stay. Each cabin is designed to provide a cozy and harmonious atmosphere, allowing you to enjoy the natural beauty that surrounds us.",
+      "description_2": "Additionally, we offer common areas where you can share special moments with other travelers or simply relax while contemplating the marine landscape. At Espacio Paihuen, we strive to create a warm and welcoming environment so that every guest feels at home during their stay with us.",
+      "stats_cabins": "3 Cabins",
+      "stats_cabins_sub": "Private Spaces",
+      "stats_view": "Sea View",
+      "stats_view_sub": "Panoramic View",
+      "image_alt": "Sea view of the property",
+      "image_badge": "Austral coast"
+    },
+    "cabins_detail": {
+      "title": "Our Cabins",
+      "description_1": "Our cabins are designed to offer you a unique and comfortable lodging experience. Each cabin features cozy and modern decor, equipped with all the necessary amenities to make your stay unforgettable.",
+      "description_2": "They are designed as studio-style spaces, featuring a spacious and well-lit interior. Each one has a large window facing nature and the sea. They also have a terrace to stay surrounded by nature, with a rustic hot tub for each cabin.",
+      "description_3": "Enjoy the tranquility of the natural environment while relaxing in your cabin, with stunning views of the sea and the surrounding nature. At Espacio Paihuen, we strive to provide you with a space where you can disconnect, recharge, and create unforgettable memories during your visit to the Carretera Austral.",
+      "tag_terrace": "Private Terrace",
+      "tag_view": "Panoramic View",
+      "tag_tub": "Rustic Hot Tub",
+      "image_alt": "Sea view of the property",
+      "image_badge": "Austral Coast"
+    },
+    "activities": {
+      "title": "Our Activities",
+      "items": {
+        "tub": {
+          "title": "Personal Rustic Hot Tub",
+          "info": "Enjoy a sunset sitting in a hot tub overlooking the sea. Our tubs are wood-fired and private for each cabin. They are perfect for sharing a snack and a beautiful sunset."
+        },
+        "kayak": {
+          "title": "Single and Double Kayak",
+          "info": "Explore Quillaipe Bay in a single or double kayak. Enjoy the beautiful surroundings and the calm waters we have here, protected from strong waves."
+        },
+        "central": {
+          "title": "Central Space",
+          "info": "Relax in the open spaces and stroll through our beautiful Espacio Paihuen, enjoying the lovely birds like the Chilean Green-backed Firecrown that visit us every day."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready for your Perfect Escape?",
+      "subtitle": "Come and discover the magic of Espacio Paihuen, where every moment becomes an unforgettable memory",
+      "button": "Book Now"
+    }
+  },
+  "attractions": {
+    "header": {
+      "label": "Explore the Los Lagos Region",
+      "title": "Nearby Attractions",
+      "message": "Strategically located on the Carretera Austral, we are the perfect starting point to discover natural treasures."
+    },
+    "items": {
+      "alerce": {
+        "title": "Alerce Andino National Park",
+        "content": "Just 30 minutes from Espacio Paihuen. Enjoy trekking trails surrounded by ancient Alerce trees and discover the magic of the Chaica Falls. A direct encounter with the Valdivian jungle.",
+        "distance": "30 MIN"
+      },
+      "caleta": {
+        "title": "Caleta La Arena",
+        "content": "The starting point of the Carretera Austral, located 45 km from Puerto Montt. Known for its key ferry connection to Caleta Puelche and its famous local fried hake.",
+        "distance": "30 MIN"
+      },
+      "traditions": {
+        "title": "Route of Traditions",
+        "content": "During the summer months on the Carretera Austral, enjoy southern culture by visiting traditional festivals. There is always delicious food like lamb roast, empanadas, and live folk music.",
+        "distance": "5-30 MIN"
+      },
+      "pvaras": {
+        "title": "Puerto Varas",
+        "content": "The \"City of Roses\" awaits you on the shores of Lake Llanquihue. Famous for its German-influenced architecture and unparalleled views of the Osorno and Calbuco volcanoes. Ideal for an afternoon of gastronomy and sightseeing.",
+        "distance": "50 MIN"
+      },
+      "chapo": {
+        "title": "Lake Chapo",
+        "content": "An impressive mountain lake at the foot of the imposing Calbuco Volcano. The perfect place for those seeking wilder natural beauty and pure mountain air.",
+        "distance": "50 MIN"
+      },
+      "pichicolo": {
+        "title": "Pichicolo Hot Springs",
+        "content": "A natural sanctuary for relaxation located before reaching Hornopirén. Ideal for those looking to disconnect and immerse themselves in native forest surroundings.",
+        "distance": "1 H 40 MIN"
+      },
+      "hornopiren": {
+        "title": "Hornopirén",
+        "content": "Known as the \"Northern Gateway to the Carretera Austral.\" This town combines the majesty of the Andes with the sea of the Patagonian fjords.",
+        "distance": "1 H 50 MIN"
+      },
+      "petrohue": {
+        "title": "Petrohué Falls",
+        "content": "One of Chile's most iconic natural attractions. These waterfalls stand out for their intense emerald waters flowing over basaltic lava formations.",
+        "distance": "1 H 30 MIN"
+      },
+      "cochamo": {
+        "title": "Cochamó Hot Springs",
+        "content": "Known for innovative thalassotherapy, merging thermal waters with seawater. They offer a premium experience in a native forest.",
+        "distance": "2 H"
+      },
+      "chiloe": {
+        "title": "Chiloé",
+        "content": "A magical archipelago famous for its unique cultural identity, wooden churches, and colorful stilt houses.",
+        "distance": "2 H"
+      }
+    }
+  },
+  "attraction_section": {
+    "distance_label": "AWAY",
+    "official_info": "View official schedules and info"
+  },
+  "location": {
+    "header": {
+      "label": "Carretera Austral Km 21.8",
+      "title": "Where to Find Us",
+      "message": "We are located at the beginning of the beautiful Carretera Austral, just 25 minutes from Puerto Montt."
+    },
+    "directions": {
+      "title": "How to get here",
+      "steps": [
+        "Leave Puerto Montt heading towards Carretera Austral.",
+        "Continue for 25 minutes until you reach Quillaipe.",
+        "At km 21.8, turn right (next to the Costa Quillaipe shop).",
+        "Follow the road to the end to reach Espacio Paihuen."
+      ],
+      "coords_label": "Exact Coordinates:"
+    },
+    "public_transport": {
+      "title": "Public Transport",
+      "description": "Take the <1>Buses Vargas</1> or <1>Buses J.B.</1> lines from the <2>Bus Terminal</2>. Frequent departures towards Caleta La Arena; ask to get off at <1>Quillaipe</1>."
+    },
+    "google_maps_btn": "Open in Google Maps",
+    "footer_quote": "We look forward to welcoming you to this piece of paradise!",
+    "map_alt": "Map to Espacio Paihuen"
+  },
+  "weather": {
+    "label": "Weather in Quillaipe",
+    "error": "Error loading weather",
+    "lang_code": "en"
+  },
+  "reserve": {
+    "header": {
+      "label": "Online Bookings",
+      "title": "Book Your Stay",
+      "message": "Complete the form and we will get in touch with you as soon as possible to confirm your visit to this southern paradise."
+    },
+    "intro": {
+      "title": "Our Reservations",
+      "description": "We offer various services for our clients. Here you can see the prices before making your reservation.",
+      "disclaimer": "*Kayaks are subject to availability at the time, they cannot be reserved"
+    },
+    "success_modal": {
+      "title": "Thank you for your booking!",
+      "caption": "We will contact you shortly to confirm the details."
+    },
+    "form": {
+      "placeholders": {
+        "name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number (+56 9...)",
+        "hot_tub_dates": "Select the dates for the hot tub"
+      },
+      "labels": {
+        "check_in": "Check-in",
+        "check_out": "Check-out",
+        "guests": "Guests",
+        "hot_tub": "Hot Tub",
+        "total": "Total:"
+      },
+      "submit_button": "Confirm Reservation",
+      "guest_limit": "*Only 3 guests per cabin",
+      "confirmation_note": "* Your reservation will be confirmed once we contact you."
+    },
+    "errors": {
+      "no_guests": "Please enter the number of guests",
+      "limit_reached": "You have reached the reservation limit for now"
+    }
+  },
+  "comments": {
+    "title": "Comments",
+    "subtitle": "What our guests say about their experience",
+    "error_message": "We're sorry, something went wrong. Please try again later.",
+    "button": "Add Your Comment"
+  },
+  "new_comment": {
+    "header": {
+      "title": "Tell Us About Your Experience",
+      "label": "Comments",
+      "message": "Complete the form and leave us a comment about your experience at our Espacio Paihuen."
+    },
+    "success_modal": {
+      "title": "Thank you for your comment!",
+      "caption": "We appreciate it and will review your experience at Espacio Paihuen"
+    },
+    "form": {
+      "submit_button": "Submit Review",
+      "name": "Name",
+      "email": "Email Address",
+      "title": "Title",
+      "content": "Add your comment"
+    }
+  },
+  "contact": {
+    "title": "Still have questions?",
+    "subtitle": "We are here to help you",
+    "primary_button": "Contact Us",
+    "secondary_button": "View Location"
+  },
+  "contact_page": {
+    "header": {
+      "title": "Contact Us",
+      "label": "Contact",
+      "message": "We're here to answer your questions and concerns. Please contact us through one of the options provided, and we'll be in touch soon."
+    },
+    "form": {
+      "submit": "Send Message",
+      "success": "Sent!",
+      "title": "Contact Form",
+      "subtitle": "Fill out the form and we will get in touch as soon as possible",
+      "placeholders": {
+        "name": "Name",
+        "email": "Email Address",
+        "phone": "Phone Number (+56 9...)",
+        "subject": "Subject",
+        "message": "Write your message here..."
+      }
+    },
+    "cards": {
+      "whatsapp": {
+        "title": "WhatsApp",
+        "message": "Chat with us instantly for quick and personalized answers",
+        "button": "Start Chat"
+      },
+      "phone": {
+        "title": "Phone",
+        "message": "Call us directly for an immediate and detailed conversation",
+        "button": "Call Now"
+      },
+      "email": {
+        "title": "Email",
+        "message": "Send us an email for detailed inquiries or reservations",
+        "button": "Send Email"
+      },
+      "instagram": {
+        "title": "Instagram",
+        "message": "Follow us on Instagram to see our latest photos and updates",
+        "button": "@espacio_paihuen"
+      },
+      "facebook": {
+        "title": "Facebook",
+        "message": "Join our community on Facebook and stay informed",
+        "button": "Visit Page"
+      },
+      "form_card": {
+        "title": "Form",
+        "message": "Complete our detailed form for specific inquiries",
+        "button": "Complete Form"
+      }
+    }
+  },
+  "photos": {
+    "header": {
+      "title": "Our Photos",
+      "label": "Visual Gallery",
+      "message": "A visual journey through the corners and wildlife that make Espacio Paihuen a unique place."
+    },
+    "admin": {
+      "modal_title": "Add Photo",
+      "submit_button": "Upload Photo",
+      "placeholders": {
+        "title": "Title",
+        "change_media": "Click to change",
+        "select_image": "Select an image",
+        "video_toggle": "Video:",
+        "select_video": "Select a video"
+      },
+      "section_modal": {
+        "title": "New Section",
+        "submit_button": "Add",
+        "placeholders": {
+          "name_es": "Spanish Title",
+          "caption_es": "Spanish Subtitle",
+          "name_en": "English Title",
+          "caption_en": "English Subtitle"
+        }
+      }
+    }
+  },
+  "prices": {
+    "night_label": "Price per night for up to 3 people:",
+    "hot_tub_label": "Price for the rustic hot tub:",
+    "kayak_label": "Price per hour of kayak use per person:",
+    "save_changes": "Save Changes",
+    "currency": "CLP"
+  },
+  "login": {
+    "header": {
+      "title": "Login",
+      "label": "Sign In",
+      "message": "Enter your details to log in and manage the site dynamically"
+    },
+    "form": {
+      "submit": "Login",
+      "errors": { "invalid": "Incorrect email or password" },
+      "placeholders": {
+        "email": "Email Address",
+        "password": "Password"
+      }
+    }
+  },
+  "admin_reservations": {
+    "header": { "title": "Reservations" },
+    "table": { "headers": { "name": "Name", "status": "Status" } },
+    "modal": {
+      "title": "Reservation",
+      "close": "Close",
+      "date_locale": "en-US"
+    },
+    "item": {
+      "status_confirmed": "Confirmed",
+      "status_pending": "Pending",
+      "date_locale": "en-US"
+    }
+  },
+  "common": {
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "close": "Close"
+    },
+    "logo_alt": "Espacio Paihuen"
+  },
+  "auth_loading": { "message": "Loading your information, please wait" },
+  "footer": {
+    "copyright": "©2026 Espacio Paihuen",
+    "rights": "All rights reserved",
+    "logo_alt": "Espacio Paihuen"
+  }
+}

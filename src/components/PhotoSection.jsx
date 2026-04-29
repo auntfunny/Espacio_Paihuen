@@ -4,8 +4,10 @@ import PhotoList from "./PhotoList";
 import { supabase } from "../lib/supabase";
 import ConfirmModal from "./ConfirmModal";
 import { usePhoto } from "../context/PhotoContext";
+import { useTranslation } from "react-i18next";
 
 const PhotoSection = ({ section, setPhotoData }) => {
+  const { i18n } = useTranslation();
   const { user } = useAuth();
   const {loading, error, setConfirmDeleteSection} = usePhoto();
 
@@ -13,10 +15,10 @@ const PhotoSection = ({ section, setPhotoData }) => {
     <section className="relative flex flex-col gap-8">
       <div className="flex flex-col items-center text-center gap-4">
         <h2 className="text-3xl md:text-4xl font-bold text-accgray">
-          {section.name}
+          {section["name_" + i18n.language]}
         </h2>
         <div className="w-20 h-1.5 bg-linear-to-r from-accblue to-accgreenlight rounded-full"></div>
-        <p className="text-accgray/70 max-w-xl">{section.caption}</p>
+        <p className="text-accgray/70 max-w-xl">{section["caption_" + i18n.language]}</p>
         {error && <p className="text-red-500 italic">{error}</p>}
       </div>
       <div className="bg-white/30 backdrop-blur-sm p-4 rounded-3xl border border-white/50 shadow-xl">

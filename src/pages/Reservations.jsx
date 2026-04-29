@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import reservation from "../assets/svg/reservation.svg";
 import PageHeader from "../components/PageHeader";
 import { supabase } from "../lib/supabase";
@@ -6,6 +7,7 @@ import ReservationItem from "../components/ReservationItem";
 import ReservationInfoModal from "../components/ReservationInfoModal";
 
 const Reservations = () => {
+  const { t } = useTranslation();
   const [reservationData, setReservationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,27 +16,25 @@ const Reservations = () => {
 
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
-    console.log(today > "2026-05-03");
     const getReservations = async () => {
       setLoading(true);
       try {
         const { data, error: dberror } = await supabase
           .from("reservations")
           .select("*")
-          .gte('check_in', today)
+          .gte("check_in", today)
           .order("check_in", { ascending: true });
 
         if (dberror) throw dberror;
         setReservationData(data || []);
       } catch (err) {
-        setError("Ocurrió un error inesperado");
+        setError(t("admin_reservations.errors.unexpected"));
       } finally {
         setLoading(false);
       }
     };
-
     getReservations();
-  }, []);
+  }, [t]);
 
   const toggleStatus = async ({ resId, resStatus }) => {
     setUpdateLoading(true);
@@ -46,17 +46,13 @@ const Reservations = () => {
         .select()
         .single();
 
-      if (dberror) {
-        setError("Ocurrió un error inesperado");
-        throw dberror;
-      }
+      if (dberror) throw dberror;
 
       setReservationData((prev) =>
         prev.map((item) => (item.reservation_id === resId ? data : item)),
       );
     } catch (err) {
-      setError("Ocurrió un error inesperado");
-      console.error(err);
+      setError(t("admin_reservations.errors.unexpected"));
     } finally {
       setUpdateLoading(false);
     }
@@ -68,11 +64,18 @@ const Reservations = () => {
 
   const headerInfo = {
     image: reservation,
-    label: "Maneja Reservaciones",
-    title: "Reservaciones",
-    message:
-      "Consulta los datos de las reservaciones solicitadas y gestiona su estado",
+    label: t("admin_reservations.header.label"),
+    title: t("admin_reservations.header.title"),
+    message: t("admin_reservations.header.message"),
   };
+
+  const tableHeaders = [
+    t("admin_reservations.table.headers.name"),
+    t("admin_reservations.table.headers.number"),
+    t("admin_reservations.table.headers.check_in"),
+    t("admin_reservations.table.headers.check_out"),
+    t("admin_reservations.table.headers.status"),
+  ];
 
   return (
     <div className="relative min-h-screen bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
@@ -88,16 +91,14 @@ const Reservations = () => {
             <table className="w-full border-collapse">
               <thead className="relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-linear-to-r after:from-accblue after:via-accgreendark after:to-accgreenlight">
                 <tr>
-                  {["Nombre", "Número", "Entrada", "Salida", "Estatus"].map(
-                    (header) => (
-                      <th
-                        key={header}
-                        className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
-                      >
-                        {header}
-                      </th>
-                    ),
-                  )}
+                  {tableHeaders.map((header) => (
+                    <th
+                      key={header}
+                      className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -116,8 +117,8 @@ const Reservations = () => {
                       className="py-10 text-center text-accgray italic"
                     >
                       {loading
-                        ? "Cargando..."
-                        : "No hay reservaciones disponibles"}
+                        ? t("admin_reservations.table.states.loading")
+                        : t("admin_reservations.table.states.empty")}
                     </td>
                   </tr>
                 )}
@@ -129,7 +130,7 @@ const Reservations = () => {
       {activeReservation && (
         <ReservationInfoModal
           reservation={activeReservation}
-          onClose={closeModal}
+          onClose={() => setActiveReservation(null)}
           onToggleConfirm={toggleStatus}
           loading={updateLoading}
         />

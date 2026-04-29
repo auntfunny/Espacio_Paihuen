@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = ({
-  title = "¿Aún tiene dudas?",
-  subtitle = "Estamos aquí para ayudarle",
-  primaryButtonText = "Contáctanos",
-  secondaryButtonText = "Ver Ubicación",
   showSecondaryButton = true,
 }) => {
+  const { t } = useTranslation();
   
+  // Mapping translations to variables
+  const title = t('contact.title');
+  const subtitle = t('contact.subtitle');
+  const primaryButtonText = t('contact.primary_button');
+  const secondaryButtonText = t('contact.secondary_button');
+
   return (
     <section className="flex items-center justify-center w-full py-16 px-4 bg-acclight">
       <div className="flex flex-col justify-center items-center gap-6 w-full max-w-6xl mx-auto p-4 bg-linear-to-br from-accgray via-accgraytransparent to-accgray rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 ease-out group">

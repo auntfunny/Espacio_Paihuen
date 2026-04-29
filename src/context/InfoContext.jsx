@@ -22,22 +22,25 @@ export const InfoProvider = ({ children }) => {
 
   useEffect(() => {
     const getPageInfo = async () => {
-        setLoading(true);
-        try {
-            const { data, error: dberror} = await supabase.from("page_info").select("*").single();
+      setLoading(true);
+      try {
+        const { data, error: dberror } = await supabase
+          .from("page_info")
+          .select("*")
+          .single();
 
-            if(dberror){
-                throw dberror;
-            }
-
-            setPageData(data);
-        } catch (err) {
-            setError("Lo sentimos, algo falló. Por favor, intenta mas tarde.");
-            console.error(err)
-        } finally {
-            setLoading(false);
+        if (dberror) {
+          throw dberror;
         }
-    }
+
+        setPageData(data);
+      } catch (err) {
+        setError("Lo sentimos, algo falló. Por favor, intenta mas tarde.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     getPageInfo();
   }, []);
@@ -82,21 +85,24 @@ export const InfoProvider = ({ children }) => {
     setError(null);
     setEditLoading(true);
     try {
-        const { error: dberror } = await supabase.from("page_info").update({...pageData, edited_at: new Date().toISOString()}).eq("page_info_id", pageData.page_info_id);
+      const { error: dberror } = await supabase
+        .from("page_info")
+        .update({ ...pageData, edited_at: new Date().toISOString() })
+        .eq("page_info_id", pageData.page_info_id);
 
-        if(dberror){
-            throw dberror;
-        }
+      if (dberror) {
+        throw dberror;
+      }
 
-        console.log("Updated correctly");
-        setHasEdited(false);
+      console.log("Updated correctly");
+      setHasEdited(false);
     } catch (err) {
-        setError(err.message);
-        console.error(err);
+      setError(err.message);
+      console.error(err);
     } finally {
-        setEditLoading(false);
+      setEditLoading(false);
     }
-  }
+  };
 
   return (
     <InfoContext.Provider

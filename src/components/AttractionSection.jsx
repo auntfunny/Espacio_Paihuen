@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const AttractionSection = ({ attraction, style }) => {
+  const { t } = useTranslation();
+
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div
@@ -14,9 +17,9 @@ const AttractionSection = ({ attraction, style }) => {
           />
         </div>
         <div
-          className={`absolute top-4 ${style === 0 ? "right-4" : "left-4"} bg-acclight/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-bold text-accgray`}
+          className={`absolute top-4 ${style === 0 ? "right-4" : "left-4"} bg-acclight/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-bold text-accgray uppercase`}
         >
-          {attraction.distance} DE DISTANCIA
+          {attraction.distance} {t('attraction_section.distance_label')}
         </div>
       </div>
       <div
@@ -36,7 +39,7 @@ const AttractionSection = ({ attraction, style }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-accblue font-semibold hover:text-accgreendark transition-colors"
           >
-            Ver horarios e información oficial
+            {t('attraction_section.official_info')}
             <svg
               className="w-4 h-4"
               fill="none"
