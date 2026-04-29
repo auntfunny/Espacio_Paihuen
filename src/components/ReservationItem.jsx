@@ -91,3 +91,5 @@ const ReservationItem = ({ reservation, setActiveReservation, view }) => {
     </div>
   );
 };
+
+export default ReservationItem;

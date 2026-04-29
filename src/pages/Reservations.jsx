@@ -106,8 +106,7 @@ const Reservations = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {!loading &&
-                    reservationData.length > 0 &&
+                  {!loading && reservationData.length > 0 ? (
                     reservationData.map((item) => (
                       <ReservationItem
                         key={item.reservation_id}
@@ -115,7 +114,19 @@ const Reservations = () => {
                         setActiveReservation={setActiveReservation}
                         view="table"
                       />
-                    ))}
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan="5"
+                        className="py-10 text-center text-accgray italic"
+                      >
+                        {loading
+                          ? t("admin_reservations.table.states.loading")
+                          : t("admin_reservations.table.states.empty")}
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

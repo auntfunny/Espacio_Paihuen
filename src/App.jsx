@@ -33,7 +33,7 @@ function App() {
           <Route path="/newcomment" element={<NewComment />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
-          <Route element={<ProtectedAdmin />}>
+          <Route /* element={<ProtectedAdmin />} */>
             <Route path="/reservations" element={<Reservations />} />
           </Route>
         </Route>
