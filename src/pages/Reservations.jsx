@@ -83,47 +83,62 @@ const Reservations = () => {
         <PageHeader info={headerInfo} />
 
         <div className="w-full max-w-3xl mt-12 bg-white/40 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white shadow-2xl space-y-5">
-          {error && (
-            <div className="text-red-500 text-center font-bold">{error}</div>
-          )}
+          <div className="w-full max-w-3xl mt-12 bg-white/40 backdrop-blur-xl p-6 md:p-10 rounded-[2.5rem] border border-white shadow-2xl">
+            {error && (
+              <div className="text-red-500 text-center font-bold mb-4">
+                {error}
+              </div>
+            )}
 
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead className="relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-linear-to-r after:from-accblue after:via-accgreendark after:to-accgreenlight">
-                <tr>
-                  {tableHeaders.map((header) => (
-                    <th
-                      key={header}
-                      className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
-                    >
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {!loading && reservationData?.length > 0 ? (
-                  reservationData.map((item) => (
-                    <ReservationItem
-                      key={item.reservation_id}
-                      reservation={item}
-                      setActiveReservation={setActiveReservation}
-                    />
-                  ))
-                ) : (
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead className="relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-linear-to-r after:from-accblue after:via-accgreendark after:to-accgreenlight">
                   <tr>
-                    <td
-                      colSpan="5"
-                      className="py-10 text-center text-accgray italic"
-                    >
-                      {loading
-                        ? t("admin_reservations.table.states.loading")
-                        : t("admin_reservations.table.states.empty")}
-                    </td>
+                    {tableHeaders.map((header) => (
+                      <th
+                        key={header}
+                        className="font-title2 text-lg italic text-accgray pb-4 px-2 text-center font-medium"
+                      >
+                        {header}
+                      </th>
+                    ))}
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {!loading &&
+                    reservationData.length > 0 &&
+                    reservationData.map((item) => (
+                      <ReservationItem
+                        key={item.reservation_id}
+                        reservation={item}
+                        setActiveReservation={setActiveReservation}
+                        view="table"
+                      />
+                    ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden space-y-4">
+              {!loading && reservationData.length > 0 ? (
+                reservationData.map((item) => (
+                  <ReservationItem
+                    key={item.reservation_id}
+                    reservation={item}
+                    setActiveReservation={setActiveReservation}
+                    view="card"
+                  />
+                ))
+              ) : (
+                <div className="py-10 text-center text-accgray italic">
+                  {loading
+                    ? t("admin_reservations.table.states.loading")
+                    : t("admin_reservations.table.states.empty")}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

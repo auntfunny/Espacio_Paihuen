@@ -426,7 +426,9 @@
       "guests": "Huéspedes",
       "hot_tub":"Tinaja",
       "total": "Total:",
-      "confirmed": "Confirmada:"
+      "confirmed": "Confirmada:",
+      "included": "Incluida",
+      "not_included": "No Incluida"
     },
     "item": {
       "status_confirmed": "Confirmada",

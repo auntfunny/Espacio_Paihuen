@@ -426,7 +426,9 @@
       "guests": "Guests",
       "hot_tub":"Hot Tub",
       "total": "Total:",
-      "confirmed": "Confirmed:"
+      "confirmed": "Confirmed:",
+      "included": "Included",
+      "not_included": "Not Included"
     },
     "item": {
       "status_confirmed": "Confirmed",
