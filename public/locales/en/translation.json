@@ -410,12 +410,23 @@
         "number": "Number",
         "check_in": "Check-in",
         "check_out": "Check-out"
+      },
+      "states": {
+        "loading": "Loading reservation data...",
+        "empty": "No reservations available"
       }
     },
     "modal": {
       "title": "Reservation",
       "close": "Close",
-      "date_locale": "en-US"
+      "date_locale": "en-US",
+      "client": "Client",
+      "check_in": "Check-in",
+      "check_out": "Check-out",
+      "guests": "Guests",
+      "hot_tub":"Hot Tub",
+      "total": "Total:",
+      "confirmed": "Confirmed:"
     },
     "item": {
       "status_confirmed": "Confirmed",

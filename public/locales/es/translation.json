@@ -410,12 +410,23 @@
         "number": "Número",
         "check_in": "Llegada",
         "check_out": "Salida"
+      },
+      "states": {
+        "loading": "Cargando datos de reservaciones...",
+        "empty": "No hay reservaciones disponibles"
       }
     },
     "modal": {
       "title": "Reserva",
       "close": "Cerrar",
-      "date_locale": "es-ES"
+      "date_locale": "es-ES",
+      "client": "Cliente",
+      "check_in": "Llegada",
+      "check_out": "Salida",
+      "guests": "Huéspedes",
+      "hot_tub":"Tinaja",
+      "total": "Total:",
+      "confirmed": "Confirmada:"
     },
     "item": {
       "status_confirmed": "Confirmada",

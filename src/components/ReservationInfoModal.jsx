@@ -9,17 +9,11 @@ const ReservationInfoModal = ({
   loading,
 }) => {
   const { t, i18n } = useTranslation();
-  const { pageData } = useInfo();
 
   if (!reservation) return null;
 
   const dateIn = new Date(reservation.check_in.replace(/-/g, "/"));
   const dateOut = new Date(reservation.check_out.replace(/-/g, "/"));
-  const days = (dateOut - dateIn) / 86400000;
-
-  const price =
-    Number(pageData?.night) * days * Math.ceil(reservation.guests / 3) +
-    Number(pageData?.hot_tub) * (reservation.hot_tub_dates?.length || 0);
 
   const statusInfo = {
     resId: reservation.reservation_id,
@@ -137,7 +131,7 @@ const ReservationInfoModal = ({
               {t("admin_reservations.modal.total")}
             </p>
             <p className="text-lg font-bold text-accgray">
-              ${price.toFixed(3)}
+              ${Number(reservation.total).toFixed(3)}
             </p>
           </div>
 

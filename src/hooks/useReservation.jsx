@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
-import { useTranslation } from "react-i18next"; // Added import
+import { useTranslation } from "react-i18next";
 
 export const useReservation = (pageData) => {
-  const { t } = useTranslation(); // Initialize translation hook
+  const { t } = useTranslation(); 
   const { user, loading: authLoading, anonSignIn } = useAuth();
 
   const [clientInfo, setClientInfo] = useState({
@@ -69,7 +69,7 @@ export const useReservation = (pageData) => {
     event.preventDefault();
 
     if (clientInfo.guests === 0) {
-      setError(t('reserve.errors.no_guests')); // Translated error
+      setError(t('reserve.errors.no_guests')); 
       return;
     }
 
@@ -84,7 +84,7 @@ export const useReservation = (pageData) => {
       if (!isSubmitting || !captchaToken) return;
 
       try {
-        let payload = clientInfo;
+        let payload = {...clientInfo, total: totalPrice};
 
         if (!user && !authLoading) {
           const { data, loginError } = await anonSignIn(captchaToken);
@@ -109,7 +109,7 @@ export const useReservation = (pageData) => {
         captcha.current.resetCaptcha();
       } catch (err) {
         if (err?.code === "42501") {
-          setError(t('reserve.errors.limit_reached')); // Translated error
+          setError(t('reserve.errors.limit_reached')); 
         } else {
           setError(err.message || t('reserve.errors.unexpected'));
         }
