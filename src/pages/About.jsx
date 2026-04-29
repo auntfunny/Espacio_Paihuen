@@ -12,12 +12,12 @@ const About = () => {
     {
       title: t("about.activities.items.tub.title"),
       info: t("about.activities.items.tub.info"),
-      image: "https://gstatic.com",
+      image: "/images/hot_tub.webp",
     },
     {
       title: t("about.activities.items.kayak.title"),
       info: t("about.activities.items.kayak.info"),
-      image: "https://gstatic.com",
+      image: "/images/kayak.webp",
     },
     {
       title: t("about.activities.items.central.title"),
