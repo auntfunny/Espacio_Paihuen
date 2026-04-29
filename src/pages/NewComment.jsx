@@ -68,7 +68,10 @@ const NewComment = () => {
     const completeSubmission = async () => {
       if (!captchaToken || !isSubmitting) return;
       try {
-        let payload = {...commentInfo, language: i18n.language === "es" ? "spanish" : "english"};
+        let payload = {
+          ...commentInfo,
+          language: i18n.language === "es" ? "spanish" : "english",
+        };
         if (!user && !authLoading) {
           const { data, loginError } = await anonSignIn(captchaToken);
           if (loginError) throw loginError;
@@ -76,7 +79,8 @@ const NewComment = () => {
         }
         const { error: dberror } = await supabase
           .from("comments")
-          .insert([payload]);
+          .insert([payload])
+          .select();
         if (dberror) {
           setError(
             dberror.code === "42501"
