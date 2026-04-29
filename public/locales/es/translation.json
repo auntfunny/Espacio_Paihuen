@@ -428,7 +428,8 @@
       "total": "Total:",
       "confirmed": "Confirmada:",
       "included": "Incluida",
-      "not_included": "No Incluida"
+      "not_included": "No Incluida",
+      "hot_tub_dates": "Fechas para la tinaja"
     },
     "item": {
       "status_confirmed": "Confirmada",

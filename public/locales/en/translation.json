@@ -428,7 +428,8 @@
       "total": "Total:",
       "confirmed": "Confirmed:",
       "included": "Included",
-      "not_included": "Not Included"
+      "not_included": "Not Included",
+      "hot_tub_date": "Hot Tub Dates"
     },
     "item": {
       "status_confirmed": "Confirmed",
