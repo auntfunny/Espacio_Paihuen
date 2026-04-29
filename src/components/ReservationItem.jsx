@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 const ReservationItem = ({ reservation, setActiveReservation, view }) => {
   const { t } = useTranslation();
   if (!reservation) return null;
