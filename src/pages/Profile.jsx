@@ -29,7 +29,7 @@ const Profile = () => {
   };
 
   const handleBlur = (event) => {
-    setForm({ ...form, [event.target.name]: form[event.target.name].trim() });
+    setProfileData({ ...profileData, [event.target.name]: profileData[event.target.name].trim() });
   };
 
   const handleSubmit = async (e) => {

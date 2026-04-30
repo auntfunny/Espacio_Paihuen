@@ -55,7 +55,7 @@ export const InfoProvider = ({ children }) => {
   };
 
   const handleBlur = (event) => {
-    setForm({ ...form, [event.target.name]: form[event.target.name].trim() });
+    setPageData({ ...pageData, [event.target.name]: pageData[event.target.name].trim() });
   };
 
   const setEdit = (newEdit) => {
