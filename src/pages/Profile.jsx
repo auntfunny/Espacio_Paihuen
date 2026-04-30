@@ -87,7 +87,7 @@ const Profile = () => {
       if (profileData.oldPassword) {
         const { error: dberror } = await supabase.auth.updateUser({
           password: profileData.confirmPassword,
-          currentPassword: profileData.oldPassword,
+          current_password: profileData.oldPassword,
         });
         if (dberror) {
           throw dberror;
