@@ -69,11 +69,15 @@ const Profile = () => {
     }
 
     try {
+      let newUsername;
       if (user.username !== profileData.username) {
-        const { error: dberror } = await supabase
+        const { data, error: dberror } = await supabase
           .from("profiles")
           .update({ username: profileData.username })
-          .eq("id", user.id);
+          .eq("id", user.id)
+          .single();
+
+        newUsername = data.username;
         if (dberror) {
           throw dberror;
         }
@@ -87,6 +91,13 @@ const Profile = () => {
           throw dberror;
         }
       }
+      setProfileData({
+        ...user,
+        username: newUsername,
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
       setUpdateConfirm(true);
     } catch (err) {
       if (
@@ -96,7 +107,10 @@ const Profile = () => {
         setError(t("profile.error.session"));
       } else if (err.message === "Weak Password") {
         setError(t("profile.error.password.short"));
-      } else if (err.message === "Same Password") {
+      } else if (
+        err.message ===
+        "New password should be different from the old password."
+      ) {
         setError(t("profile.error.password.same"));
       } else {
         setError(err.message);
