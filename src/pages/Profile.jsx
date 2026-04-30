@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader";
 import userIcon from "../assets/svg/profile.svg";
@@ -8,10 +8,9 @@ import SuccessModal from "../components/SuccessModal";
 
 const Profile = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [profileData, setProfileData] = useState({
-    username: "Auntfunny",
-    email: "greenauntfunny@gmail.com",
+    ...user,
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
@@ -24,12 +23,24 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [updateConfirm, setUpdateConfirm] = useState(false);
 
+  useEffect(() => {
+    setProfileData({
+      ...user,
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+  }, [user]);
+
   const setInfo = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
 
   const handleBlur = (event) => {
-    setProfileData({ ...profileData, [event.target.name]: profileData[event.target.name].trim() });
+    setProfileData({
+      ...profileData,
+      [event.target.name]: profileData[event.target.name].trim(),
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -39,13 +50,17 @@ const Profile = () => {
     if (profileData.oldPassword) {
       if (!profileData.newPassword || !profileData.confirmPassword) {
         setError(t("profile.error.password.empty"));
+        setLoading(false);
+        return;
       } else if (profileData.newPassword !== profileData.confirmPassword) {
         setError(t("profile.error.password.match"));
+        setLoading(false);
+        return;
       } else if (profileData.newPassword.length < 6) {
         setError(t("profile.error.password.short"));
+        setLoading(false);
+        return;
       }
-      setLoading(false);
-      return;
     }
     if (!profileData.username) {
       setError(t("profile.error.username"));
@@ -55,16 +70,22 @@ const Profile = () => {
 
     try {
       if (user.username !== profileData.username) {
-        await supabase
+        const { error: dberror } = await supabase
           .from("profiles")
           .update({ username: profileData.username })
           .eq("id", user.id);
+        if (dberror) {
+          throw dberror;
+        }
       }
       if (profileData.oldPassword) {
-        await supabase.auth.updateUser({
+        const { error: dberror } = await supabase.auth.updateUser({
           password: profileData.confirmPassword,
           currentPassword: profileData.oldPassword,
         });
+        if (dberror) {
+          throw dberror;
+        }
       }
       setUpdateConfirm(true);
     } catch (err) {
@@ -87,7 +108,7 @@ const Profile = () => {
 
   const closeModal = () => {
     setUpdateConfirm(false);
-  }
+  };
 
   const headerInfo = {
     image: userIcon,
@@ -266,10 +287,10 @@ const Profile = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || authLoading}
             className="flex justify-center items-center w-full mt-4 bg-linear-to-r from-accblue to-accgreendark text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:cursor-pointer hover:shadow-accblue/20 hover:scale-[1.02] transition-all duration-300"
           >
-            {loading ? (
+            {loading || authLoading ? (
               <div className="w-10 h-10 rounded-full border-4 border-acclight border-t-accgray animate-spin"></div>
             ) : (
               t("profile.form.submit")
@@ -277,7 +298,13 @@ const Profile = () => {
           </button>
         </form>
       </div>
-      {updateConfirm && <SuccessModal close={closeModal} title={t("profile.success.title")} caption={t("profile.success.caption") }/>}
+      {updateConfirm && (
+        <SuccessModal
+          close={closeModal}
+          title={t("profile.success.title")}
+          caption={t("profile.success.caption")}
+        />
+      )}
     </div>
   );
 };
