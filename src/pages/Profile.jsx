@@ -77,6 +77,8 @@ const Profile = () => {
           .eq("id", user.id)
           .single();
 
+          console.log(data);
+
         newUsername = data.username;
         if (dberror) {
           throw dberror;
