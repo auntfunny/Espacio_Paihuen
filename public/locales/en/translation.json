@@ -474,7 +474,8 @@
         "empty": "Please fill in the password fields",
         "match": "New passwords must match",
         "short": "Password must be at least 6 characters",
-        "same": "Password cannot be the same as previous"
+        "same": "Password cannot be the same as previous",
+        "incorrect": "Current password is incorrect"
       },
       "username": "Please fill in the username field",
       "session": "Please reload the page or sign in again"

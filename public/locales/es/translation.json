@@ -474,7 +474,8 @@
         "empty": "Por favor llena los campos de contraseña",
         "match": "Las contraseñas nuevas deben ser iguales",
         "short": "Contraseña debes ser al menos 6 cáracteres",
-        "same": "Contraseña no puede ser igual que anterior"
+        "same": "Contraseña no puede ser igual que anterior",
+        "incorrect": "Contraseña actual es incorrecta"
       },
       "username": "Por favor ingresa un nombre de usuario",
       "session": "Por favor recarga la página o ingresa de nuevo"

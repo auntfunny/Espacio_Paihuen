@@ -114,6 +114,8 @@ const Profile = () => {
         "New password should be different from the old password."
       ) {
         setError(t("profile.error.password.same"));
+      } else if (err.message === "Current password required when setting new password."){
+        setError(t("profile.error.password.incorrect"))
       } else {
         setError(err.message);
       }
