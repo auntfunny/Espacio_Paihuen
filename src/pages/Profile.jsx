@@ -78,7 +78,6 @@ const Profile = () => {
           .select()
           .single();
 
-          console.log(data);
           setUser(data);
           newUsername = data.username;
         if (dberror) {
@@ -96,7 +95,7 @@ const Profile = () => {
       }
       setProfileData({
         ...user,
-        username: newUsername,
+        username: newUsername || user.username,
         oldPassword: "",
         newPassword: "",
         confirmPassword: "",
