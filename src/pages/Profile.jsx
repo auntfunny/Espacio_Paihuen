@@ -75,11 +75,10 @@ const Profile = () => {
           .from("profiles")
           .update({ username: profileData.username })
           .eq("id", user.id)
+          .select()
           .single();
 
           console.log(data);
-
-        newUsername = data.username;
         if (dberror) {
           throw dberror;
         }
