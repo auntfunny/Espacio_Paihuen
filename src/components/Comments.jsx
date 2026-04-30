@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabase";
 import { CommentCardSkeleton } from "./Skeletons";
 import { useTranslation } from "react-i18next"; 
 
-const Comments = () => {
+const Comments = ({openModal}) => {
   const { t, i18n } = useTranslation();
   const [commentData, setCommentData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,6 @@ const Comments = () => {
 
   return (
     <section className="relative w-full py-20 px-6 bg-linear-to-b from-acclight via-acclight to-acclight/95 overflow-hidden">
-      {/* Background Decorations remains the same */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-32 h-32 bg-accgreenlight/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-40 h-40 bg-accblue/20 rounded-full blur-3xl"></div>
@@ -74,7 +73,7 @@ const Comments = () => {
                 key={comment.comment_id}
                 className="w-full transform hover:scale-105 transition-all duration-500 ease-out"
               >
-                <CommentCard comment={comment} />
+                <CommentCard comment={comment} openModal={openModal} />
               </div>
             ))
           )}

@@ -24,7 +24,6 @@ const ReservationItem = ({ reservation, setActiveReservation, view }) => {
     ? t("admin_reservations.item.status_confirmed")
     : t("admin_reservations.item.status_pending");
 
-  // Desktop Table Row
   if (view === "table") {
     return (
       <tr
@@ -50,11 +49,10 @@ const ReservationItem = ({ reservation, setActiveReservation, view }) => {
     );
   }
 
-  // Mobile Card
   return (
     <div
       onClick={() => setActiveReservation(reservation)}
-      className="bg-white/60 border border-white p-5 rounded-2xl shadow-sm active:scale-95 transition-transform"
+      className="bg-white/60 border border-white p-5 rounded-2xl shadow-sm active:scale-95 transition-transform hover:cursor-pointer"
     >
       <div className="flex justify-between items-start mb-3">
         <div>

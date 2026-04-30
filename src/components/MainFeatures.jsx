@@ -13,12 +13,12 @@ const MainFeatures = () => {
       </div>
 
       <div className="relative z-10 flex flex-wrap justify-center gap-12 lg:gap-8 w-full max-w-7xl mx-auto">
-        <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
-          <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
+        <div className="flex flex-col gap-6 w-full max-w-sm text-center lg:text-left">
+          <div className="relative overflow-hidden rounded-3xl shadow-xl">
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/Cama_Naranja_gt74bq.jpg"
               alt={t("features.cabin.alt")}
-              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+              className="w-full h-64 object-cover"
             />
             <div className="absolute top-4 left-4 w-12 h-12 text-acclight bg-linear-to-br from-accblue to-accgreendark rounded-full flex items-center justify-center shadow-lg">
               <svg
@@ -33,7 +33,7 @@ const MainFeatures = () => {
             </div>
           </div>
           <div className="space-y-3">
-            <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray group-hover:text-accblue transition-colors duration-300 ease-out">
+            <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray">
               {t("features.cabin.title")}
             </h2>
             <p className="text-accgray/70 leading-relaxed text-base lg:text-lg">
@@ -42,12 +42,12 @@ const MainFeatures = () => {
           </div>
         </div>
 
-        <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
-          <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
+        <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left">
+          <div className="relative overflow-hidden rounded-3xl shadow-xl">
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085842/De_Frente_zdlitz.jpg"
               alt={t("features.environment.alt")}
-              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+              className="w-full h-64 object-cover"
             />
             <div className="absolute top-4 left-4 w-12 h-12 bg-linear-to-br from-accblue to-accgreendark rounded-full flex items-center justify-center shadow-lg">
               <svg
@@ -94,7 +94,7 @@ const MainFeatures = () => {
             </div>
           </div>
           <div className="space-y-3">
-            <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray group-hover:text-accblue transition-colors duration-300 ease-out">
+            <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray">
               {t("features.environment.title")}
             </h2>
             <p className="text-accgray/70 leading-relaxed text-base lg:text-lg">
@@ -103,12 +103,12 @@ const MainFeatures = () => {
           </div>
         </div>
 
-        <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left transform hover:scale-105 transition-all duration-500 ease-out">
-          <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500 ease-out">
+        <div className="group flex flex-col gap-6 w-full max-w-sm text-center lg:text-left">
+          <div className="relative overflow-hidden rounded-3xl shadow-xl">
             <img
               src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085844/Playa_x9nqzl.jpg"
               alt={t("features.hot_tubs.alt")}
-              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+              className="w-full h-64 object-cover"
             />
             <div className="absolute top-4 left-4 w-12 h-12 bg-linear-to-br from-accgreendark to-accblue rounded-full flex items-center justify-center shadow-lg">
               <svg
@@ -125,7 +125,7 @@ const MainFeatures = () => {
             </div>
           </div>
           <div className="space-y-3">
-            <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray group-hover:text-accblue transition-colors duration-300 ease-out">
+            <h2 className="text-2xl lg:text-3xl font-bold font-title2 text-accgray">
               {t("features.hot_tubs.title")}
             </h2>
             <p className="text-accgray/70 leading-relaxed text-base lg:text-lg">

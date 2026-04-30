@@ -101,7 +101,7 @@ const Location = () => {
             </div>
             <div className="text-center mt-8">
               <a
-                href="https://goo.gl"
+                href="https://maps.app.goo.gl/PKQrzpyqPhRKEGe37"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-accblue text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-accgreendark transition-all transform hover:scale-105"

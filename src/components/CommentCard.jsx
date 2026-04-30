@@ -1,9 +1,24 @@
-const CommentCard = ({ comment }) => {
+import { useTranslation } from "react-i18next";
+
+const CommentCard = ({ comment, openModal }) => {
+  const { t } = useTranslation(); 
   const initials = comment.name.split(' ').map(n => n[0]).join('').toUpperCase();
-  const date = new Date(comment.created_at).toDateString();
+
+  const dateOptions = {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  };
+  const locale = t("admin_reservations.item.date_locale");
+
+  const formatDate = (dateStr) =>
+    new Date(dateStr.replace(/-/g, "/"))
+      .toLocaleDateString(locale, dateOptions)
+      .replace(".", "");
 
   return (
-    <div className="relative flex flex-col gap-4 p-6 w-full h-80 shadow-md rounded-3xl bg-linear-to-br from-white/90 via-acclight/80 to-acclighttransparent border border-acclight/20 hover:shadow-2xl hover:scale-105 hover:border-accgreenlight/40 transition-all duration-500 ease-out cursor-pointer backdrop-blur-sm overflow-hidden">
+    <div onClick={() => openModal(comment)} className="relative flex flex-col gap-4 p-6 w-full h-80 shadow-md rounded-3xl bg-linear-to-br from-white/90 via-acclight/80 to-acclighttransparent border border-acclight/20 hover:shadow-2xl hover:scale-105 hover:border-accgreenlight/40 transition-all duration-500 ease-out cursor-pointer backdrop-blur-sm overflow-hidden">
       <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-br from-accgreenlight/10 to-accblue/10 rounded-full blur-xl"></div>
 
       <div className="flex items-center gap-3">
@@ -22,11 +37,11 @@ const CommentCard = ({ comment }) => {
         <svg className="absolute -top-2 -left-2 w-8 h-8 text-accgreenlight/30" fill="currentColor" viewBox="0 0 24 24">
           <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
         </svg>
-        <p className="text-gray-600 leading-6 italic pl-6 pt-2 line-clamp-5">{comment.content}</p>
+        <p className="text-gray-600 leading-6 text-wrap italic pl-6 pt-2 line-clamp-5">{comment.content}</p>
       </div>
 
       <div className="absolute bottom-3 flex justify-between w-5/6 items-center text-sm text-gray-500 border-t border-acclight/30 pt-3">
-        <p>{date}</p>
+        <p className="capitalize">{formatDate(comment.created_at.split("T")[0])}</p>
         <div className="flex items-center gap-2">
           <div className="flex">
             {[1, 2, 3, 4, 5].map((star) => (

@@ -25,7 +25,7 @@ const SeasonAlert = () => {
     <div
       className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${!loading && (pageData?.season_active || user?.role === "ADMIN") ? "max-h-250" : "max-h-0"}`}
     >
-      <section className={`relative w-full h-160 py-20 px-6`}>
+      <section className={`relative w-full py-20 px-6`}>
         {error && <p className="text-red-500 text-center italic">{error}</p>}
         <div className="absolute inset-0 bg-linear-to-br from-accgreendark via-accgray to-accblue opacity-90"></div>
         <div
