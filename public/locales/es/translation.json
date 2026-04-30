@@ -445,7 +445,7 @@
     },
     "logo_alt": "Espacio Paihuen"
   },
-  "auth_loading": { "message": "Cargando tu información, por favor espere" },
+  "auth_loading": { "message": "Cargando tu información, por favor espere", "logo_alt": "Espacio Paihuen" },
   "footer": {
     "copyright": "©2026 Espacio Paihuen",
     "rights": "Todos los derechos reservados",
