@@ -450,5 +450,38 @@
     "copyright": "©2026 Espacio Paihuen",
     "rights": "All rights reserved",
     "logo_alt": "Espacio Paihuen"
+  },
+  "profile": {
+    "header": {
+      "title": "Profile",
+      "label": "My Account",
+      "message": "Update your account information and password"
+    },
+    "form":{
+      "labels": {
+        "email": "Email Address"
+      },
+      "placeholders": {
+        "username": "Username",
+        "old_password": "Current Password",
+        "new_password": "New Password",
+        "confirm_password": "Confirm Password"
+      },
+      "submit": "Save Changes"
+    },
+    "error": {
+      "password": {
+        "empty": "Please fill in the password fields",
+        "match": "New passwords must match",
+        "short": "Password must be at least 6 characters",
+        "same": "Password cannot be the same as previous"
+      },
+      "username": "Please fill in the username field",
+      "session": "Please reload the page or sign in again"
+    },
+    "success": {
+      "title": "Your profile has been updated!",
+      "caption": "Thank you for being a part of Espacio Paihuen"
+    }
   }
 }

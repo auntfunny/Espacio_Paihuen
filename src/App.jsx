@@ -12,12 +12,13 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Reservations from "./pages/Reservations";
 import ProtectedAdmin from "./routes/ProtectedAdmin";
+import Profile from "./pages/Profile";
 
 function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedAdmin />}>
             <Route path="/reservations" element={<Reservations />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

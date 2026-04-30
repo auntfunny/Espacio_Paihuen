@@ -22,7 +22,7 @@ const MenuMobile = () => {
     <div className="lg:hidden relative">
       <button
         onClick={() => setMenuToggle(!menuToggle)}
-        className="relative z-50 p-2 focus:outline-none focus:ring-2 focus:ring-accblue/50 text-accgray hover:text-accblue transition-colors duration-300 ease-out rounded-md"
+        className="relative z-50 p-2 focus:outline-none focus:ring-2 focus:ring-accblue/50 text-accgray hover:text-accblue transition-colors duration-300 ease-out rounded-md cursor-pointer"
         aria-label={t("nav.aria_label")}
       >
         <div className="flex flex-col justify-between w-5 h-4 transition-all duration-300">

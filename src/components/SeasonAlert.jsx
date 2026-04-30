@@ -15,11 +15,17 @@ const SeasonAlert = () => {
     hasEdited,
     activeEdit,
     setInfo,
+    handleBlur,
     setEdit,
     resetActiveEdit,
     editLoading,
     handleConfirmEdit,
   } = useInfo();
+
+  const blurFunction = (e) => {
+    resetActiveEdit();
+    handleBlur(e);
+  }
 
   return (
     <div
@@ -60,7 +66,7 @@ const SeasonAlert = () => {
                 id={"season_title_" + i18n.language}
                 value={pageData?.["season_title_" + i18n.language]}
                 onChange={setInfo}
-                onBlur={resetActiveEdit}
+                onBlur={blurFunction}
                 className="w-full max-w-xl bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
               />
             ) : (
@@ -88,7 +94,7 @@ const SeasonAlert = () => {
                       placeholder={t("promo.placeholders.discount")}
                       value={pageData?.season_discount}
                       onChange={setInfo}
-                      onBlur={resetActiveEdit}
+                      onBlur={blurFunction}
                       className="w-full max-w-20 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                     />
                   ) : (
@@ -116,7 +122,7 @@ const SeasonAlert = () => {
                       placeholder={t("promo.placeholders.time")}
                       value={pageData?.["season_time_" + i18n.language]}
                       onChange={setInfo}
-                      onBlur={resetActiveEdit}
+                      onBlur={blurFunction}
                       className="w-full max-w-xs bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                     />
                   ) : (
@@ -132,7 +138,7 @@ const SeasonAlert = () => {
                       placeholder={t("promo.placeholders.limit")}
                       value={pageData?.["season_limit_" + i18n.language]}
                       onChange={setInfo}
-                      onBlur={resetActiveEdit}
+                      onBlur={blurFunction}
                       className="w-full max-w-xs bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                     />
                   ) : (
@@ -164,7 +170,7 @@ const SeasonAlert = () => {
                   placeholder={t("promo.placeholders.message")}
                   value={pageData?.["season_message_" + i18n.language]}
                   onChange={setInfo}
-                  onBlur={resetActiveEdit}
+                  onBlur={blurFunction}
                   className="w-full max-w-full bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40"
                 />
               ) : (

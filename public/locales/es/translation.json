@@ -450,5 +450,38 @@
     "copyright": "©2026 Espacio Paihuen",
     "rights": "Todos los derechos reservados",
     "logo_alt": "Espacio Paihuen"
+  },
+  "profile": {
+    "header": {
+      "title": "Perfil",
+      "label": "Mi Cuenta",
+      "message": "Actualiza su información de cuenta y su contraseña aquí."
+    },
+    "form":{
+      "labels": {
+        "email": "Correo Electrónico"
+      },
+      "placeholders": {
+        "username": "Nombre de Usuario",
+        "old_password": "Contraseña Actual",
+        "new_password": "Contraseña Nueva",
+        "confirm_password": "Confirma Contraseña"
+      },
+      "submit": "Guardar Cambios"
+    },
+    "error": {
+      "password": {
+        "empty": "Por favor llena los campos de contraseña",
+        "match": "Las contraseñas nuevas deben ser iguales",
+        "short": "Contraseña debes ser al menos 6 cáracteres",
+        "same": "Contraseña no puede ser igual que anterior"
+      },
+      "username": "Por favor ingresa un nombre de usuario",
+      "session": "Por favor recarga la página o ingresa de nuevo"
+    },
+    "success": {
+      "title": "¡Su perfil ha sido actualizado!",
+      "caption": "Gracias por ser parte de Espacio Paihuen"
+    }
   }
 }

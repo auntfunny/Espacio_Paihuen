@@ -9,7 +9,7 @@ const AuthLoading = () => {
       <div className="relative z-10 flex flex-col items-center pt-32 pb-16 px-4 md:px-8 gap-6">
         <img 
           src="https://res.cloudinary.com/djwnwvaq3/image/upload/q_auto/f_auto/v1775085713/Logo_he7dxc.jpg" 
-          alt={t('auth_loading.image_alt')} 
+          alt={t('auth_loading.logo_alt')} 
           className="w-32 h-32 md:w-48 md:h-48 rounded-full shadow-lg"
         />
         <p className="text-accgray font-medium animate-pulse">

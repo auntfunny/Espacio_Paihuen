@@ -54,6 +54,10 @@ export const InfoProvider = ({ children }) => {
     setHasEdited(true);
   };
 
+  const handleBlur = (event) => {
+    setPageData({ ...pageData, [event.target.name]: pageData[event.target.name].trim() });
+  };
+
   const setEdit = (newEdit) => {
     setActiveEdit({
       title_active: false,
@@ -113,6 +117,7 @@ export const InfoProvider = ({ children }) => {
         hasEdited,
         activeEdit,
         setInfo,
+        handleBlur,
         setEdit,
         resetActiveEdit,
         editLoading,
