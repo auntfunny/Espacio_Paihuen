@@ -8,7 +8,7 @@ import SuccessModal from "../components/SuccessModal";
 
 const Profile = () => {
   const { t } = useTranslation();
-  const { user, loading: authLoading } = useAuth();
+  const { user, setUser, loading: authLoading } = useAuth();
   const [profileData, setProfileData] = useState({
     ...user,
     oldPassword: "",
@@ -79,6 +79,8 @@ const Profile = () => {
           .single();
 
           console.log(data);
+          setUser(data);
+          newUsername = data.username;
         if (dberror) {
           throw dberror;
         }
