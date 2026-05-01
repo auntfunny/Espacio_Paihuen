@@ -80,8 +80,6 @@ const Profile = () => {
 
         if (dberror) {
           throw dberror;
-        } else if (!data) {
-          throw new Error({message: "That username already exists"});
         }
         newUser = data;
       }
@@ -120,7 +118,9 @@ const Profile = () => {
         err.message === "Current password required when setting new password."
       ) {
         setError(t("profile.error.password.incorrect"));
-      } else {
+      } else if (err.message === 'duplicate key value violates unique constraint "profiles_username_key"') {
+        setError(t("profile.error.duplicate"))
+      }else {
         setError(err.message);
       }
     } finally {

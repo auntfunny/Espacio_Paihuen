@@ -478,7 +478,8 @@
         "incorrect": "Contraseña actual es incorrecta"
       },
       "username": "Por favor ingresa un nombre de usuario",
-      "session": "Por favor recarga la página o ingresa de nuevo"
+      "session": "Por favor recarga la página o ingresa de nuevo",
+      "duplicate": "Ese nombre de usuario ya existe, por favor escoge otro"
     },
     "success": {
       "title": "¡Su perfil ha sido actualizado!",

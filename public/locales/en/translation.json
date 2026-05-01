@@ -478,7 +478,8 @@
         "incorrect": "Current password is incorrect"
       },
       "username": "Please fill in the username field",
-      "session": "Please reload the page or sign in again"
+      "session": "Please reload the page or sign in again",
+      "duplicate": "That username already exists, please choose another"
     },
     "success": {
       "title": "Your profile has been updated!",
