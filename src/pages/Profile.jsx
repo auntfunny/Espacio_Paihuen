@@ -60,6 +60,10 @@ const Profile = () => {
         setError(t("profile.error.password.short"));
         setLoading(false);
         return;
+      } else if (profileData.oldPassword === profileData.newPassword){
+        setError(t("profile.error.password.same"));
+        setLoading(false);
+        return;
       }
     }
     if (!profileData.username) {
