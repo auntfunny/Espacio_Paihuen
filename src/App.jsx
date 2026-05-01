@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Reservations from "./pages/Reservations";
 import ProtectedAdmin from "./routes/ProtectedAdmin";
 import Profile from "./pages/Profile";
+import ProtectedAnyUser from "./routes/ProtectedAnyUser";
 
 function App() {
   const { pathname } = useLocation();
@@ -36,6 +37,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedAdmin />}>
             <Route path="/reservations" element={<Reservations />} />
+          </Route>
+          <Route element={<ProtectedAnyUser />}>
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
