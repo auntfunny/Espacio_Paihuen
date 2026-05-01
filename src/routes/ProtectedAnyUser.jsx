@@ -5,7 +5,7 @@ import AuthLoading from "../components/AuthLoading";
 const ProtectedAnyUser = () => {
     const {user, loading} = useAuth();
     if(loading) return <AuthLoading />
-    if((user?.role !== "ADMIN" || user?.role !== "USER") && !loading) return <Navigate to="/" />
+    if(user?.role !== "ADMIN" && user?.role !== "USER" && !loading) return <Navigate to="/" />
     else return <Outlet /> 
 }
 
