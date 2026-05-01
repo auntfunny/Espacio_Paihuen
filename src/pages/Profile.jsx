@@ -69,7 +69,7 @@ const Profile = () => {
     }
 
     try {
-      let newUsername;
+      let newUser;
       if (user.username !== profileData.username) {
         const { data, error: dberror } = await supabase
           .from("profiles")
@@ -78,11 +78,12 @@ const Profile = () => {
           .select()
           .single();
 
-          setUser(data);
-          newUsername = data.username;
         if (dberror) {
           throw dberror;
+        } else if (!data) {
+          throw new Error({message: "That username already exists"});
         }
+        newUser = data;
       }
       if (profileData.oldPassword) {
         const { error: dberror } = await supabase.auth.updateUser({
@@ -93,9 +94,10 @@ const Profile = () => {
           throw dberror;
         }
       }
+      setUser(newUser);
       setProfileData({
         ...user,
-        username: newUsername || user.username,
+        username: newUser.username || user.username,
         oldPassword: "",
         newPassword: "",
         confirmPassword: "",
@@ -114,8 +116,10 @@ const Profile = () => {
         "New password should be different from the old password."
       ) {
         setError(t("profile.error.password.same"));
-      } else if (err.message === "Current password required when setting new password."){
-        setError(t("profile.error.password.incorrect"))
+      } else if (
+        err.message === "Current password required when setting new password."
+      ) {
+        setError(t("profile.error.password.incorrect"));
       } else {
         setError(err.message);
       }
