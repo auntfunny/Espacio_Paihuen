@@ -13,26 +13,29 @@ const LanguageSwitcher = () => {
     <div className="flex items-center justify-center gap-3 px-3 py-1.5 bg-white/20 backdrop-blur-md rounded-full border border-white/30 shadow-sm transition-all duration-300">
       <button
         onClick={() => changeLanguage("es")}
-        className={`px-4 py-2 md:p-0 text-sm font-bold tracking-tighter transition-all duration-300 hover:cursor-pointer ${
+        className={`relative flex items-center justify-center px-4 py-2 md:p-0 text-sm font-bold tracking-tighter transition-all duration-300 hover:cursor-pointer ${
           isActive("es")
-            ? "text-accblue scale-110"
-            : "text-accgray/50 hover:text-accgray"
+            ? "scale-125 drop-shadow-[0_0_8px_#BCCF50b0]"
+            : "opacity-90 grayscale hover:opacity-100 hover:grayscale-0"
         }`}
       >
-        ES
+        <img src="/images/chile.png" alt="Español" className="w-6 rounded" />
       </button>
-      
       <div className="w-px h-3 bg-accgray/20"></div>
 
       <button
         onClick={() => changeLanguage("en")}
-        className={`px-4 py-2 md:p-0 text-sm font-bold tracking-tighter transition-all duration-300 hover:cursor-pointer ${
+        className={`relative flex items-center justify-center px-4 py-2 md:p-0 text-sm font-bold tracking-tighter transition-all duration-300 hover:cursor-pointer ${
           isActive("en")
-            ? "text-accblue scale-110"
-            : "text-accgray/50 hover:text-accgray"
+            ? "scale-125 drop-shadow-[0_0_8px_#BCCF50b0]"
+            : "opacity-90 grayscale hover:opacity-100 hover:grayscale-0"
         }`}
       >
-        EN
+        <img
+          src="/images/united-states.png"
+          alt="English"
+          className="w-6 rounded"
+        />
       </button>
     </div>
   );

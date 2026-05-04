@@ -253,7 +253,8 @@
     },
     "errors": {
       "no_guests": "Please enter the number of guests",
-      "limit_reached": "You have reached the reservation limit for now"
+      "limit_reached": "You have reached the reservation limit for now",
+      "unexpected": "We ran into an unexpected error, please try again"
     }
   },
   "comments": {
@@ -277,7 +278,11 @@
       "name": "Name",
       "email": "Email Address",
       "title": "Title",
-      "content": "Add your comment"
+      "content": "Add your comment",
+      "errors": {
+        "limit": "You have reached the comment limit for now",
+        "unexpected": "We ran into an unexpected error, please try again"
+      }
     }
   },
   "contact": {

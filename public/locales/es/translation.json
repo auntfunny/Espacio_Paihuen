@@ -253,7 +253,8 @@
     },
     "errors": {
       "no_guests": "Por favor, ingresa numero de húespedes",
-      "limit_reached": "Has llegado al limite de reservas por ahora"
+      "limit_reached": "Has llegado al limite de reservas por ahora",
+      "unexpected": "Lo sentimos, algo falló. Por favor, intenta mas tarde."
     }
   },
   "comments": {
@@ -277,7 +278,11 @@
       "name": "Nombre",
       "email": "Correo Electrónico",
       "title": "Título",
-      "content": "Agrega tu commentario"
+      "content": "Agrega tu commentario",
+      "errors": {
+        "limit": "Has llegado al limite de comentarios por ahora",
+        "unexpected": "Lo sentimos, algo falló. Por favor, intenta mas tarde."
+      }
     }
   },
   "contact": {
