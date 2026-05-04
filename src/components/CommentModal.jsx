@@ -69,7 +69,7 @@ const CommentModal = ({ closeModal, comment }) => {
         </div>
 
         <div className="flex justify-between items-center pt-6 border-t border-acclight/50">
-          <p className="text-gray-500 font-medium">{formatDate(comment.created_at.split("T")[0])}</p>
+          <p className="text-gray-500 font-medium capitalize">{formatDate(comment.created_at.split("T")[0])}</p>
           
           <div className="flex items-center gap-3 bg-white/50 px-4 py-2 rounded-full border border-acclight/30 shadow-sm">
             <div className="flex">
