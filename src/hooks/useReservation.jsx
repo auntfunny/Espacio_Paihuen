@@ -46,14 +46,16 @@ export const useReservation = (pageData) => {
 
   useEffect(() => {
     if (pageData) {
-      setTotalPrice(
+      const priceNights =
         Number(pageData?.night) *
-          totalNights *
-          Math.ceil(clientInfo.guests / 3) +
-          Number(pageData?.hot_tub) * clientInfo.hot_tub_dates.length,
-      );
+        totalNights *
+        Math.ceil(clientInfo.guests / 3);
+      const priceTub = clientInfo.with_hot_tub
+        ? Number(pageData?.hot_tub) * clientInfo.hot_tub_dates.length
+        : 0;
+      setTotalPrice(priceNights + priceTub);
     }
-  }, [totalNights, clientInfo.hot_tub_dates, clientInfo.guests, pageData]);
+  }, [totalNights, clientInfo.with_hot_tub, clientInfo.hot_tub_dates, clientInfo.guests, pageData]);
 
   const setInfo = (event) => {
     const { name, value, checked, type } = event.target;
@@ -93,12 +95,14 @@ export const useReservation = (pageData) => {
             captcha.current.resetCaptcha();
             throw loginError;
           }
-          currentUserId = data.user.id ;
+          currentUserId = data.user.id;
         }
 
         const { data, error: dberror } = await supabase
           .from("reservations")
-          .insert([{ ...payload, user_id: currentUserId }], { returning: 'minimal' })
+          .insert([{ ...payload, user_id: currentUserId }], {
+            returning: "minimal",
+          });
 
         if (dberror) {
           throw dberror;

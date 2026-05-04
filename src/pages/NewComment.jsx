@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader";
 import edit from "../assets/svg/edit.svg";
@@ -27,7 +27,6 @@ const NewComment = () => {
   const [error, setError] = useState(null);
   const [captchaToken, setCaptchaToken] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [coords, setCoords] = useState(0);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -47,13 +46,6 @@ const NewComment = () => {
         [event.target.name]: event.target.value,
       });
     }
-  };
-
-  const handleStarClick = () => {
-    setCommentInfo({
-      ...commentInfo,
-      rating: coords < 4 ? Number(coords) + 1 : 5,
-    });
   };
 
   const handleSubmit = async (event) => {
@@ -79,7 +71,7 @@ const NewComment = () => {
         }
         const { error: dberror } = await supabase
           .from("comments")
-          .insert([payload], { returning: 'minimal' })
+          .insert([payload], { returning: "minimal" });
         if (dberror) {
           setError(
             dberror.code === "42501"
@@ -111,10 +103,14 @@ const NewComment = () => {
     completeSubmission();
   }, [captchaToken, isSubmitting]);
 
-  const handleMouseMove = (event) => {
+  const handleStarClick = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
+    const coords = (((event.clientX - rect.left) / rect.width) * 5).toFixed(1);
 
-    setCoords(((event.clientX - rect.left) / 32).toFixed(1));
+    setCommentInfo({
+      ...commentInfo,
+      rating: coords < 4 ? Number(coords) + 1 : 5,
+    });
   };
 
   const closeModal = () => {
@@ -207,17 +203,16 @@ const NewComment = () => {
                 className="w-15 bg-white/60 border border-accgray/10 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-accgreenlight/50 transition-all text-accgray placeholder:text-accgray/40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <div
-                className="group flex text-gray-300"
-                onMouseMove={handleMouseMove}
+                className="flex flex-row-reverse justify-end group text-gray-300"
+                onClick={handleStarClick}
               >
-                {[1, 2, 3, 4, 5].map((star) => (
+                {[5, 4, 3, 2, 1].map((star) => (
                   <svg
                     key={star}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    onClick={handleStarClick}
-                    className={`size-8 ${coords >= star - 1 ? "group-hover:text-yellow-400" : "group-hover:text-gray-300"} ${commentInfo.rating >= star ? "text-yellow-400" : "text-gray-300"} transition-colors duration-300 hover:cursor-pointer`}
+                    className={`size-8 text-gray-300 hover:text-yellow-400 peer peer-hover:text-yellow-400 ${commentInfo.rating >= star ? "text-yellow-400" : "text-gray-300"} transition-colors duration-300 hover:cursor-pointer`}
                   >
                     <path
                       fillRule="evenodd"
